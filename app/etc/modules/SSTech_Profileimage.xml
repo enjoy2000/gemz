@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <SSTech_Profileimage>
+            <active>true</active>
+            <codePool>community</codePool>
+    	</SSTech_Profileimage>
+    </modules>
+</config>

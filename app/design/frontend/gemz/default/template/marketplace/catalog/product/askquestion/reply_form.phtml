@@ -1,0 +1,89 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+    $parent_id = $this->getRequest()->getParam('q_id');
+    $data = $this->displayThread($parent_id);
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Send Reply') ?></h1>
+</div>
+<form id="quest" method="post" action="<?php echo $this->getBaseUrl(); ?>marketplace/productquestion/replied" >
+    <h8 class="legend">    <?php echo $this->__('Question : ') ?></h8>
+    <?php
+    $temp = Mage::getModel('marketplace/question')->getCollection()->addFieldToFilter('entity_id', $this->getRequest()->getParam('q_id'))->getData();
+    echo $temp[0]['question'];
+    ?>
+    <h8 class="legend">    <?php echo $this->__('<br/>By : ') ?></h8>
+    <?php
+    echo Mage::getModel('customer/customer')->load($temp[0]['customer_id'])->getName();
+    ?>
+    <br/><br/>
+    <div class="fieldset">
+        <ul class="form-list">
+            <li class="wide">
+                <label for="reply" class=""><?php echo $this->__('Reply') ?><span class="required">*</span></label>
+                <div class="input-box">
+                    <textarea name="reply" id="reply" title="<?php echo $this->__('Reply') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button"><span><?php echo $this->__('Submit') ?></span></button>
+    </div>
+    <input type="hidden" name="parent_id" value="<?php echo $parent_id ?>"/>
+</form>
+<div class="buttons-set">
+    <p class="back-link"><a href="<?php echo $this->getBaseUrl() ?>marketplace/productquestion/"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+</div>
+<br/><br/><br/>
+<h8 class="legend"><?php echo $this->__('Conversation History: '); ?></h8>
+<?php
+if (count($data) > 0) :
+    ?>
+    <table class="data-table" id="replies-table">
+        <thead>
+            <tr>
+                <th style="width: auto;"><?php echo $this->__('Reply') ?></th>
+                <th style="width: 100px;"><?php echo $this->__('Replied By') ?></th>
+                <th style="width: 75px;"><?php echo $this->__('Created At') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($data as $row) {
+                ?>
+                <tr>
+                    <td><?php echo nl2br($row->getReply()) ?></td>
+                    <td><?php echo Mage::getModel('customer/customer')->load($row->getCustomerId())->getName() ?></td>
+                    <td><?php echo $this->formatDate($row->getCreatedAt(), 'medium', true) ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>    
+<?php else: ?>
+    <p>
+        <?php echo $this->__('No previous replies.') ?>
+    </p>
+<?php endif; ?>
+<script type="text/javascript">
+    //<![CDATA[
+    var quest = new VarienForm('quest', true);
+    //]]>
+</script>

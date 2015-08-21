@@ -1,0 +1,185 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+    $helper = $this->helper('shoppersettings/image');
+
+    $listX = 252;
+    $listY = $helper->calculateHeight($listX);
+?>
+<?php if(!$_productCollection->count()): ?>
+<?php
+$empty_category_block = Mage::getModel('cms/block')->load('shopper_empty_category');
+ if($empty_category_block->getIsActive()){
+     echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopper_empty_category')->toHtml();
+ } else { ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php } ?>
+<?php else: ?>
+<div class="category-products">
+    <?php echo $this->getToolbarHtml() ?>
+    <?php // List mode ?>
+    <?php if($this->getMode()!='grid'): ?>
+    <?php $_iterator = 0; ?>
+    <ol class="products-list" id="products-list">
+    <?php foreach ($_productCollection as $_product): ?>
+        <li class="item<?php if( ++$_iterator == sizeof($_productCollection) ): ?> last<?php endif; ?>">
+            <?php // Product Image ?>
+            <div class="f-left">
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+                    <?php echo $this->helper('shoppersettings')->getLabel($_product);  ?>
+                    <?php
+                    $back_img = $_product->getMediaGalleryImages()->getItemByColumnValue('label', 'back');
+                    if ( $back_img ) {
+                        echo '<img class="back_img" src="'. $this->helper('catalog/image')->init($_product, 'small_image', $back_img->getFile())->resize($listX, $listY).'" data-srcX2="'. $this->helper('catalog/image')->init($_product, 'small_image')->resize($listX*2, $listY*2) .'" width="'.$listX.'" height="'.$listY.'" alt="'.$this->htmlEscape($_product->getName()).'" />';
+                    }
+                    ?>
+                    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($listX, $listY); ?>" data-srcX2="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($listX*2, $listY*2); ?>" width="<?php echo $listX ?>" height="<?php echo $listY ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                </a>
+            </div>
+            <?php // Product description ?>
+            <div class="product-shop">
+                <div class="f-fix">
+                    <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                    <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+                    <div class="price-container clearfix">
+                    <?php echo $this->getPriceHtml($_product, true) ?>
+                    <?php if($_product->getRatingSummary()){ echo $this->getReviewsSummaryHtml($_product); } ?>
+                    </div>
+                    <div class="desc std">
+                        <?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?>
+                        <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a>
+                    </div>
+                    <div class="button-container">
+                        <?php if($_product->isSaleable()): ?>
+                        <p><a href="<?php echo $this->getAddToCartUrl($_product) ?>" title="<?php echo $this->__('Add to Cart') ?>" class="btn-add-cart"><span></span><?php echo $this->__('Add to Cart') ?></a></p>
+                        <?php else: ?>
+                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                        <?php endif; ?>
+                    </div>
+                    <ul class="add-to-links">
+                        <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                        <li><span></span><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                        <?php endif; ?>
+                        <?php if ($_compareUrl=$this->getAddToCompareUrl($_product)) : ?>
+                        <li><span></span><a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    <?php endforeach; ?>
+    </ol>
+    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+
+    <?php else: ?>
+
+    <?php // Grid Mode ?>
+
+    <?php
+    $_collectionSize = $_productCollection->count();
+    //$_columnCount = $this->getColumnCount();
+    $imgX = 252;
+    $imgY = $helper->calculateHeight($imgX);
+    ?>
+    <ul class="products-grid">
+    <?php $i=0; foreach ($_productCollection as $_product): ?>
+        <li class="item">
+
+            <div class="regular">
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" class="product-image" style="width:190px !important;">
+                    <?php echo $this->helper('shoppersettings')->getLabel($_product);  ?>
+                    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imgX, $imgY) ?>" data-srcX2="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imgX*2, $imgY*2) ?>" width="190" height="190" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
+                </a>
+                <div class="button-container">
+                    <?php if($_product->isSaleable()): ?>
+                    <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+                    <?php else: ?>
+                    <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                    <?php endif; ?>
+                </div>
+                <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                <a class="product-name" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a>
+                <?php echo $this->getPriceHtml($_product, true) ?>
+            </div>
+
+            <div class="hover">
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" class="product-image" style="width:190px !important;">
+                    <?php echo $this->helper('shoppersettings')->getLabel($_product);  ?>
+                    <?php
+                    $back_img = $_product->getMediaGalleryImages()->getItemByColumnValue('label', 'back');
+                    if ( $back_img ) : ?>
+                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image', $back_img->getFile())->resize($imgX, $imgY) ?>" data-srcX2="<?php echo $this->helper('catalog/image')->init($_product, 'small_image', $back_img->getFile())->resize($imgX*2, $imgY*2) ?>" width="190" height="190" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
+                    <?php else : ?>
+                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imgX, $imgY) ?>" data-srcX2="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imgX*2, $imgY*2) ?>" width="190" height="190" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
+                    <?php endif; ?>
+                </a>
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>">
+                    <?php echo $this->helper('shoppersettings/data')->priceFormat( $this->getPriceHtml($_product, true) ); ?>
+                </a>
+                <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                <a class="product-name" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a>
+                <?php if($_product->getRatingSummary()){ echo $this->getReviewsSummaryHtml($_product); } ?>
+                <div class="button-container">
+                    <?php if($_product->isSaleable()): ?>
+                    <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><div class="ornbttn"></div><?php echo $this->__('Add to Cart') ?></span></span></button>
+                    <?php else: ?>
+                    <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                    <?php endif; ?>
+                </div>
+
+                <ul class="add-to-links">
+                    <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                    <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><span>+</span><?php echo $this->__('Add to Wishlist') ?></a></li>
+                    <?php endif; ?>
+                    <?php if ($_compareUrl=$this->getAddToCompareUrl($_product)) : ?>
+                    <li><a href="<?php echo $_compareUrl ?>" class="link-compare"><span>+</span><?php echo $this->__('Add to Compare') ?></a></li>
+                    <?php endif; ?>
+                </ul>
+
+            </div>
+
+        </li>
+        <?php endforeach ?>
+    </ul>
+    <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+    <?php endif; ?>
+
+    <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+</div>
+<?php endif; ?>

@@ -1,0 +1,105 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+
+   $orderId = '';
+   $orderId = $this->getRequest()->getParam('order_id');
+   $marketPlaceModel = Mage::getModel('marketplace/order');
+   $_order = $this->getOrder();
+   $orderItemCollection = $_order->getItemsCollection();
+?>
+<table class="data-table" id="my-orders-table" summary="<?php echo $this->__('Items Ordered') ?>">
+    <col />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('Product Name') ?></th>
+            <th><?php echo $this->__('SKU') ?></th>
+            <th class="a-right"><?php echo $this->__('Price') ?></th>
+            <th class="a-center"><?php echo $this->__('Qty') ?></th>
+            <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
+            <th class="a-right"><?php echo $this->__('Queries') ?></th>
+        </tr>
+    </thead>
+        <?php $_count = $subtotal = $shippingCharge = $grandTotal = 0; ?>
+        <?php $_count = count($orderItemCollection); ?>
+        <?php if($_count > 0):?>
+            <?php foreach ($orderItemCollection as $_item): ?>
+                <?php if ($_item->getParentItem()) continue; ?>
+                <tbody>
+                    <?php echo $this->getItemHtml($_item) ?>
+                </tbody>
+                <?php endforeach; ?>
+
+                <?php $orderTotals = $marketPlaceModel->load($orderId);?>
+                <!--Calculate subtotal,shipping charge and grandtotal-->
+                <tfoot>
+                   <tr>
+                       <td colspan="4" style="text-align: right;"><?php echo $this->__('Subtotal') ?></td>
+                       <td style="text-align: right;"><?php echo Mage::helper('core')->currency($orderTotals->getSubtotal(), true, false);?></td>
+                    </tr>
+                    <tr>
+                       <td colspan="4" style="text-align: right;"><?php echo $this->__('Shipping & Handling') ?></td>
+                       <td style="text-align: right;"><?php echo Mage::helper('core')->currency($orderTotals->getShippingAmount(), true, false);?></td>
+                    </tr>
+                    <?php if ($orderTotals->getDiscountAmount()!=0) {
+                            if ($orderTotals->getDiscountDescription()) {
+                                $discountLabel = $this->__('Discount (%s)', $orderTotals->getDiscountDescription());
+                            } else {
+                                $discountLabel = $this->__('Discount');
+                            }
+                    ?>
+                    <tr>
+                       <td colspan="4" style="text-align: right;"><?php echo $this->__($discountLabel) ?></td>
+                       <td style="text-align: right;">
+                          <?php echo Mage::helper('core')->currency($orderTotals->getDiscountAmount(), true, false);?>
+                        </td>
+                    </tr>
+                    <?php }?>
+                    <tr>
+                        <td colspan="4" style="text-align: right;"><strong><?php echo $this->__('Grandtotal') ?></strong></td>
+                        <td style="text-align: right;"><strong><?php echo Mage::helper('core')->currency($orderTotals->getGrandTotal(), true, false);?></strong></td>
+                    </tr>
+                </tfoot>
+                <!--Calculate subtotal,shipping charge and grandtotal-->
+        <?php endif;?>
+</table>
+
+<script type="text/javascript">decorateTable('my-orders-table', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+    jQuery(".buyer-seller-communication").fancybox({
+             maxWidth    : '70%',
+    maxHeight   : 365,
+    fitToView   : true,
+    width       : '70%',
+    height      : 365,
+    autoSize    : true,
+    closeClick  : true,
+    openEffect  : 'elastic',
+    closeEffect : 'elastic',
+    autoDimensions  : true,
+    scrolling   : 'no'
+            });
+
+    });
+</script>

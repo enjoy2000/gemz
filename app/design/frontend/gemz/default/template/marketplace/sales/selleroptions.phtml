@@ -1,0 +1,130 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+
+    $_history = $orderId = '';
+    $orderId = $this->getRequest()->getParam('order_id');
+?>
+<form id="seller_form" name="seller_form" method="post" style="float: left;" action="<?php echo $this->getUrl('marketplace/order/addcomment/') ?>order_id/<?php echo $orderId?>">
+        <table>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="2" width="100%"><h8 class="heading1">Seller Options</h8></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr><input type="hidden" name="orderid" id="orderid" value="<?php echo $orderId?>"/></tr>
+            <?php
+                $status = array();
+                $status = $this->selectAction($orderId);
+                $itemsShipmentStatus = $this->getItemsShipmentStatus();
+            ?>
+            <!--Hide status dropdown if all items for specific seller are shipped-->
+            <?php if($itemsShipmentStatus):?>
+                <?php if(count($status)):?>
+                    <tr>
+                        <td width="75"><b><?php echo $this->__('Status') ?></b></td>
+                        <td>
+                            <select name="status" id="showstatus">
+                                <?php foreach ($status as $value) { ?>
+                                    <option value="<?php echo $value ?>"><?php echo $value ?></option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                    </tr>
+                <?php endif;?>
+            <?php endif;?>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td width="75"><b><?php echo $this->__('Comment') ?></td>
+                <td><textarea name="sellerform_comment" id="sellerform_comment" class="required-entry" rows="2" cols="50"></textarea></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+                <tr id="trackno" style="display:block;">
+                    <td width="75" ><b><?php echo $this->__('Tracking number') ?></td>
+                    <td><input type="text" name="trackin_no" id="trackin_no" value=""/></td>
+                </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="checkbox" id="is_customer_notified" name="is_customer_notified" value="1"/><label class="normal" for="notifyemail"> <?php echo $this->__('Notify Customer by Email') ?></label></td>
+            </tr>
+            <tr>
+                <td><div class="buttons-set">
+                <button class="button" title="Save" type="submit"><span><?php echo $this->__('Save') ?></span></button>       
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <!--Show order comments listing-->
+    <div>
+     <?php $collection = array();?>
+     <?php $collection = $this->getCollection();?>
+     
+      <?php if($collection->getSize() > 1): ?>
+          <?php echo $this->getPagerHtml(); ?>
+            <div><?php echo $this->__('Past Comments') ?></div>
+           <table id="comments-table" class="data-table">
+                <thead>
+                    <tr>
+                        <th style="width:75%"><?php echo $this->__('Comments') ?></th>
+                        <th style="width:15%"><?php echo $this->__('Date') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                       <?php foreach ($collection as $_historyItem): ?>
+                            <tr id="order-item-row-1" class="border">
+                                <?php if($_historyItem['comment']):?>
+                                    <td><?php echo $_historyItem->getComment();?></td>
+                                    <td><?php echo $_historyItem->getCreatedAt();?></td>
+                                <?php endif;?>
+                             </tr>
+                    <?php endforeach; ?>
+                </tbody>
+           </table>
+          <?php echo $this->getPagerHtml(); ?>
+        <?php endif?>
+    </div>
+    <!--Show order comments listing-->
+    
+<!--Show/hide tracking no. filed.-->
+<script type="text/javascript">
+jQuery.noConflict();
+jQuery(document).ready(function() {
+    jQuery('#showstatus').change(function(){
+        var status = jQuery(this).val();
+
+        if( status != 'processing'){
+            jQuery('#trackno').hide();
+        }else{
+            jQuery('#trackno').show();
+        }
+    });
+});
+</script>

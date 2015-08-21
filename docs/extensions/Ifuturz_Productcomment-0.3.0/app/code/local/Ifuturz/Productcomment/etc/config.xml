@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+
+<config>
+	<modules>
+		<Ifuturz_Productcomment>
+			<version>0.3.0</version>
+		</Ifuturz_Productcomment>
+	</modules>	
+	<frontend>
+        <routers>
+            <productcomment>
+                <use>standard</use>
+                <args>
+                    <module>Ifuturz_Productcomment</module>
+                    <frontName>productcomment</frontName>
+                </args>
+            </productcomment>
+			<customer>
+			  <args>
+				<modules>
+				  <Ifuturz_Productcomment before="Mage_Customer">Ifuturz_Productcomment</Ifuturz_Productcomment>
+				</modules>
+			  </args>
+			</customer>
+        </routers>
+        <layout>
+            <updates>
+                <productcomment>
+                    <file>productcomment.xml</file>
+                </productcomment>
+            </updates>
+        </layout>
+    </frontend>
+	
+	<admin>
+        <routers>
+			<productcomment>
+				<use>admin</use>
+				<args>
+					<module>Ifuturz_Productcomment</module>
+					<frontName>productcomment</frontName>
+				</args>
+			</productcomment>
+        </routers>
+		 
+    </admin>
+	<adminhtml>
+		<menu>
+			<customer>
+				<children>
+					<productcomment translate="title" module="productcomment">
+						<title>Products Comment</title>
+						<action>productcomment/adminhtml_productcomment</action>
+						<sort_order>110</sort_order>
+					</productcomment>
+				</children>
+			</customer>
+		</menu>
+		<layout>
+			<updates>
+				<productcomment>
+					<file>productcomment.xml</file>
+				</productcomment>
+			</updates>
+		</layout>
+		
+	</adminhtml>
+	<global>
+		<events>
+			<controller_action_predispatch>
+				<observers>
+					<productcomment_install>
+						<class>Ifuturz_Productcomment_Model_Observer</class>
+						<method>checkInstallation</method>
+					</productcomment_install>					
+				</observers>
+			</controller_action_predispatch>
+		</events>
+		<models>
+			<productcomment>
+				<class>Ifuturz_Productcomment_Model</class>
+				<resourceModel>productcomment_mysql4</resourceModel>
+			</productcomment>
+			<productcomment_mysql4>
+				<class>Ifuturz_Productcomment_Model_Mysql4</class>
+				<entities>
+					<productcomment>
+						 <table>productcomment</table>
+					</productcomment>
+				</entities>
+			</productcomment_mysql4>
+		</models>		
+		 <resources>
+            <productcomment_setup>
+                <setup>
+                    <module>Ifuturz_Productcomment</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </productcomment_setup>
+            <productcomment_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </productcomment_write>
+            <productcomment_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </productcomment_read>
+        </resources>		
+		<blocks>
+			<productcomment>
+				<class>Ifuturz_Productcomment_Block</class>
+			</productcomment>
+		</blocks>		
+		<helpers>
+			<productcomment>
+                <class>Ifuturz_Productcomment_Helper</class>
+            </productcomment>
+		</helpers>
+		
+	</global>
+	
+</config>

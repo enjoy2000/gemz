@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <customer translate="label" module="customer">
+            <class>separator-top</class>
+            <label>Customer Configuration</label>
+            <tab>customer</tab>
+            <sort_order>130</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>		
+            <groups>
+				<customerloginredirect translate="label">
+                    <label>Customer Login After Redirect</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+						<redirecturl translate="label">
+                            <label>Redirect Url</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment><![CDATA[write url in format : checkout/cart]]></comment>
+							<depends>
+              				<active>1</active>
+						 	</depends>
+                        </redirecturl>
+                    </fields>
+                </customerloginredirect>			
+			</groups>					
+			<groups>
+				<customercreateredirect translate="label">
+                    <label>Customer Create Account After Redirect</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <active translate="label">
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+					    <redirecturl translate="label">
+                            <label>Redirect Url</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<comment><![CDATA[write url in format : checkout/cart]]></comment>
+							<depends>
+              				<active>1</active>
+						 	</depends>
+                        </redirecturl>
+                    </fields>
+                </customercreateredirect>
+            </groups>							
+        </customer>
+    </sections>
+</config>

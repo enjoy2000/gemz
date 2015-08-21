@@ -1,0 +1,1203 @@
+<?xml version="1.0"?>
+
+<!--
+
+/**
+
+ * Cybage Marketplace Plugin
+
+ *
+
+ * NOTICE OF LICENSE
+
+ *
+
+ * This source file is subject to the Open Software License (OSL 3.0)
+
+ * It is available on the World Wide Web at:
+
+ * http://opensource.org/licenses/osl-3.0.php
+
+ * If you are unable to access it on the World Wide Web, please send an email
+
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+
+ *
+
+ * @category   Marketplace Plugin
+
+ * @package    Cybage_Marketplace
+
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+
+ */
+
+-->
+
+<layout version="0.1.0">
+
+    <!--
+
+    Marketplace Product Grid layout
+
+    -->
+
+    <marketplace_product_index>
+
+        <reference name="root">
+
+            <action method="setTemplate">
+
+                <template>page/2columns-left.phtml</template>
+
+            </action>
+
+        </reference>
+
+        <reference name="head">
+
+            <action method="addItem">
+
+                <type>skin_css</type>
+
+                <name>css/marketplace/styles.css</name>
+
+            </action>
+
+            <action method="setTitle" translate="title" module="marketplace">
+
+                <title>Marketplace Product Grid</title>
+
+            </action>
+
+        </reference>
+
+        <update handle="customer_account"/>
+
+        <reference name="content">
+
+            <remove name="viewed_product" />
+
+            <block type="marketplace/product" name="marketplace.product.grid" template="marketplace/product/grid.phtml"/>
+
+        </reference>
+
+    </marketplace_product_index>
+
+
+
+    <marketplace_dashboard_index>
+
+        <reference name="root">
+
+            <action method="setTemplate">
+
+                <template>page/2columns-left.phtml</template>
+
+            </action>
+
+        </reference>
+
+        <reference name="head">
+
+            <action method="addItem">
+
+                <type>skin_css</type>
+
+                <name>css/marketplace/styles.css</name>
+
+            </action>
+
+            <action method="setTitle" translate="title" module="marketplace">
+
+                <title>Marketplace Dashboard</title>
+
+            </action>
+
+        </reference>
+
+        <update handle="customer_account"/>
+
+        <reference name="content">
+
+            <block type="core/template" name="marketplace.dashboard"  as="marketplace_dashboard" template="marketplace/dashboard/dashboard.phtml" />
+
+            <block type="core/template" name="marketplace.bestseller" as="marketplace_bestseller" template="marketplace/dashboard/bestseller.phtml"/>
+
+            <block type="core/template" as="marketplace_askquestionnotification" name="marketplace.askquestionnotification" template="marketplace/dashboard/dashboard/askquestionnotification.phtml"/>
+
+            <block type="core/template" name="marketplace.myorders" as="marketplace_myorders" template="marketplace/dashboard/myorders.phtml"/>
+
+            <block type="core/template" name="marketplace.questioncount" as="marketplace_questioncount" template="marketplace/dashboard/questioncount.phtml"/>
+
+            <block type="core/template" name="marketplace.notificationcount" as="marketplace_notificationcount" template="marketplace/dashboard/notificationcount.phtml"/>
+
+        </reference>
+
+    </marketplace_dashboard_index>
+
+
+
+    <!--
+
+    Marketplace Product Add layout
+
+    -->
+
+    <marketplace_product_add>
+
+        <reference name="root">
+
+            <action method="setTemplate">
+
+                <template>page/2columns-left.phtml</template>
+
+            </action>
+
+        </reference>
+
+        <reference name="head">
+
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/marketplace/styles.css</name>
+            </action>
+
+            <action method="addItem">
+                <type>js</type>
+                <name>tiny_mce/tiny_mce.js</name>
+            </action>
+
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/gemz/product-edit.js</name>
+            </action>
+
+            <action method="setTitle" translate="title" module="marketplace">
+
+                <title>Marketplace Product Add</title>
+
+            </action>
+
+        </reference>
+
+        
+
+        <update handle="customer_account"/>
+
+        <reference name="content">
+
+            <!--<remove name="viewed_product" /> -->
+
+            <block type="marketplace/product" name="marketplace.product.add" template="marketplace/product/add.phtml">
+
+            </block>
+
+        </reference>
+
+    </marketplace_product_add>
+
+
+
+    <!--
+
+    Marketplace Product import layout
+
+    -->
+
+    <marketplace_product_import>
+
+        <reference name="root">
+
+            <action method="setTemplate">
+
+                <template>page/2columns-left.phtml</template>
+
+            </action>
+
+        </reference>
+
+        <reference name="head">
+
+            <action method="addItem">
+
+                <type>skin_css</type>
+
+                <name>css/marketplace/styles.css</name>
+
+            </action>
+
+            <action method="setTitle" translate="title" module="marketplace">
+
+                <title>Marketplace Product Import</title>
+
+            </action>
+
+        </reference>
+
+        <update handle="customer_account"/>
+
+        <reference name="content">
+
+            <!--<remove name="viewed_product" /> -->
+
+            <block type="marketplace/product" name="marketplace.product.import" template="marketplace/product/import.phtml">
+
+            </block>
+
+        </reference>
+
+    </marketplace_product_import>
+
+
+
+    <!--
+
+    Marketplace Product Edit layout
+
+    -->
+
+    <marketplace_product_edit>
+
+        <reference name="root">
+
+            <action method="setTemplate">
+
+                <template>page/2columns-left.phtml</template>
+
+            </action>
+
+        </reference>
+
+        <reference name="head">
+
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/marketplace/styles.css</name>
+            </action>
+
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>css/gemz/product-edit.css</name>
+            </action>
+
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/gemz/product-edit.js</name>
+            </action>
+
+            <action method="addItem">
+
+                <type>js</type>
+
+                <name>tiny_mce/tiny_mce.js</name>
+
+            </action>            
+
+            <action method="setTitle" translate="title" module="marketplace">
+
+                <title>Marketplace Product Edit</title>
+
+            </action>
+
+        </reference>
+
+        <update handle="customer_account"/>
+
+        <reference name="content">
+
+            <!--<remove name="viewed_product" /> -->
+
+            <block type="marketplace/product" name="marketplace.product.edit" template="marketplace/product/edit.phtml">
+
+            </block>
+
+        </reference>
+
+    </marketplace_product_edit>
+
+    <marketplace_product_deleteimage>
+    </marketplace_product_deleteimage>
+
+    <marketplace_product_changemainimage>
+    </marketplace_product_changemainimage>
+
+
+
+    <marketplace_account_vieworder>
+
+        <reference name="root">
+
+            <action method="setTemplate">
+
+                <template>page/2columns-left.phtml</template>
+
+            </action>
+
+        </reference>
+
+        <!--for left hand navigation of customer-->
+
+        <update handle="customer_account"/>
+
+        <reference name="head">
+
+            <action method="addItem">
+
+                <type>skin_css</type>
+
+                <name>css/marketplace/styles.css</name>
+
+            </action>
+
+            <action method="addItem">
+
+                <type>js</type>
+
+                <name>jquery/jquery-1.9.1.min.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>-->
+
+            </action>
+
+        </reference>
+
+        <reference name="content">
+
+            <block type="marketplace/myorders" name="marketplace.myorders" template="marketplace/customer/account/vieworder.phtml">
+
+                <block type="marketplace/myorders_view" name="marketplace.items" as="items" template="marketplace/customer/account/myorders/items.phtml">
+
+                    <action method="addItemRender">
+
+                        <type>default</type>
+
+                        <block>sales/order_item_renderer_default</block>
+
+                        <template>marketplace/sales/myorder/items/renderer/default.phtml</template>
+
+                    </action>
+
+                    <block type="marketplace/myorders_totals" name="myorders_totals" as="myorders_totals" template="marketplace/customer/account/myorders/totals.phtml">
+
+                        <action method="setLabelProperties">
+
+                            <value>colspan="4" class="a-right"</value>
+
+                        </action>
+
+                        <action method="setValueProperties">
+
+                            <value>class="last a-right"</value>
+
+                        </action>
+
+                        <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml" />
+
+                    </block>
+
+                </block>
+
+                <block type="marketplace/myorders_view" name="marketplace.selleroptions" as="selleroptions" template="marketplace/customer/account/selleroptions.phtml"/>
+
+            </block>
+
+        </reference>
+
+    </marketplace_account_vieworder>
+
+    
+
+    <marketplace_order_printorder>
+
+        <reference name="root">
+
+            <action method="setTemplate"><template>page/empty.phtml</template></action>
+
+        </reference>
+
+        <reference name="content">
+
+            <block type="marketplace/myorders_view" name="marketplace.myordersprint" template="marketplace/customer/account/print.phtml">
+
+                <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
+
+                <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
+
+            </block>
+
+        </reference>
+
+    </marketplace_order_printorder>
+
+    
+
+    <customer_account translate="label">
+
+        <reference name="customer_account_navigation">
+
+            <action method="setTemplate"><template>marketplace/customer/account/navigation.phtml</template></action>
+
+            <action method="addLink" translate="label" module="customer">
+
+                <name>marketplace</name>
+
+                <path>marketplace/dashboard</path>
+
+                <label>Marketplace Dashboard</label>
+
+            </action>
+
+            <action method="addLink" translate="label" module="customer">
+
+                <name>marketplace_orders</name>
+
+                <path>marketplace/order/history</path>
+
+                <label>Marketplace Orders</label>
+
+            </action>
+
+            <action method="addLink" translate="label" module="customer">
+
+                <name>marketplace_product</name>
+
+                <path>marketplace/product</path>
+
+                <label>Marketplace Product</label>
+
+            </action>    
+
+            <action method="addLink" translate="label" module="customer">
+
+                <name>marketplace_product_add</name>
+
+                <path>marketplace/product/add</path>
+
+                <label>Marketplace Product Add</label>
+
+            </action>
+
+            <action method="addLink" translate="label" module="customer">
+
+                <name>marketplace_product_import</name>
+
+                <path>marketplace/product/import</path>
+
+                <label>Marketplace Product Import</label>
+
+            </action>
+
+          <!--  <action method="addLink" translate="label" module="customer">
+
+                <name>marketplace_products_question</name>
+
+                <path>marketplace/productquestion</path>
+
+                <label>My Question</label>
+
+            </action>-->
+
+        </reference>
+
+    </customer_account>
+
+
+
+    <catalog_product_view>
+
+        <reference name="head">            
+
+            <action method="addItem">
+
+                <type>skin_css</type>
+
+                <name>css/marketplace/jquery.fancybox-1.3.4.css</name>
+
+            </action>
+
+            <!--<action method="addItem">
+
+                <type>js</type>
+
+                <name>marketplace/fancybox/jquery-1.7.2.min.js</name>
+
+            </action>-->
+
+            <action method="addItem">
+
+                <type>js</type>
+
+                <name>marketplace/fancybox/jquery.noconflict.js</name>
+
+            </action>
+
+            <action method="addItem">
+
+                <type>js</type>
+
+                <name>marketplace/fancybox/jquery.mousewheel-3.0.4.pack.js</name>
+
+            </action>            
+
+            <action method="addItem">
+
+                <type>js</type>
+
+                <name>marketplace/fancybox/jquery.fancybox-1.3.4.pack.js</name>
+
+            </action>
+
+        </reference>
+
+        <reference name="product.info">
+
+            <action method="setTemplate">
+
+                <template>marketplace/catalog/product/view.phtml</template>
+
+            </action>
+
+            <block type="marketplace/catalog_product_view" name="catalog.product.view.sellerinfo" as="catalog_product_view_sellerinfo" template="marketplace/catalog/product/view/sellerinfo.phtml" />
+
+            <block type="marketplace/product_askquestion_link" name="marketplace.product.askquestion.link" as="product_askquestion_link" template="marketplace/catalog/product/askquestion/link.phtml" />
+
+        </reference>
+
+    </catalog_product_view>
+
+
+
+    <marketplace_productquestion_link>
+
+        <reference name="root">
+
+            <action method="setTemplate">
+
+                <template>page/popup.phtml</template>
+
+            </action>
+
+        </reference>
+
+        <reference name="head">
+
+            <action method="addItem">
+
+                <type>skin_css</type>
+
+                <name>css/marketplace/styles.css</name>
+
+            </action>
+
+        </reference>    
+
+        <reference name="content">     
+
+            <block type="core/template" name="product.ask.form" template="marketplace/catalog/product/askquestion/form.phtml">
+
+                <block type="core/messages" name="global_messages" as="global_messages"/>
+
+            </block>
+
+        </reference> 
+
+    </marketplace_productquestion_link>
+
+
+
+    <marketplace_order_history translate="label">
+
+        <label>Customer My Account Order History</label>
+
+        <update handle="customer_account"/>
+
+        <reference name="head">
+
+            <action method="addItem">
+
+                <type>skin_css</type>
+
+                <name>css/marketplace/styles.css</name>
+
+            </action>
+
+            <action method="addItem">
+
+                <type>js_css</type>
+
+                <name>calendar/calendar-win2k-1.css</name>
+
+                <params/><!--<if/><condition>can_load_calendar_js</condition>-->
+
+            </action>
+
+            <action method="addItem">
+
+                <type>js</type>
+
+                <name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>-->
+
+            </action>
+
+            <action method="addItem">
+
+                <type>js</type>
+
+                <name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>-->
+
+            </action>
+
+            <action method="addItem">
+
+                <type>js</type>
+
+                <name>jquery/jquery-1.9.1.min.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>-->
+
+            </action>
+
+        </reference>
+
+        <reference name="my.account.wrapper">
+
+            <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
+
+            <block type="marketplace/sales_order_history" name="sales.order.history">
+
+                <block type="core/text_list" name="sales.order.history.info" as="info" translate="label">
+
+                    <label>Order History Info</label>
+
+                </block>
+
+            </block>
+
+            <!--block type="customer/account_dashboard" name="customer.account.link.back" template="customer/account/link/back.phtml"/-->
+
+        </reference>
+
+    </marketplace_order_history>
+
+
+
+    <marketplace_productquestion_index>
+
+        <reference name="root">
+
+            <action method="setTemplate">
+
+                <template>page/2columns-left.phtml</template>
+
+            </action>
+
+        </reference>
+
+        <update handle="customer_account"/>
+
+        <reference name="content">
+
+            <block type="marketplace/product_askquestion_myquestions"  name="marketplace.product.askquestion.myquestions" as="product_askquestion_myQuestions" template="marketplace/catalog/product/askquestion/myquestions.phtml" />
+
+            <block type="marketplace/product_askquestion_productquestions"  name="marketplace.product.askquestion.productquestions" as="product_askquestion_productquestions" template="marketplace/catalog/product/askquestion/productquestions.phtml" />
+
+        </reference>
+
+    </marketplace_productquestion_index>
+
+
+
+    <marketplace_productquestion_reply>
+
+        <reference name="root">
+
+            <action method="setTemplate">
+
+                <template>page/2columns-left.phtml</template>
+
+            </action>
+
+        </reference>
+
+        
+
+        <update handle="customer_account"/>
+
+        
+
+        <reference name="content">
+
+            <block type="marketplace/product_askquestion_replyform" name="marketplace.product.askquestion.reply.form" as="product_askquestion_replyform" template="marketplace/catalog/product/askquestion/reply_form.phtml"/>
+
+        </reference>
+
+    </marketplace_productquestion_reply>
+
+
+
+    <!-- //Layout node for sellerinfo page -->
+
+    <marketplace_seller_sellerinfo translate="label">
+
+        <reference name="root">
+
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+
+        </reference>
+
+        <reference name="head">
+
+            <action method="addItem">
+
+                <type>skin_css</type>
+
+                <name>css/marketplace/styles.css</name>
+
+            </action>
+
+            <action method="setTitle" translate="title" module="marketplace">
+
+                <title>Seller Information page</title>
+
+            </action>
+
+        </reference>
+
+        <reference name="left">
+
+            <block type="marketplace/seller_info" name="seller_logo" before="-" template="marketplace/seller/logo.phtml"/>
+
+            <block type="core/template" template="marketplace/seller/ratings.phtml" />
+
+        </reference>
+
+        <reference name="content">
+
+            <block type="marketplace/seller_info" name="seller_info" template="marketplace/seller/info.phtml"/>
+
+        </reference>
+
+    </marketplace_seller_sellerinfo>
+
+
+
+    <marketplace_seller_rating translate="label">
+
+        <reference name="root">
+
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+
+        </reference>
+
+        <reference name="head">
+
+            <action method="addItem">
+
+                <type>skin_css</type>
+
+                <name>css/marketplace/styles.css</name>
+
+            </action>
+
+            <action method="setTitle" translate="title" module="marketplace">
+
+                <title>Seller Ratings Information page</title>
+
+            </action>
+
+        </reference>
+
+        <reference name="content">
+
+            <block type="marketplace/review_product_view" name="seller_rating" template="marketplace/review/product/view/list.phtml">                
+
+            </block>
+
+            <block type="core/template" name="product_review" as="product_review" template="marketplace/seller/seller_ratings.phtml" />
+
+        </reference>
+
+    </marketplace_seller_rating>
+
+
+
+    <customer_account_edit translate="label">        
+
+        <reference name="head">    
+
+        <action method="addItem">
+
+                <type>js</type>
+
+                <name>marketplace/nicEdit-latest.js</name>
+
+        </action>
+
+        </reference>
+
+    <reference name="my.account.wrapper">
+
+            <block type="customer/form_edit" name="customer_edit" template="marketplace/customer/form/edit.phtml"/>
+
+        </reference>       
+
+    </customer_account_edit>
+
+
+
+    <customer_account_create>
+
+        <reference name="customer_form_register">
+
+            <action method="setTemplate"><template>marketplace/persistent/customer/form/register.phtml</template></action>
+
+            <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" />
+
+            <block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" />
+
+        </reference>
+
+    </customer_account_create>
+
+
+
+    <sales_order_view translate="label">
+
+        <reference name="head">            
+
+            <action method="addItem">
+
+                <type>skin_css</type>
+
+                <name>css/marketplace/jquery.fancybox-1.3.4.css</name>
+
+            </action>
+
+            <action method="addItem">
+
+                <type>js</type>
+
+                <name>marketplace/fancybox/jquery-1.7.2.min.js</name>
+
+            </action>
+
+            <action method="addItem">
+
+                <type>js</type>
+
+                <name>marketplace/fancybox/jquery.noconflict.js</name>
+
+            </action>
+
+            <action method="addItem">
+
+                <type>js</type>
+
+                <name>marketplace/fancybox/jquery.mousewheel-3.0.4.pack.js</name>
+
+            </action>            
+
+            <action method="addItem">
+
+                <type>js</type>
+
+                <name>marketplace/fancybox/jquery.fancybox-1.3.4.pack.js</name>
+
+            </action>    
+
+      <!--     <action method="addItem">
+
+                <type>skin_css</type>
+
+                <name>css/marketplace/styles.css</name>
+
+            </action> -->
+
+        </reference>
+
+        <reference name="my.account.wrapper">
+
+            <block type="sales/order_view" name="sales.order.view">
+
+                <block type="sales/order_items" name="order_items" template="marketplace/sales/order/items.phtml">
+
+                    <action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>marketplace/sales/order/items/renderer/default.phtml</template></action>
+
+                    <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>marketplace/sales/order/items/renderer/default.phtml</template></action>
+
+                </block>
+
+            </block>
+
+        </reference>
+
+    </sales_order_view>
+
+
+
+    <marketplace_buyerseller_comment>
+
+        <reference name="root">
+
+            <action method="setTemplate">
+
+                <template>page/popup.phtml</template>
+
+            </action>
+
+        </reference>
+
+        <reference name="head">
+
+            <action method="addItem">
+
+                <type>skin_css</type>
+
+                <name>css/marketplace/styles.css</name>
+
+            </action>
+
+        </reference>              
+
+         <reference name="content">     
+
+            <block type="core/template" name="product.ask.form" template="marketplace/sales/order/form.phtml">
+
+                <block type="core/messages" name="global_messages" as="global_messages"/>
+
+            </block>
+
+         </reference>
+
+    </marketplace_buyerseller_comment>
+
+
+
+    <marketplace_buyerseller_reply>
+
+        <reference name="root">
+
+            <action method="setTemplate">
+
+                <template>page/2columns-left.phtml</template>
+
+            </action>
+
+        </reference>
+
+         <update handle="customer_account"/>
+
+         <reference name="content">     
+
+            <block type="marketplace/buyerseller" name="marketplace.buyerseller" template="marketplace/buyerseller/reply.phtml">
+
+                <block type="core/messages" name="global_messages" as="global_messages"/>
+
+            </block>
+
+         </reference>
+
+    </marketplace_buyerseller_reply>
+
+
+
+    <marketplace_buyerseller_notification>
+
+        <reference name="root">
+
+            <action method="setTemplate">
+
+                <template>page/2columns-left.phtml</template>
+
+            </action>
+
+        </reference>
+
+          <update handle="customer_account"/>
+
+               <reference name="content">     
+
+            <block type="marketplace/buyerseller" name="marketplace.buyerseller" template="marketplace/buyerseller/notify.phtml"> </block>
+
+         </reference>
+
+    </marketplace_buyerseller_notification>
+
+
+
+    <sales_order_history translate="label">
+
+        <update name="my.account.wrapper">
+
+            <block type="maketplace/buyerseller_sales_order_history" name="sales.order.history" template="marketplace/buyerseller/sales/order/history.phtml">
+
+                <block type="core/text_list" name="sales.order.history.info" as="info" translate="label">
+
+                    <label>Order History Info</label>
+
+                </block>
+
+            </block>
+
+            <block type="customer/account_dashboard" name="customer.account.link.back" template="customer/account/link/back.phtml"/>
+
+        </update>
+
+    </sales_order_history>
+
+
+
+    <marketplace_order_ship>
+
+        <reference name="root">
+
+            <action method="setTemplate">
+
+                <template>page/2columns-left.phtml</template>
+
+            </action>
+
+        </reference>
+
+        <!--for left hand navigation of customer-->
+
+        <update handle="customer_account"/>
+
+        <reference name="content">
+
+            <block type="marketplace/myorders" name="marketplace.myorders" template="marketplace/customer/account/shiporder.phtml">
+
+                    <block type="marketplace/myorders_view" name="marketplace.items" as="items" template="marketplace/customer/account/myorders/shipitems.phtml">
+
+                    <action method="addItemRender">
+
+                        <type>default</type>
+
+                        <block>sales/order_item_renderer_default</block>
+
+                        <template>marketplace/sales/myorder/items/renderer/ship/default.phtml</template>
+
+                    </action>
+
+                    <block type="marketplace/myorders_totals" name="myorders_totals" as="myorders_totals" template="marketplace/customer/account/myorders/totals.phtml">
+
+                        <action method="setLabelProperties">
+
+                            <value>colspan="4" class="a-right"</value>
+
+                        </action>
+
+                        <action method="setValueProperties">
+
+                            <value>class="last a-right"</value>
+
+                        </action>
+
+                        <block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml" />
+
+                    </block>
+
+                </block>
+
+            </block>
+
+        </reference>
+
+    </marketplace_order_ship>
+
+
+
+    <checkout_cart_index translate="label">
+
+        <reference name="checkout.cart">
+
+            <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>marketplace/checkout/cart/item/default.phtml</template></action>
+
+            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>marketplace/checkout/cart/item/default.phtml</template></action>
+
+            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>marketplace/checkout/cart/item/default.phtml</template></action>
+
+        </reference>
+
+    </checkout_cart_index>
+
+
+
+    <checkout_multishipping_addresses translate="label">
+
+        <reference name="checkout_addresses">
+
+            <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>marketplace/checkout/multishipping/item/default.phtml</template></action>
+
+            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>marketplace/checkout/multishipping/item/default.phtml</template></action>
+
+            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>marketplace/checkout/multishipping/item/default.phtml</template></action>
+
+        </reference>
+
+    </checkout_multishipping_addresses>
+
+
+
+    <checkout_multishipping_shipping translate="label">
+
+        <reference name="checkout_shipping">
+
+            <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>marketplace/checkout/multishipping/item/default.phtml</template></action>
+
+            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>marketplace/checkout/multishipping/item/default.phtml</template></action>
+
+            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>marketplace/checkout/multishipping/item/default.phtml</template></action>
+
+        </reference>
+
+        <reference name="checkout_billing_items">
+
+            <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>marketplace/checkout/multishipping/item/default.phtml</template></action>
+
+            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>marketplace/checkout/multishipping/item/default.phtml</template></action>
+
+            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>marketplace/checkout/multishipping/item/default.phtml</template></action>
+
+        </reference>
+
+    </checkout_multishipping_shipping>
+
+
+
+    <checkout_onepage_review translate="label">
+
+        <block type="checkout/onepage_review_info" name="root" output="toHtml" template="checkout/onepage/review/info.phtml">
+
+            <action method="addItemRender"><type>default</type><block>checkout/cart_item_renderer</block><template>marketplace/checkout/onepage/review/item.phtml</template></action>
+
+            <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>marketplace/checkout/onepage/review/item.phtml</template></action>
+
+            <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>marketplace/checkout/onepage/review/item.phtml</template></action>
+
+            <block type="checkout/cart_totals" name="checkout.onepage.review.info.totals" as="totals" template="checkout/onepage/review/totals.phtml"/>
+
+            <block type="core/text_list" name="checkout.onepage.review.info.items.before" as="items_before" translate="label">
+
+                <label>Items Before</label>
+
+            </block>
+
+            <block type="core/text_list" name="checkout.onepage.review.info.items.after" as="items_after" translate="label">
+
+                <label>Items After</label>
+
+            </block>
+
+            <block type="checkout/agreements" name="checkout.onepage.agreements" as="agreements" template="checkout/onepage/agreements.phtml"/>
+
+            <block type="core/template" name="checkout.onepage.review.button" as="button" template="checkout/onepage/review/button.phtml"/>
+
+        </block>
+
+    </checkout_onepage_review>
+
+</layout>

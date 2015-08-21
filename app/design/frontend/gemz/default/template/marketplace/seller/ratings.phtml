@@ -1,0 +1,49 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+
+   $sellerReviewData = Mage::getModel('marketplace/selleroptions')->getSellerRatingsAggregate();
+   $sellerCompName = urldecode(Mage::registry('seller_company'));
+   $avgRating   = $sellerReviewData['avgrating'];
+   $reviewCount = $sellerReviewData['reviewcount'];
+   $sellerId = $sellerReviewData['seller_id'];
+   $cururl = $this->getUrl('marketplace/seller/rating');
+?> 
+
+<div class="block block-subscribe">
+    <div class="block-title">
+        <strong><span>DESIGNER RATING</span></strong>
+    </div>
+    <!--<div class="block-content">
+        <div class="form-subscribe-header">
+            <input type="hidden" name="company_name" value="<?php echo $sellerCompName;?>" id="company_name"/>
+            <a href="<?php echo $cururl.'?seller_id='.$sellerId ;?>" title="" alt=""><label><?php echo round($avgRating);?>% (<?php echo $reviewCount;?>)</label></a>
+        </div>
+    </div>-->
+	<a href="<?php echo $cururl.'?seller_id='.$sellerId ;?>" title="" alt="">
+	<div class="ratings">
+		<div class="rating-box">
+			<div class="rating" style="width:<?php echo $avgRating; ?>%"></div>
+		</div>
+	</div></a>
+</div>
+
+
+
+	

@@ -1,0 +1,59 @@
+<?php $oGiftCardSession = Mage::getSingleton('giftcards/session'); ?>
+
+<div class="discount">
+
+    <div class="op_block_title"><?php echo $this->__('Gift Cards') ?></div>
+
+    <div class="discount-form">
+            <label for="giftcard_code"><?php echo $this->__('Redeem and use your Gift Card now'); ?></label>
+            <div class="input-box">
+                <input value="" name="giftcard_code" id="giftcard_code" class="input-text">
+            </div>
+            <div class="buttons-set">
+                <button value="<?php echo $this->__('Activate') ?>" onclick="activateGiftCard();" class="button left"
+                        title="Activate" type="button"><span><span><?php echo $this->__('Activate') ?></span></span>
+                </button>
+            </div>
+
+        <?php $currencySymbol = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); $temp = 0; ?>
+        <?php if($oGiftCardSession->getActive())
+                    foreach($oGiftCardSession->getFrontOptions() as $k => $v)
+                    {
+                        if($temp) {
+                            echo '<br/><br/>';
+                        }
+                        echo '<b>'.$currencySymbol.$v['applied'].$this->__('applied from Gift Card').' '.$v['code'].'.</b><br/>';
+                        echo $this->__('Remaining card balance').': '.$currencySymbol.$v['remaining'].'. (<a href="'.$this->getUrl("giftcards/cart/deActivateCheckoutGiftCard/id/$k").'">'.$this->__('Remove').'</a>)';
+                        $temp = 1;
+                    }
+        ?>
+    </div>
+    <script type="text/javascript">
+        //&lt;![CDATA[
+             function activateGiftCard()
+             {
+                    var coupon = $('giftcard_code').getValue();
+                    var url = '<?php echo $this->getUrl('giftcards/cart/activateCheckoutGiftCard', array('_secure'=>true)); ?>';
+                    var parameters = {giftcard_code: coupon};
+                    if(coupon == '')
+                    {
+                        alert('<?php echo $this->__('Please enter a valid Gift Card code.'); ?>');
+                        return;
+                    }
+
+                    new Ajax.Request(url, {
+                        method: 'post',
+                        parameters: parameters,
+                        onSuccess: function(transport) {
+                            if(transport.status == 200) {
+                                window.location = '<?php echo $this->getUrl('onestepcheckout/index/index', array('_secure'=>true)); ?>';
+                            }
+                        }
+                        
+                   });                 
+             }
+
+        //]]&gt;
+    </script>
+
+</div>

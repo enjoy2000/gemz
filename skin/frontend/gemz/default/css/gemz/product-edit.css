@@ -1,0 +1,35 @@
+table.marketplace-image .image {
+    position: relative;
+    width: 150px;
+    overflow: hidden;
+    display: inline-block;
+    margin: 5px;
+}
+table.marketplace-image .image a.btn {
+    position: absolute;
+    top: -100%;
+    text-transform: capitalize;
+    color: #fff;
+    padding: 2px 5px;
+    transition: all 500ms ease-out;
+    -webkit-transition: all 500ms ease-out;
+    -moz-transition: all 500ms ease-out;
+}
+table.marketplace-image .image a.btn.btn-delete{
+    left: 2px;
+    background-color: #ff4b44;
+}
+table.marketplace-image .image a.btn.btn-main{
+    right: 2px;
+    background-color: #4b7eff;
+}
+table.marketplace-image .image:hover a.btn {
+    top: 2px;
+}
+table.marketplace-image .image.main a.btn.btn-main {
+    top: 2px
+}
+table.marketplace-image .image.main a.btn.btn-main:hover {
+    cursor: default;
+    text-decoration: none;
+}

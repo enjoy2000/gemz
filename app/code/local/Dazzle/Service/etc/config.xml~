@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Dazzle_Service>
+            <version>0.1.0</version>
+        </Dazzle_Service>
+    </modules>
+           
+    <global>          
+        <models>
+            <service>
+                <class>Dazzle_Service_Model</class>                
+            </service>                                   
+        </models>                      
+    </global> 
+
+    <crontab>
+        <jobs>
+            <Dazzle_Service>
+                <schedule><cron_expr>*/10 * * * *</cron_expr></schedule>
+                <run><model>roomstory_invoice/setstatus::run</model></run>
+            </Dazzle_Service>
+        </jobs>
+    </crontab>      
+</config>

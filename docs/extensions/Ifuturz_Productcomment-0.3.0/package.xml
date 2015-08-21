@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+    <name>Ifuturz_Productcomment</name>
+    <version>0.3.0</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Customer can give the comments to particular product from view page using this extension</summary>
+    <description> - Add comment box on product view page on frontend. Customer can add more than one comment for one product.&#xD;
+ - Admin can view list of comments which customer has added for particular product. Admin can have ability to delete the product comments from admin panel.&#xD;
+ - Only logged in customer can add the comments on product view page.&#xD;
+ -  Not logged in customer also can view the list of product comments. All comments should be listed below the comment box with date and month.</description>
+    <notes>Third Product Comment Extension</notes>
+    <authors><author><name>Iverve</name><user>iverve</user><email>extension.geek@ifuturz.com</email></author></authors>
+    <date>2014-05-02</date>
+    <time>11:41:46</time>
+    <contents><target name="mageetc"><dir name="modules"><file name="Ifuturz_Productcomment.xml" hash="20389b5bf62d36d383e751b26f05dcb8"/></dir></target><target name="magelocal"><dir name="Ifuturz"><dir name="Productcomment"><dir name="Block"><dir name="Adminhtml"><dir name="Productcomment"><dir name="Edit"><file name="Form.php" hash="42f0391b1164759c6b8d52d111b4793a"/><dir name="Tab"><file name="Form.php" hash="2d00f84b10a51b02ed45737e26aea0c6"/></dir><file name="Tabs.php" hash="5978b718131a70a71f8ac34e3ebb3c10"/></dir><file name="Edit.php" hash="a3c19776224d8927c36d2fea5019382d"/><file name="Grid.php" hash="56435d12ce7044364820d647425a2cfd"/></dir><file name="Productcomment.php" hash="656fd8b1f289851dcde3830ef0f31a73"/></dir><file name="Productcomment.php" hash="80cda9965bfe699bb0fcbaed0e38cc3f"/></dir><dir name="Helper"><file name="Data.php" hash="493bf8d95253b3027f0e4c968eb4c30b"/></dir><dir name="Model"><dir name="Mysql4"><dir name="Productcomment"><file name="Collection.php" hash="f18ce14c0c0984b5038a3457e0634094"/></dir><file name="Productcomment.php" hash="b44713215d612eaf508953949460d388"/></dir><file name="Observer.php" hash="98b0bf2b71ac81eacc61d70bf4311ec5"/><file name="Productcomment.php" hash="90e6b197cc9bfd42312d4186e075051e"/></dir><dir name="controllers"><file name="AccountController.php" hash="2ee135dd1b879f61926745c1c41bdac3"/><dir name="Adminhtml"><file name="ProductcommentController.php" hash="ce4a9f62b34c21040a2deba9861e2b1e"/></dir><file name="IndexController.php" hash="4c03b78767a6601e95af1579d4455568"/></dir><dir name="etc"><file name="config.xml" hash="48f227c64e9fd2d141041cfa151ea8b2"/></dir><dir name="sql"><dir name="productcomment_setup"><file name="mysql4-install-0.3.0.php" hash="c56e5fe1ebd335d1dff18d4870607b07"/></dir></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="productcomment.xml" hash="4fdaf1e29305d721da4a902f5d450a48"/></dir><dir name="template"><dir name="productcomment"><file name="form.phtml" hash="0f7681757082f0200e50e87a0cf5f19a"/></dir></dir></dir></dir></dir><dir name="frontend"><dir name="default"><dir name="default"><dir name="layout"><file name="productcomment.xml" hash="124315732cbf1b960a0256c4d3262bd0"/></dir><dir name="template"><dir name="productcomment"><file name="productcomment.phtml" hash="0d9e41cc27e1bc1eb72c0731f212ce31"/></dir></dir></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

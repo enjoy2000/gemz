@@ -1,0 +1,39 @@
+<!--for slider -->
+<script>
+    jQuery(document).ready(function() {
+        jQuery('.bxslider').bxSlider({
+        //auto: true,
+        infiniteLoop: false,
+            hideControlOnEnd: false,
+            pager: false,
+            });
+    });
+    </script>
+<?php
+$routeName = Mage::app()->getRequest()->getRouteName();
+$identifier = Mage::getSingleton('cms/page')->getIdentifier();
+
+if($routeName == 'cms' && $identifier == 'home') { ?>
+    <ul class="bxslider">
+        <!--<li style="float: left; list-style: outside none none; position: relative; width: 916px;"></li>-->
+		<li>
+            <?php //echo $this->getChildHtml('home_slide') ?>
+        </li>
+        <li>
+            <?php //echo $this->getChildHtml('home_slide') ?>
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('home_slide1')->toHtml()?> 
+        </li>
+        <li>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('home_slide2')->toHtml()?> 
+        </li>
+        <li>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('home_slide3')->toHtml()?> 
+        </li>
+        <li>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('home_slide4')->toHtml()?> 
+        </li>		
+    </ul>
+<?php
+    }
+?>
+<!-- End Slide -->

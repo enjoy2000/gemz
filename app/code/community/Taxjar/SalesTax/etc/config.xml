@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Taxjar_SalesTax
+ * www.taxjar.com
+-->
+<config>    
+  <modules>
+     <Taxjar_SalesTax><version>1.2.2</version></Taxjar_SalesTax>
+  </modules>
+  <global>
+    <helpers>
+      <taxjar>
+        <class>Taxjar_SalesTax_Helper</class>
+      </taxjar>
+    </helpers>
+      <models>
+          <taxjar>
+              <class>Taxjar_SalesTax_Model</class>
+          </taxjar>   
+      </models>
+      <blocks>
+        <taxjar>
+          <class>Taxjar_SalesTax_Block</class>
+        </taxjar>
+      </blocks>
+      <events>
+          <admin_system_config_changed_section_taxjar>
+              <observers>
+                  <taxjar_salestax_model_observer>
+                      <type>singleton</type>
+                      <class>taxjar/observer</class>
+                      <method>execute</method>
+                  </taxjar_salestax_model_observer>
+              </observers>
+          </admin_system_config_changed_section_taxjar> 
+          <taxjar_salestax_import_rates>
+              <observers>
+                  <taxjar_salestax_model_observer>
+                      <type>singleton</type>
+                      <class>taxjar/observer</class>
+                      <method>importRates</method>
+                  </taxjar_salestax_model_observer>
+              </observers>
+          </taxjar_salestax_import_rates> 
+      </events>      
+  </global>
+  <frontend>
+      <routers>
+          <taxjar>
+              <use>standard</use>
+              <args>
+                  <module>Taxjar_SalesTax</module>
+                  <frontName>taxjar</frontName>
+              </args>
+          </taxjar>
+      </routers>  
+  </frontend>
+  <adminhtml>
+      <acl>
+          <resources>
+              <admin>
+                  <children>
+                      <system>
+                          <children>
+                              <config>
+                                  <children>
+                                      <taxjar>
+                                          <title>TaxJar Sales Tax Automation</title>
+                                      </taxjar>
+                                  </children>
+                              </config>
+                          </children>
+                      </system>
+                  </children>
+              </admin>
+          </resources>
+      </acl>
+  </adminhtml>
+  <crontab>
+      <jobs>
+          <taxjar>
+              <schedule><cron_expr>0 8 1 * *</cron_expr></schedule>
+              <run><model>taxjar/observer::execute</model></run>
+          </taxjar>
+      </jobs>
+  </crontab>
+
+</config>

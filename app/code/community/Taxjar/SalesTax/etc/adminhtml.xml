@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<config>
+  <!-- repeated in config.xml for compatibility -->
+  <acl>
+      <resources>
+          <admin>
+              <children>
+                  <system>
+                      <children>
+                          <config>
+                              <children>
+                                  <taxjar>
+                                      <title>TaxJar Sales Tax Automation</title>
+                                  </taxjar>
+                              </children>
+                          </config>
+                      </children>
+                  </system>
+              </children>
+          </admin>
+      </resources>
+  </acl>
+</config>

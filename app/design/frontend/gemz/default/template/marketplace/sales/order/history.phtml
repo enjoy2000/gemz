@@ -1,0 +1,284 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+
+$url = Mage:: getBaseUrl();
+?>
+<script lang="javascript">
+function getvalue()
+{
+    jQuery.noConflict();
+    (function($) {
+        var name = $("#droplink option:selected").val();
+        if(name=="Csv") {
+            $(".export_link").attr("href","<?php echo $url; ?>marketplace/order/expo/");
+        } else if (name=="Excel") {
+            $(".export_link").attr("href","<?php echo $url; ?>marketplace/order/expoXml");
+        }
+    })(jQuery);
+}
+</script>
+<div><table cellspacing="0" class="actions" style="width: 100%;">
+            <tbody><tr>
+                    <td>
+                        <form id="reset-order-data" method="POST" action="<?php echo $this->getUrl('marketplace/order/history/'); ?>">
+
+                            <label>From :</label><input type="text" readonly="readonly" class="input-text validate-date "  name="date_from" id="date_from" value="<?php echo Mage::getSingleton('core/session')->getDateFrom() ?>" />
+                            <label>To :</label><input type="text" readonly="readonly" class="input-text validate-date " name="date_to" id="date_to" value="<?php echo Mage::getSingleton('core/session')->getDateTo() ?>" />
+
+<script type="text/javascript">// <![CDATA[
+Calendar.setup({
+    inputField : 'date_from',
+    ifFormat : '%m/%e/%Y',
+    button : 'date_from_trig',
+    align : 'Bl',
+    singleClick : true
+});
+
+Calendar.setup({
+    inputField : 'date_to',
+    ifFormat : '%m/%e/%Y',
+    button : 'date_to_trig',
+    align : 'Bl',
+    singleClick : true
+});
+// ]]></script>
+<?php $ordSt = Mage::getSingleton('core/session')->getSalesOrderSatus(); ?>
+                            <label>Status:</label>
+                                       
+                            <select id="orderstatus" name="orderstatus">
+                                <option value="" <?php
+                        if (!isset($ordSt)) {
+                            echo ' selected="selected" ';
+                        }
+                            ?>></option>
+                                        <?php
+                                        $orderStatusInfo =Mage::getModel('sales/order_status')->getResourceCollection()->getData();
+                                        foreach ($orderStatusInfo as $key => $statusValue) {
+                                            ?>
+                                    <option value="<?php echo $statusValue['status']; ?>" <?php
+                                    if ($ordSt == $statusValue['status']) {
+                                        echo ' selected="selected" ';
+                                    }
+                                            ?>><?php echo $statusValue['label']; ?></option>
+                                        <?php } //end foreach  ?>
+                            </select>
+                            <button type="submit" onclick="return validatedate(); " class="button"><span>Submit</span></button>
+                            <button type="button" onclick="resetdate(); return false;" class="button"><span>Reset</span></button>
+                        </form>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <div style="margin:0 0 10px 0;">
+                            <div style="float: left; padding-top: 8px;">
+                                <img class="v-middle" alt="" src="<?php echo $this->getSkinUrl('images/marketplace/icon_export.gif')?>">&nbsp; Export to:
+                                <select id="droplink" onchange="getvalue()" >
+                                    <option  value="Csv">CSV</option>
+                                    <option  value="Excel">Excel XML</option>
+                                </select> &nbsp;</div>
+                            <a class="export_link sales-order-button" href="<?php echo $url ?>marketplace/order/expo" style="padding-top: 8px;display: block;">Export</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="clear:both"></div>
+    <script type="text/javascript">
+        function resetdate()
+        {
+
+            var date1 = document.getElementById('date_to').value;
+            var date2 = document.getElementById('date_from').value;
+            date1 = '';
+            date2 = ''
+            var redirecturl = '<?php echo $this->getUrl('marketplace/order/history/') ; ?>';
+            window.location.href = redirecturl;
+        }
+
+        function validatedate()
+        {
+            var date2 = document.getElementById('date_from').value;
+            var date1 = document.getElementById('date_to').value;
+
+            if(date2!='')
+            {
+                // Date_from
+                dateFrom = new Date(date2);
+                var f_dd = dateFrom.getDate();
+                var f_mm = dateFrom.getMonth()+1;
+                var f_yyyy = dateFrom.getFullYear();
+
+                // Current Date
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth()+1;
+                var yyyy = today.getFullYear();
+
+                // set from date validator
+                var from_date_flag = false;
+
+                if (dd<10) {
+                    dd='0'+dd;
+                }
+                if (mm<10) {
+                    mm='0'+mm;
+                }
+
+                /* To check From Date is greater than current date */
+                if ( f_yyyy >  yyyy  ) {
+                    from_date_flag = true;
+                }
+                else if (f_yyyy ==  yyyy ) {
+                    if (f_mm > mm ) {
+                        from_date_flag = true;
+                    }
+                    else if ( f_mm == mm ) {
+                        if ( f_dd > dd  ) {
+                            from_date_flag = true;
+                        }
+                    }
+                }
+                // When from date selected
+                if ( from_date_flag == true ) {
+                    alert("Please Enter valid From date");
+                    return false;
+                }
+
+            }
+
+            if(date1!='')
+            {
+                dateto = new Date(date1);
+                var f_dd = dateto.getDate();
+                var f_mm = dateto.getMonth()+1;
+                var f_yyyy = dateto.getFullYear();
+
+                // Current Date
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth()+1;
+                var yyyy = today.getFullYear();
+
+                dateFrom = new Date(date2);
+                var f_dd1 = dateFrom.getDate();
+                var f_mm1 = dateFrom.getMonth()+1;
+                var f_yyyy1 = dateFrom.getFullYear();
+                // set from date validator
+                var to_date_flag = false;
+
+                if (dd<10) {
+                    dd='0'+dd;
+                }
+                if (mm<10) {
+                    mm='0'+mm;
+                }
+
+                /* To check From Date is lesser than current date */
+
+                if ( f_yyyy >  yyyy  ) {
+                    to_date_flag = true;
+                }
+                else if (f_yyyy ==  yyyy ) {
+                    if (f_mm > mm ) {
+                        to_date_flag = true;
+                    }
+                    else if ( f_mm == mm ) {
+                        if ( f_dd > dd  ) {
+
+                            to_date_flag = true;
+                        }
+                    }
+                }
+                /* To check From Date is greater than from date */
+                if(f_yyyy < f_yyyy1)
+                {
+                    to_date_flag = true;
+                }
+                else if (f_yyyy ==  f_yyyy1 ) {
+                    if (f_mm < f_mm1 ) {
+                        to_date_flag = true;
+                    }
+                    else if ( f_mm == f_mm1 ) {
+                        if ( f_dd < f_dd1  ) {
+                            to_date_flag = true;
+                        }
+                    }
+                }
+                if ( to_date_flag == true ) {
+                    alert("Please Enter valid To date");
+                    return false;
+                }
+            }
+        }
+    </script>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $_orders = $this->getOrders(); ?>
+<div class="page-title">
+    <h1><?php echo $this->__('Marketplace Orders') ?></h1>
+</div>
+<?php echo $this->getPagerHtml(); ?>
+<?php if($_orders->getSize()): ?>
+<table class="data-table" id="my-orders-table">
+    <col width="1" />
+    <col width="1" />
+    <col />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('Order #') ?></th>
+            <th><?php echo $this->__('Date') ?></th>
+            <th><?php echo $this->__('Ship To') ?></th>
+            <th><span class="nobr"><?php echo $this->__('Order Total') ?></span></th>
+            <th><span class="nobr"><?php echo $this->__('Order Status') ?></span></th>
+            <th><span class="nobr"><?php echo $this->__('Notification') ?></span></th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $_odd = ''; ?>
+        <?php foreach ($_orders as $_order): ?>
+        <tr>
+            <td><?php echo $_order->getRealOrderId() ?></td>
+            <td><span class="nobr"><?php echo $this->formatDate($_order->getCreatedAtStoreDate()) ?></span></td>
+            <td><?php echo $_order->getShippingAddress() ? $this->htmlEscape($_order->getShippingAddress()->getName()) : '&nbsp;' ?></td>
+             
+             <?php $orderTotals = Mage::helper('marketplace')->getOrderTotals($_order->getId());?> 
+             <td> <?php echo Mage::helper('core')->currency($orderTotals['grandtotal'], true, false);?></td>
+             
+            <td><em><?php echo $_order->getStatusLabel() ?></em></td>
+             <td class="a-center">
+               <?php  echo Mage::getModel("marketplace/buyerseller")->getActiveNotificationForOrder($_order->getId());?>
+               <a href="<?php echo $this->getBaseUrl().'marketplace/buyerseller/notification/order/'.$_order->getId()?>"> <?php echo $this->__(' Notification(s)') ?></a>
+             </td>
+            <td class="a-center">
+                <span class="nobr"><a href="<?php echo $this->getViewUrl($_order) ?>"><?php echo $this->__('View Order') ?></a></span>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<script type="text/javascript">decorateTable('my-orders-table');</script>
+<?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+    <p><?php echo $this->__('You have received no orders.'); ?></p>
+<?php endif ?>

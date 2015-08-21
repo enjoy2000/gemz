@@ -1,0 +1,233 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+
+<div class="blackoverlay"></div>
+<div id="showterms"><a class="closepopup" href="javascript:;">x</a><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('terms')->toHtml(); ?></div>
+<div class="header-language-background">
+  <div class="header-language-container">
+    <div class="store-language-container"> <?php echo $this->getChildHtml('store_language') ?> </div>
+    <?php //echo $this->getChildHtml('currency_switcher') ?>
+    
+    <!--<p class="welcome-msg"><?php //echo $this->getChildHtml('welcome') ?> <?php //echo $this->getAdditionalHtml() ?></p>--> 
+    
+  </div>
+</div>
+<div class="top_links">
+  <div class="container">
+  	<h5>Discover the Talent of Fine Jewelry Designers Worldwide</h5>
+    <div id="header-search" class="skip-content"> <?php echo $this->getChildHtml('topSearch') ?> <a href="javascript:;" class="search_togglebutton">&nbsp;</a> </div>
+    <div class="myaccount_links"> <?php echo $this->getChildHtml('topLinks') ?> </div>
+    <div class="clear"></div>
+  </div>
+</div>
+<header id="header" class="page-header">
+<div id="header-nav" class="skip-content">
+  <div class="page-header-container"> <a class="logo" href="<?php echo $this->getUrl('') ?>"> <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="large" /> <img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small" /> </a>
+  <div class="navoverlay"></div>
+  <div class="container"> <?php //echo $this->getChildHtml('topMenu') ?>
+  <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('includes/menu.phtml')->toHtml() ?>
+  <div class="cartmenu"><a title="Wishlist" href="<?php echo $this->getUrl('wishlist') ?>" class="addtocart"><!--<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>frontend/rwd/default/images/addtowishlist.png" />--></a> <?php echo $this->getChildHtml('minicart_head'); ?> </div>
+
+  </div>
+  <div>
+    <?php // In order for the language switcher to display next to logo on smaller viewports, it will be moved here.
+              // See app.js for details ?>
+    <div class="store-language-container"></div>
+    <!-- Skip Links -->
+    
+    <!--<div class="skip-links">
+            <a href="#header-nav" class="skip-link skip-nav">
+                <span class="icon"></span>
+                <span class="label"><?php echo $this->__('Menu'); ?></span>
+            </a>
+
+            <a href="#header-search" class="skip-link skip-search">
+                <span class="icon"></span>
+                <span class="label"><?php echo $this->__('Search'); ?></span>
+            </a>
+
+            <a href="#header-account" class="skip-link skip-account">
+                <span class="icon"></span>
+                <span class="label"><?php echo $this->__('Account'); ?></span>
+            </a>
+
+           
+
+            <div class="header-minicart">
+                <?php echo $this->getChildHtml('minicart_head'); ?>
+            </div>
+
+
+        </div>
+--> 
+    <!-- Search --> 
+    
+    <!-- Account -->
+    <div class="mob_menu"> <a href="javascript:;" class="menu">Menu</a> </div>
+    <div id="header-account" class="skip-content"> <?php echo $this->getChildHtml('topLinks') ?> </div>
+
+    <!-- Cart -->
+
+    <!-- <div id="header-cart" class="skip-content">
+            <div class="mini-cart">
+                <div class="menu-wrapper">
+                    <div class="menu cart-menu">
+                        <div class="empty">Your cart is empty.</div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+    <div class="clear"></div>
+  </div>
+
+</header>
+
+<!--for slider -->
+<script>
+    jQuery(document).ready(function() {
+        jQuery('.bxslider').bxSlider({
+        //auto: true,
+        infiniteLoop: false,
+            hideControlOnEnd: false,
+            pager: false,
+            });
+    });
+    </script>
+<?php
+$routeName = Mage::app()->getRequest()->getRouteName();
+$identifier = Mage::getSingleton('cms/page')->getIdentifier();
+
+if($routeName == 'cms' && $identifier == 'home') { ?>
+    <ul class="bxslider">
+        <li style="float: left; list-style: outside none none; position: relative; width: 916px;">
+            <?php echo $this->getChildHtml('home_slide') ?>
+        </li>
+        <li style="float: left; list-style: outside none none; position: relative; width: 916px;">
+            <?php echo $this->getChildHtml('home_slide') ?>
+        </li>
+        <li style="float: left; list-style: outside none none; position: relative; width: 916px;">
+            <?php echo $this->getChildHtml('home_slide') ?>
+        </li>
+    </ul>
+<?php
+    }
+?>
+-<!-- End Slide -->
+
+<script>
+jQuery(document).ready(function(){
+			window.onorientationchange = function()
+		{
+		   window.location.reload();
+		}
+});
+
+jQuery(document).ready(function (){
+	jQuery('.search_togglebutton').click(function() {
+		jQuery(this).hide();
+		jQuery('#header-search .search-button').toggleClass('active');
+		jQuery('#header-search').addClass('expand');
+	});
+	
+	jQuery('.myaccount_links .last a').click(function() {
+		jQuery('.lgoin_dropdown').slideToggle('fast');
+	});
+	
+	
+	jQuery('.cartmenu .cart').click(function() {
+		jQuery('.cartlist').show('fast');
+	});
+	
+	jQuery('.closepopup').click(function() {
+		jQuery('.cartlist').hide();
+	});
+	
+
+	
+	if (jQuery(window).width() > 1025){
+		
+		jQuery(window).bind("scroll", function() {
+		    if (jQuery(this).scrollTop() > 142) {
+		        jQuery("#header-nav").addClass('navfixed');
+		    }else {
+	        jQuery("#header-nav").removeClass('navfixed');
+	    }
+		
+	});
+	
+	}
+	
+	if (jQuery(window).width() > 770){
+	jQuery('#header-nav nav ul li').on('mouseenter', function() {
+			jQuery(this).addClass('active');
+			jQuery('#header-nav nav ul li ul li').removeClass('active');
+		});
+		
+		jQuery('#header-nav nav ul li').on('mouseleave', function() {
+				jQuery(this).removeClass('active');
+	});
+		
+	
+	}
+	
+	
+	if (jQuery(window).width() < 769){
+	
+	jQuery('#header-nav nav ul li .mob_dropdown').click(function(){
+			jQuery('#header-nav nav ul li ul li').removeClass('active');
+			jQuery(this).next('.nav_wrapper').slideToggle();
+	});
+	
+	jQuery('.login-mobile span').click(function(){
+			jQuery(this).removeClass('active');
+			jQuery('.lgoin_dropdown').slideToggle();
+	});
+	
+	
+	}
+	
+	jQuery('.mob_menu').click(function() {
+		jQuery('.skip-content').slideToggle();
+	});
+	
+	jQuery('.col-main .std h1:first-child').addClass('title');
+	
+	jQuery('.bx-viewport .caption em a').click(function (){
+		jQuery('#habla_oplink_a').trigger('click');
+	});	
+	
+	
+	
+
+});
+</script> 
+<?php echo $this->getChildHtml('topContainer'); ?>

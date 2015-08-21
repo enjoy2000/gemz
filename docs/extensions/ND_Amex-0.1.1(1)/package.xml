@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>ND_Amex</name>
+    <version>0.1.1</version>
+    <stability>stable</stability>
+    <license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Amex payment method integration</summary>
+    <description>This module will integrate Amex payment method using its Api.</description>
+    <notes>This module will integrate Amex payment method using its Api.</notes>
+    <authors><author><name>Nikul Doshi</name><user>nikulonline</user><email>nikulonline@gmail.com</email></author></authors>
+    <date>2014-10-18</date>
+    <time>10:21:35</time>
+    <contents><target name="magelocal"><dir name="ND"><dir name="Amex"><dir name="Block"><file name="Form.php" hash="5274e086aa14e46c3f418e74c02318fc"/><file name="Info.php" hash="107012a9d5e50cd2f2e227d5a7f9cb5d"/><dir name="Payment"><file name="Info.php" hash="29f650baf496d3d65bcdeab65b7c78d1"/></dir><dir name="Server"><file name="Failure.php" hash="4bc33161e1d1c221e68cd0234aa9cb00"/><file name="Form.php" hash="ab263fbbaa584a6374f3681b4d0d2110"/><file name="Redirect.php" hash="b265a9c50352bfd70745f7239f39b230"/><file name="Response.php" hash="cdc291119a3ac642d4b0e2595b8888ce"/></dir></dir><dir name="Controller"><file name="Abstract.php" hash="d79d2176d9eca6b0abb8bc59bdaae6da"/></dir><dir name="Helper"><file name="Data.php" hash="ec005848cf9242ee45ea818ceee01e94"/></dir><dir name="Model"><file name="Info.php" hash="30b74b0ff8f20a3032a6941d72c009bb"/><file name="Server.php" hash="95574c6b872846975c031852be8441a8"/></dir><dir name="controllers"><file name="ServerController.php" hash="b198ba194fd139368b1bb342466f9725"/></dir><dir name="etc"><file name="config.xml" hash="fb1658cca8435c2b357d96ec91c44b14"/><file name="system.xml" hash="5d8514366ac98cd017602e4108915521"/></dir><dir name="sql"><dir name="migsvpc_setup"><file name="mysql4-install-0.1.0.php" hash="807e55283d420d745aa65b31f376e22c"/></dir></dir></dir></dir></target><target name="magedesign"><dir name="frontend"><dir name="default"><dir name="default"><dir name="layout"><file name="amex.xml" hash="37a6915378acaf8137359ff824f7ffe0"/></dir><dir name="template"><dir name="amex"><file name="form.phtml" hash="416411ec28758fa15de6c4d8ba6b102c"/><file name="info.phtml" hash="c13fe64ae97929b3b732d25b695527ea"/><dir name="method"><dir name="payment"><dir name="bpay"><file name="form.phtml" hash="4ec688f6b5e63186a91ff2414a567f81"/><file name="info.phtml" hash="7d010d2286e619e4a51de4f086ab71c1"/><file name="success.phtml" hash="55572c890d2fb68ded98b051502c31bd"/></dir><dir name="directdeposit"><file name="form.phtml" hash="ed7e15aa93805a227c00997961f7fb93"/><file name="info.phtml" hash="025c3e3b932f9864b0ccb46a58b6df78"/><file name="success.phtml" hash="d460923ed13b3e27abdebed921689490"/></dir></dir><file name="postcode-checkout.phtml" hash="dba2b90faf906a4ff17c72229600a259"/><file name="postcode.phtml" hash="e7c5e5c23f5c7750772321e1c4ffe06b"/></dir><dir name="server"><file name="form.phtml" hash="fcb0d5002d5efea2faeeefb5f66d0600"/><file name="response.phtml" hash="8a3f5b9be4901568104472399b1b1398"/></dir></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="ND_Amex.xml" hash="811bcf28abb00dbfd03cc966c354eb0c"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

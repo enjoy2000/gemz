@@ -1,0 +1,36 @@
+<?php
+$listStyles = Mage::helper('gemz')->getListStyles();
+$currentCat = Mage::registry('current_category');
+$categoryName = $currentCat ? $currentCat->getName() : null;
+$currentCode = $this->getAttributeModel()->getAttributeCode();
+//var_dump($_current_category->getName());die;
+//var_dump($this->getAttributeModel()->getAttributeCode());die;
+?>
+<ol>
+    <div class="leftside">
+    <?php $i = 1; foreach ($this->getItems() as $_item): ?>
+        <?php if ($currentCode != 'style' || ( $currentCode == 'style' && in_array($_item->getLabel(), $listStyles[$categoryName]['style']))) : ?>
+        <li>
+            <?php if ($_item->getCount() >= 0): ?>
+                <a href="<?php echo ($_item->isSelected()) ? $_item->getRemoveUrl() : $_item->getUrl() ?>">
+                    <input type="checkbox"<?php if ($_item->isSelected()): ?> checked="checked" <?php endif; ?>/>
+                    <?php echo $_item->getLabel() ?>
+                    <?php if ($this->shouldDisplayProductCount()): ?>
+                        <span class="count">(<?php echo $_item->getCount() ?>)</span>
+                    <?php endif; ?>
+                </a>
+            <?php else: ?>
+                <span>
+                    <?php echo $_item->getLabel(); ?>
+                    <?php if ($this->shouldDisplayProductCount()): ?>
+                        <span class="count">(<?php echo $_item->getCount() ?>)</span>
+                    <?php endif; ?>
+                </span>
+            <?php endif; ?>
+        </li>
+        <?php if ($i == 10 && $currentCode == 'stone') : ?></div><div class="rightside"> <?php endif; ?>
+        <?php endif; ?>
+    <?php $i++; endforeach ?>
+    </div>
+    <br class="clear"/>
+</ol>

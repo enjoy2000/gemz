@@ -1,0 +1,136 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+?>
+<?php /* ?>
+<?php $seller = $this->getSellerData();?>
+<?php if (!empty($seller)):?>
+<div class="page-title">
+    <h1><?php echo $seller['firstname']." ".$seller['lastname'].$this->__(" store's Profile Page") ?></h1>
+</div>
+<div class="store-details">
+    <div class="sub-heading"><h5><?php echo $this->__('About ').$seller['company_name']?></h5></div>
+    <?php if(!empty($seller['company_banner'])):?>
+        <div class="company-banner">
+            <img src="<?php echo $seller['company_banner']?>" width="<?php echo Mage::getStoreConfig('marketplace/marketplace/default_width').'px'?>" height="<?php echo Mage::getStoreConfig('marketplace/marketplace/default_height').'px'?>" />
+        </div>
+    <?php endif;?>
+    <table class="data-table">
+    <?php if ($seller['company_locality']):?>
+        <tr>
+            <th width="30%"><?php echo $this->__('Locality:')?></th>
+            <td width="80%"><?php echo $seller['company_locality']?></td>
+        </tr>
+    <?php endif;?>
+    <?php if ($seller['company_description']):?>
+        <tr>
+            <th width="30%"><?php echo $this->__('Company description:')?></th>
+            <td width="80%"><?php echo $seller['company_description']?></td>
+        </tr>
+    <?php endif;?>
+    </table>
+</div>
+<?php else:?>
+<h5><?php echo $this->__("This customer doesn't exist.")?></h5>
+<?php endif; ?>
+
+<?php */ ?>
+<div class="profileimage-wrapper">
+
+    <div class="right">
+        <h2>Jewelry box
+
+            <?php if (Mage::getSingleton('customer/session')->isLoggedIn() == 0): ?>
+
+            <?php else: ?>
+                <?php
+                $customer = Mage::getSingleton('customer/session')->getCustomer();
+                $zz = $customer->getCompanyName(); // Full Name
+
+                if ($zz != "") {
+                    ?>
+
+                    <a class="upload_jew" href="http://gemz.gallery/index.php/marketplace/product/add/">Upload
+                        Jewelry</a>
+
+                <?php
+                } ?>   <?php endif ?>
+
+
+        </h2>
+
+
+        <ul>
+
+            <?php
+
+            $seller = $this->getSellerData();
+
+            $id = $seller['entity_id'];
+
+            $limit = 5;
+            $starting_from = 0;
+
+            $product_collection = Mage::getModel('catalog/product')->getCollection()
+                ->addAttributeToSelect('*')// add all attributes - optional
+                ->setOrder('name', 'asc')
+                ->addAttributeToFilter('status', 1)
+                ->addAttributeToFilter('seller_id', $id)//->setPage(2, 3);
+            ;
+
+            /* populate toolbar collection with your collection */
+            // $toolbar = Mage::getBlockSingleton('catalog/product_list')->getToolbarBlock();
+            // $toolbar->setCollection($product_collection);
+
+            //echo $toolbar->toHtml();  // to Show toolbar
+
+
+            //getting the product collection, results are ordered by product name
+
+            // $product_collection->getSelect()->limit($limit,$starting_from);
+
+            //where $limit will be the number of results we want, $starting_from will be the index of the result set to be considered as starting point (note 0 is the index of first row)
+            //this will ouptput 5 records starting from 1rd record
+
+            foreach ($product_collection as $_product) : ?>
+
+                <li>
+                    <a href="<?php echo $_product->getProductUrl(); ?>">
+                        <img src="<?php echo $_product->getImageUrl(); ?>" alt="<?php echo $_product->getName();?>"/>
+                    </a>
+                    <span>
+                        <?php echo substr($_product->getShortDescription(), 0, 100); ?> <br/>
+                        <div class="price-box">
+                            <div class="regular-price">
+                                <div class="price"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?></div>
+                            </div>
+                        </div>
+                        <a href="<?php echo $_product->getProductUrl(); ?>">View</a>
+                    </span>
+                </li>
+
+            <?php endforeach; ?>
+
+
+            <div class="clear"></div>
+        </ul>
+    </div>
+</div>
+
+

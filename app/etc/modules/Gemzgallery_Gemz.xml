@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Gemzgallery_Gemz>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Gemzgallery_Gemz>
+    </modules>
+</config>

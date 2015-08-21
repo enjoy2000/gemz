@@ -1,0 +1,124 @@
+<?php
+
+/**
+
+ * Cybage Marketplace Plugin
+
+ *
+
+ * NOTICE OF LICENSE
+
+ *
+
+ * This source file is subject to the Open Software License (OSL 3.0)
+
+ * It is available on the World Wide Web at:
+
+ * http://opensource.org/licenses/osl-3.0.php
+
+ * If you are unable to access it on the World Wide Web, please send an email
+
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+
+ *
+
+ * @category   Marketplace Plugin
+
+ * @package    Cybage_Marketplace
+
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+
+ */
+
+?>
+
+<div class="block block-account">
+
+   <div class="page-title fullname">
+    <h1><a href="<?php echo Mage::getUrl('customer/account'); ?>">&nbsp;</a><?php
+                    $customer = Mage::getSingleton('customer/session')->getCustomer();
+ 
+
+ echo    $customer->getName(); // Full Name
+
+                    ?></h1>
+</div>
+
+    <div class="block-content">
+<?php
+ $customer = Mage::getSingleton('customer/session')->getCustomer();
+// echo $customer->getId();
+        if($customer){
+            $customerObj = Mage::getModel('customer/customer')->load($customer->getId());
+            if($profileimage = $customerObj->getSstechProfileimage()){
+			
+      $img=  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."customer".$this->_profileimage = $profileimage; 
+	  ?>
+	  <img src="<?php echo $img; ?>" width="200px">
+	  <?php
+            }else{
+                $this->_profileimage = null;     
+            }
+        }
+
+?>
+
+        <ul>
+       	<?php
+				$customer = Mage::getSingleton('customer/session')->getCustomer();
+$cname =  $customer->getCompanyName(); // Full Name
+ $sellerUrl = $this->getBaseUrl() . "marketplace/" . str_replace(' ', '-', $cname) . ".html";
+                    ?>
+        <li><a href="<?php echo $sellerUrl;?>" >Profile</a></li> 
+
+            <?php $_links = $this->getLinks(); ?>
+
+            <?php $_index = 1; ?>
+
+            <?php $_count = count($_links); ?>
+
+            
+
+            <?php if(!Mage::helper('marketplace')->isMarketplaceActiveSellar()): ?>
+
+            <?php unset($_links['marketplace']);  ?>
+
+            <?php unset($_links['marketplace_orders']);  ?>
+
+            <?php unset($_links['marketplace_product']);  ?>
+
+            <?php unset($_links['marketplace_product_add']);  ?>
+
+            <?php unset($_links['marketplace_product_import']);  ?>
+
+            <?php endif; ?>
+
+            
+
+            <?php foreach ($_links as $_link): ?>
+
+                <?php $_last = ($_index++ >= $_count); ?>
+
+                <?php if ($this->isActive($_link)): ?>
+
+                    <li class="current<?php echo ($_last ? ' last' : '') ?>"><strong><?php echo $_link->getLabel() ?></strong></li>
+
+                <?php else: ?>
+
+                    <li<?php echo ($_last ? ' class="last"' : '') ?>><a href="<?php echo $_link->getUrl() ?>"><?php echo $_link->getLabel() ?></a></li>
+
+                <?php endif; ?>
+
+            <?php endforeach; ?>
+
+        </ul>
+
+    </div>
+
+</div>

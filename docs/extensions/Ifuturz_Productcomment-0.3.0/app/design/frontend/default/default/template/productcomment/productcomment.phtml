@@ -1,0 +1,56 @@
+
+<div class="product-collateral product-view">
+<div>
+<?php
+
+$product_id = Mage::registry('current_product')->getId();
+$obj = Mage::getModel('catalog/product');
+$product = $obj->load($product_id);
+$url = $product->getProductUrl();
+?>
+<?php $loginurl = $url."?login=1"?>
+<?php if (Mage::getSingleton("customer/session")->isLoggedIn()): ?>
+<?php Mage::getSingleton('customer/session')->unsetData('product_url',$loginurl);?>
+	<a onclick="document.getElementById('product_comments').focus();" style="font-size:16px; font-weight:bold; cursor:pointer"><span> <u><?php echo Mage::helper('productcomment')->__('Add Your Comment')?></u></span> </a><br /><br />
+<?php else:?>
+		
+		
+	    <?php Mage::getSingleton('customer/session')->setData('product_url',$loginurl) ?>	
+             <span style='font-size:16px; font-weight:bold;'><?php echo Mage::helper('productcomment')->__("Please <a href='".Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)."customer/account/login/'><u>login</u></a> to submit your comment")?></span>
+
+<?php endif;?>
+
+
+<?php
+$productcommentCollection = Mage::getModel('productcomment/productcomment')->getCollection()->addFieldToFilter('product_id',$product_id)->setOrder('created_at','desc');
+?>
+
+<?php
+foreach($productcommentCollection as $productcomment): ?>
+<div style="border-bottom:1px solid";>
+<?php	
+	$date = $productcomment['created_at'];
+	echo date('F d, Y ', strtotime($date))."<br/>";
+	echo $productcomment['product_comment'];
+?>
+</div><br />
+
+<?php endforeach;?>
+
+<?php
+if (Mage::getSingleton("customer/session")->isLoggedIn()): ?>
+    <form id = "productcomment" action="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);?>index.php/productcomment/index/add" method="post" >
+    <textarea name="productcommentbox" class="required-entry" id="product_comments" cols="86" rows="4" <?php if($_GET['___SID']=='U?login=1')://if($_GET['login']==1):?>autofocus="autofocus"<?php endif;?>></textarea>
+    <input type="hidden" name = "productid" value="<?php echo $product_id ?>" />
+    <div style="margin-top:8px;">
+    <input type="submit" value="Add Comment" name = "productcomment" style="height:30px; font-size:14px; background: none repeat scroll 0 0 #F18200; font-family:bold; color:white;" >
+    </div>
+    </form>
+<?php endif; ?>
+ </div>
+ </div>
+ <script type="text/javascript">
+//< ![CDATA[
+  var myForm= new VarienForm('productcomment', true);
+//]]>
+</script><br />

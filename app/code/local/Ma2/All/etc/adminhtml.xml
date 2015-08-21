@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+    <layout>
+        <updates>
+            <ma2all module="Ma2_All">
+                <file>ma2_all.xml</file>
+            </ma2all>
+        </updates>
+    </layout>
+      <menu>
+        <ma2 translate="title" module="ma2all">
+          <title>MA2</title>
+          <sort_order>89</sort_order>
+        </ma2>
+      </menu>
+      
+      <acl>
+          <resources>
+              <all>
+                  <title>Allow Everything</title>
+              </all>
+              <admin>
+                  <children>
+                      <ma2>
+                          <title>MA2</title>
+                          <sort_order>89</sort_order>
+                      </ma2>
+                      <system>
+                          <children>
+                              <config>
+                                  <children>
+                                      <ma2all>
+                                          <title>MagenMarket Extensions</title>
+                                      </ma2all>
+                                  </children>
+                              </config>
+                          </children>
+                      </system>
+                  </children>
+              </admin>
+          </resources>
+      </acl>
+</config>

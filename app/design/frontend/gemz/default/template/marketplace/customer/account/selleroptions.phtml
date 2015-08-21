@@ -1,0 +1,115 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+    $orderId = $this->getRequest()->getParam('order_id');
+    $status = array();
+    $status = $this->selectAction($orderId);
+?>
+<form id="seller_form" name="seller_form" method="post" action="<?php echo $this->getUrl('marketplace/order/addcomment/') ?>order_id/<?php echo $orderId?>">
+<?php if($status) {?>
+    <div class="col-1">
+        <div class="box">
+            <div class="box-title">
+                <h2>Seller Options</h2>
+            </div>
+            <div class="box-content">
+                <div class="commentbox">
+                    <div><b>Comment</b></div>
+                    <div>
+                        <textarea name="sellerform_comment" id="sellerform_comment" class="required-entry" rows="2" cols="50"></textarea>
+                    </div>
+                </div>
+                <div class="trackingbox">
+                    <div><b>Track Order</b></div>
+                    <div>
+                        <input type="text" name="trackin_no" id="trackin_no" value=""/>
+                    </div>
+                </div>
+                <div class="notify">
+                    <div>
+                        <input type="checkbox" id="is_customer_notified" name="is_customer_notified" value="1"/><label class="normal" for="notifyemail"> <?php echo $this->__('Notify Customer by Email') ?></label>
+                    </div>
+                </div>
+                <div class="status">
+                    <div>
+                        <b><?php echo $this->__('Status') ?></b>
+                    </div>
+                    <div>
+                        <select name="status" id="showstatus">
+                            <?php foreach ($status as $value) { ?>
+                            <option value="<?php echo $value ?>"><?php echo $value ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="buttons-set">
+                    <button class="button" title="Save" type="submit"><span><?php echo $this->__('Save') ?></span></button>       
+                </div>
+            </div>
+        </div>
+    </div>
+<?php }?>
+    <div>
+    <?php
+    $history = array();
+    foreach (Mage::getModel('sales/order')->load($orderId)->getVisibleStatusHistory() as $orderComment) {
+        $history[] = array(
+                        'comment'    => $orderComment->getComment(),
+                        'created_at' => $orderComment->getCreatedAtDate()
+                    );
+    }
+
+    if (count($history) > 0):
+    ?>
+        <h2><?php echo $this->__('Past Comments') ?></h2>
+        <table id="comments-table" class="data-table">
+            <thead>
+                <tr>
+                    <th style="width:23%">Date</th>
+                    <th style="width:77%">Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($history as $historyItem):?>
+                <tr id="order-item-row-1" class="border">
+                    <td><?php echo $this->formatDate($historyItem['created-at'], 'medium', true)?></td>
+                    <td><?php echo $this->escapeHtml($historyItem['comment'])?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif?>
+    </div>
+</form>
+<!--Show/hide tracking no. filed.-->
+<script type="text/javascript">
+jQuery.noConflict();
+jQuery(document).ready(function() {
+    jQuery('#showstatus').change(function(){
+        var status = jQuery(this).val();
+
+        if( status != 'processing'){
+            jQuery('.trackingbox').hide();
+        }else{
+            jQuery('.trackingbox').show();
+        }
+
+    });
+});
+</script>

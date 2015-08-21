@@ -1,0 +1,65 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+    $collection = Mage::getModel("marketplace/buyerseller")->getColection(); 
+    echo $this->getMessagesBlock()->getGroupedHtml();
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Past Comments') ?></h1>
+</div>
+<?php //echo $this->getPagerHtml(); ?>
+<?php if(count($collection)): ?>
+<table class="data-table" id="my-orders-table">
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('Comments') ?></th>
+            <th><?php echo $this->__('Date') ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $_odd = ''; ?>
+        <?php foreach ($collection as $data): ?>
+        <tr>
+            <td>
+            <?php    
+                $buyer = $data[0]['customer_id'];
+                $seller = $data[0]['seller_id'];
+                
+                if($buyer ==$seller){
+                    $from = "Seller";
+                }else{
+                    $from = "Buyer";
+                }
+            ?>
+             <p> <?php echo $this->__("For Product ".$data[0]['value']." by ".$from." ". $data[0]['fullname'])?></p>
+             <p><?php echo $data[0]['comment'] ?></p>
+            </td>
+            <td><span class="nobr"><?php echo $this->formatDate($data[0]['created_at']) ?></span></td>             
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<script type="text/javascript">decorateTable('my-orders-table');</script>
+<?php //echo $this->getPagerHtml(); ?>
+
+<?php else: ?>
+    <p><?php echo $this->__('You have received no orders comments.'); ?></p>
+<?php endif ?>

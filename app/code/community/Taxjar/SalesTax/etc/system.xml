@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config>
+  <tabs>
+    <taxjar translate="label" module="taxjar">
+      <label>TaxJar</label>
+      <sort_order>0</sort_order>
+    </taxjar>
+  </tabs> 
+  <sections>
+    <taxjar translate="label" module="taxjar">
+      <label>Sales Tax Automation</label>
+      <tab>taxjar</tab>
+      <frontend_type>text</frontend_type>
+      <sort_order>1000</sort_order>
+      <show_in_default>1</show_in_default>
+      <show_in_website>1</show_in_website>
+      <show_in_store>1</show_in_store>      
+      <groups>
+        <config translate="label">
+          <label>TaxJar Options</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>1</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>        
+          <expanded>1</expanded>        
+          <fields>
+            <apikey translate="label">
+                <label>API Token</label>
+                <comment>
+                  <model>taxjar/comment</model>
+                </comment>
+                <frontend_type>text</frontend_type>
+                <sort_order>1</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>1</show_in_website>
+                <show_in_store>1</show_in_store>                    
+            </apikey> 
+            <debug translate="label">
+              <label>Debug Mode Enabled</label>
+              <comment>
+                <model>taxjar/debug</model>
+              </comment>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <frontend_type>select</frontend_type>                                                                        
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+            </debug>
+          </fields>                 
+        </config>
+      </groups>
+    </taxjar>
+  </sections>   
+</config>

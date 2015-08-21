@@ -1,0 +1,91 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Ask Question') ?></h1>
+</div>
+<?php if(Mage::getSingleton('customer/session')->isLoggedIn()){ ?>
+<?php echo $this->getChildHtml('global_messages'); ?>
+<form id="product_ask_question_form" method="post" action="<?php echo $this->getUrl("marketplace/productquestion/submit"); ?>" >
+    <div class="fieldset">
+        <h8 class="legend">
+            <?php echo $this->__('Ask question about ' . Mage::getModel('catalog/product')->load($this->getRequest()->getParam('id'))->getName()); ?>    below:
+        </h8>
+        <ul class="form-list">
+            <li class="wide">
+                <label for="comment" class=""><?php echo $this->__('Question') ?><span class="required">*</span></label>
+                <div class="input-box">
+                    <textarea name="question" id="question" title="<?php echo $this->__('Question') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                </div>
+                <!--div class="check-box">
+                   <input type="checkbox" name="notify" value="Notify">Notify by email
+                </div-->
+            </li>
+        </ul>
+    </div>  
+    <div class="buttons-set">
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button"><span><?php echo $this->__('Submit') ?></span></button>
+    </div>
+    <input type="hidden" name="product_id" value="<?php echo $this->getRequest()->getParam('id'); ?>"/>
+</form>
+<div id="loading-mask" style="display:none;">
+    <p class="loader" id="loading_mask_loader"><img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif'); ?>" alt="Submitting form data..."><br>Submitting form data...</p>
+</div>
+<div id="formSuccess" style="display:none;">&nbsp;</div>
+<script type="text/javascript">
+    //<![CDATA[
+    var formId = 'product_ask_question_form';
+    var myForm = new VarienForm(formId, true);
+    var postUrl = '<?php echo $this->getUrl("marketplace/productquestion/submit") ?>';
+    function doAjax() {
+        if (myForm.validator.validate()) {
+            new Ajax.Updater(
+                { success:'formSuccess' }, postUrl, {
+                    method:'post',
+                    asynchronous:true,
+                    evalScripts:false,
+                    onComplete:function(request, json) {
+                        Element.hide(formId);
+                        Element.show('formSuccess');
+                        Element.hide('loading-mask');
+                         $.fancybox.resize();
+                           $.fancybox.center();
+                         
+                    },
+                    onLoading:function(request, json){
+                        Element.show('loading-mask');
+                         
+                    },
+                    parameters: $(formId).serialize(true),
+                }
+            );
+        }
+    }
+    
+    new Event.observe(formId, 'submit', function(e){
+        e.stop();
+        doAjax();
+    });
+    //]]>
+</script>
+<?php }else{ ?>
+        <p class="required"><?php echo $this->__('Please login to ask the product question') ?></p> 
+<?php } ?>

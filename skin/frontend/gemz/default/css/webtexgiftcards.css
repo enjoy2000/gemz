@@ -1,0 +1,10 @@
+.giftcard-fieldset textarea {width: 100%; height: 100px;}
+.giftcard-fieldset label em {color: #EB340A; margin-right: 2px;}
+.giftcard-fieldset .field {margin-top: 6px;}
+.giftcard-fieldset .email-date input {width: 100px;}
+
+.giftcard-info .field-label {margin-top: 6px;}
+
+/*onepage checkout*/
+.giftcard-payment-method { border-bottom: 1px solid #e4e4e4; }
+.giftcard-payment-method .buttons-set { border-top: none; padding-top: 6px; padding-bottom: 3px; }

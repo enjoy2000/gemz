@@ -1,0 +1,49 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+?>
+<form action="<?php echo $this->getUrl('*/*/importvalidate') ?>" method="post" id="form-validate" enctype="multipart/form-data">
+    <input type="hidden" name="entity" value="catalog_product" />
+    <input type="hidden" name="behavior" value="append" />
+    <?php echo $this->getBlockHtml('formkey') ?>
+    <div class="field">
+        <div class="marketplace-head page-title">
+            <h2><?php echo $this->__('Product Import') ?></h2>
+            <a href="<?php echo $this->getUrl('marketplace/product/samplecsv') ?>" class="common-orange-button btn-add-product"><?php echo $this->__('Download Sample CSV') ?></a>
+            <div class="clear"></div>
+        </div>
+        <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+        <div class="input-box">
+            <table class="data-table">
+                 <tr>
+                    <th><label for="category" class="required"><?php echo $this->__('Select Images to Import') ?></label></th>
+                    <td><input type="file" class="required-entry" title="Select Images to Import" value="" name="import_image" id="import_image"></td>
+                </tr>
+                <tr>
+                    <th><label for="category" class="required"><?php echo $this->__('Select File to Import') ?></label></th>
+                    <td><input type="file" class="required-entry" title="Select File to Import" value="" name="import_file" id="import_file"></td>
+                </tr>
+            </table>
+            <b><span class="img-format"><?php echo $this->__('Total size of uploadable files must not exceed %s', Mage::helper('importexport')->getMaxUploadSize().'. Only new products will be added, existing products will be ignore.');?></span></b>
+        </div>
+    </div>
+    <div class="buttons-set">
+        <button type="submit" title="<?php echo $this->__('Check Data') ?>" class="button"><span><span><?php echo $this->__('Save') ?></span></span></button>
+    </div>
+</form>

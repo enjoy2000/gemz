@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Dazzle_Service>
+            <active>true</active>
+            <codePool>local</codePool>            
+        </Dazzle_Service>
+    </modules>
+</config>

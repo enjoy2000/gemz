@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Dazzle_Service>
+            <version>0.1.0</version>
+        </Dazzle_Service>
+    </modules>
+           
+    <global>          
+        <models>
+            <service>
+                <class>Dazzle_Service_Model</class>                
+            </service>                                   
+        </models> 
+        <resources>
+                <service_setup>
+                    <setup>
+                        <module>Dazzle_Service</module>
+                        <class>Mage_Customer_Model_Entity_Setup</class>
+                    </setup>
+                    <connection>
+                        <use>core_setup</use>
+                    </connection>
+                </service_setup>
+                <service_write>
+                    <connection>
+                        <use>core_write</use>
+                    </connection>
+                </service_write>
+                <service_read>
+                    <connection>
+                        <use>core_read</use>
+                    </connection>
+                </service_read>
+         </resources>
+         <events>
+           <customer_save_after>
+             <observers>
+               <dazzle_service>                 
+                 <class>dazzle_service_model_observer</class>
+                 <method>send_data_to_sap</method>
+               </dazzle_service>
+             </observers>
+           </customer_save_after>
+         </events>       
+    </global> 
+
+      
+</config>

@@ -1,0 +1,164 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+   $orderId = $this->getRequest()->getParam('order_id');
+   $marketPlaceModel = Mage::getModel('marketplace/marketplace');
+   $orderDetails = $marketPlaceModel->getOrderDetails($orderId);
+   $seller_id = Mage::getSingleton('customer/session')->getId();
+?>
+<?php  $_order = Mage::getModel("sales/order")->load($orderId); ?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php echo $this->getStatusHistoryRssUrl($_order) ?>
+<dl class="order-info">
+    <dt><?php echo $this->__('About This Order:') ?></dt>
+</dl>
+<p class="order-date"><?php echo $this->__('Order Date: %s', $this->formatDate($_order->getCreatedAtStoreDate(), 'long')) ?></p>
+<?php if (!$_order->getIsVirtual()): ?>
+<form method="post" name="shipment" id="shipment" action="<?php echo $this->getBaseUrl()."marketplace/order/save"?>">
+<input type="hidden" name ="order_id" value="<?php  echo $orderId?>" />
+<div class="col2-set order-info-box">
+    <div class="col-1">
+        <div class="box">
+            <div class="box-title">
+                <h2><?php echo $this->__('Shipping Address') ?></h2>
+            </div>
+            <div class="box-content">
+                <address><?php echo $_order->getShippingAddress()->format('html') ?></address>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="box">
+            <div class="box-title">
+                <h2><?php echo $this->__('Shipping Method') ?></h2>
+            </div>
+            <div class="box-content">
+                <?php if ($_order->getShippingDescription()): ?>
+                    <?php echo $this->escapeHtml($_order->getShippingDescription()) ?>
+                <?php else: ?>
+                    <p><?php echo $this->helper('sales')->__('No shipping information available'); ?></p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<div class="col2-set order-info-box">
+    <div class="col-1">
+        <div class="box">
+            <div class="box-title">
+                <h2><?php echo $this->__('Billing Address') ?></h2>
+            </div>
+            <div class="box-content">
+                <address><?php echo $_order->getBillingAddress()->format('html') ?></address>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="box box-payment">
+            <div class="box-title">
+                <h2><?php echo $this->__('Payment Method') ?></h2>
+            </div>
+            <div class="box-content">
+                <?php echo $_order->getPayment()->getMethodInstance()->getTitle(); ?>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col2-set order-info-box">
+    <?php echo $this->getChildHtml('items');?>
+</div>
+<div class="col2-set order-info-box">
+    <div class="">
+        <div class="box">
+            <div class="box-title">
+                <h2><?php echo $this->__('Shipping Information') ?></h2>
+            </div>
+            <div class="box-content">
+                <div class="grid">
+                    <table cellspacing="0" class="data" id="tracking_numbers_table">
+                        <colgroup><col width="100">
+                        <col>
+                        <col>
+                        <col width="80">
+                        </colgroup><thead>
+                            <tr class="headings">
+                                <th><?php echo Mage::helper('sales')->__("Carrier"); ?></th>
+                                <th><?php echo Mage::helper('sales')->__("Title"); ?></th>
+                                <th><?php echo Mage::helper('sales')->__("Number "); ?><span class="required">*</span></th>
+                               
+                            </tr>
+                        </thead>
+                       <tbody id="track_row_container">
+                           
+                        <tr>
+                                <td> 
+                                     <?php $carrierInstances = Mage::getSingleton('shipping/config')->getAllCarriers();?>
+                                     <?php $carriers['custom'] = Mage::helper('sales')->__('Custom Value');?>
+                                    <select onchange="selectorid(this)" name="tracking[1][carrier_code]" id="trackingC1" class="select carrier" style="width:110px;">
+                                        <option  value="custom"><?php echo Mage::helper('sales')->__('Custom Value'); ?></option>	
+                                        <?php  foreach ($carrierInstances as $code => $carrier) { ?>
+                                        <?php 	  if ($carrier->isTrackingAvailable()) {  ?>
+                                                        <option value="<?php echo $code; ?>"><?php echo $carrier->getConfigData('title') ?></option>													
+                                                <?php } ?>					
+                                        <?php } ?>					
+                                    </select>
+                                </td>
+                                <td><input class="input-text number-title" type="text" name="tracking[1][title]" id="trackingT1" value=""></td>
+                                <td><input class="input-text required-entry" type="text" name="tracking[1][number]" id="trackingN1" value=""></td>
+                             
+                            </tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>   
+</div>
+<div class="col2-set order-info-box">
+    <div class="box-left entry-edit">
+        <div class="entry-edit-head"><h4><?php echo $this->__('Shipment Comments') ?></h4></div>
+        <fieldset>
+            <div id="order-history_form">
+                <span class="field-row">
+                    <label class="normal" for="shipment_comment_text"><?php echo Mage::helper('sales')->__('Shipment Comments') ?></label>
+                    <textarea id="shipment_comment_text" name="shipment[comment_text]" rows="3" cols="5" style="height:6em; width:99%;"><?php //echo $this->getShipment()->getCommentText(); ?></textarea>
+                </span>
+                <div class="clear"></div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="col2-set order-info-box">
+    <div class="col-1">
+        <div class="box">
+            <div class="box-title">
+                <input type="submit" name="submit" />
+            </div>
+          
+        </div>
+    </div>
+</div>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+	var dataForm = new VarienForm('shipment', true);
+//]]>
+</script>
+    

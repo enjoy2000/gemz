@@ -1,0 +1,230 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+
+
+                    
+?>
+<footer>
+
+<div class="footer-container">
+    <div class="footer">
+        <?php //echo $this->getChildHtml() ?>
+ 
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_links')->toHtml();  ?>
+<!-- 
+<ul>
+<strong>For buyer</strong>
+<li><a href="javascript:;">Why Buy with GEMZ?</a></li>
+<li><a href="javascript:;">Account</a></li>
+<li><a href="javascript:;">Delivery Time</a></li>
+<li><a href="javascript:;">Guarantee</a></li>
+<li><a href="javascript:;">Returns</a></li>
+<li><a href="javascript:;">Shipping</a></li>
+</ul>
+<ul>
+<strong>For Designer</strong>
+<li><a href="javascript:;">Why Sell on GEMZ?</a></li>
+<li><a href="javascript:;">Account</a></li>
+<li><a href="javascript:;">Profile Page</a></li>
+<li><a href="javascript:;">Sale Forms</a></li>
+<li><a href="javascript:;">Upload your Design</a></li>
+</ul>
+<ul>
+<strong>About Us</strong>
+<li><a href="javascript:;">Contact Us</a></li>
+<li><a href="javascript:;">Press</a></li>
+<li><a href="javascript:;">Charities</a></li>
+</ul>
+<ul>
+<strong>GEMZ.GALLERY</strong>
+<li><a href="javascript:;">Terms of Services</a></li>
+<li><a href="javascript:;">Privacy Policy</a></li>
+<li><a href="javascript:;">Copyright Policy</a></li>
+<li><a href="javascript:;">Legal</a></li>
+</ul>
+<ul>
+<strong>Contact us</strong>
+<pre>California,<br />United States<br />(949) 644 GEMZ (4369)</pre>
+<pre>Toll Free:<br />(855) GO 2 GEMZ<br />(462 4369)</pre>
+<pre class="last">Info@GEMZ.GALLERY</pre>
+</ul>
+-->
+        <div class="clear"></div>
+    </div>
+	</div>
+    
+   
+    
+     
+     <address class="copyright">
+  
+      <div class="footer-container">
+    	<div class="social_media_icon">
+        <a href="https://twitter.com/GEMZGALLERY" class="twitter" title="Twitter"></a> 
+        <a href="https://www.facebook.com/gemzgaller?ref=hl" class="facebook" title="Facebook"></a> 
+        <a href="http://www.pinterest.com/gemzgallery0092/" class="printrest" title="pinterest"></a> 
+        <a href="http://instagram.com/gemz.gallery/" class="instagram" title="Instagram"></a> 
+        <a href="https://plus.google.com/100916448292850023244" rel="publisher" class="googleplus" title="Google plus"></a> 
+         <a href="https://www.tumblr.com/blog/gemzgallery" class="blog" title="Blog"></a> 
+       
+        
+        
+     </div>
+    	
+
+    <div class="payment_methad">
+    	<a href="javascript:;" title="Paypal"><img src="<?php echo  $this->getSkinUrl('images/paypal.jpg');?>" ></a>
+        <a href="javascript:;" title="Master Card"><img src="<?php echo  $this->getSkinUrl('images/mastercad.jpg');?>" ></a>
+        <a href="javascript:;" title="Visa"><img src="<?php echo  $this->getSkinUrl('images/visa.jpg');?>" ></a>
+        <a href="javascript:;" title="American Express"><img src="<?php echo  $this->getSkinUrl('images/american_express.jpg');?>" ></a>
+        <a href="javascript:;" title="American Express"><img src="<?php echo  $this->getSkinUrl('images/secure.png');?>" ></a>
+        <a href="http://www.bbb.org/sdoc/business-reviews/jewelers-retail/gemz-gallery-in-irvine-ca-172012260" target="_blank" title="BBB logo"><img src="<?php echo  $this->getSkinUrl('images/bbb_logo.png');?>" ></a>
+        
+        	<div class="copyright"> <?php echo $this->getCopyright() ?></div>
+    </div> 
+   	
+    	
+    </div>
+     </address>
+    <a href="#" class="scrollToTop">Scroll To Top</a>
+     </div>
+</footer>
+
+<script>
+
+jQuery(function(){
+	jQuery('#habla_both_div').html('New text');
+	//Check to see if the window is top if not then display button
+	jQuery(window).scroll(function(){
+		if (jQuery(this).scrollTop() > 100) {
+			jQuery('.scrollToTop').fadeIn();
+		} else {
+			jQuery('.scrollToTop').fadeOut();
+		}
+	});
+	
+	//Click event to scroll to top
+	jQuery('.scrollToTop').click(function(){
+		jQuery('html, body').animate({scrollTop : 0},800);
+		return false;
+	});
+	
+	
+	jQuery('.footer ul strong').on("click",function(){
+		//jQuery(this).next('div').slideToggle();
+			jQuery(this).parent('ul').find('li').slideToggle();
+			jQuery(this).parent('ul').find('pre').slideToggle();
+	
+	});	
+	
+});
+</script>
+
+
+<?php if (Mage::getSingleton('customer/session')->isLoggedIn()==0): ?>
+
+<?php else: ?>
+<?php
+				$customer = Mage::getSingleton('customer/session')->getCustomer();
+ $zz=   $customer->getCompanyName(); // Full Name
+if($zz=="")
+{
+?>
+
+<script>
+    jQuery(document).ready(function(){
+           
+       jQuery('.footer ul > li:nth-child(7)').hide();
+	   jQuery('.myaccount_links .links ul > li:nth-child(7)').hide();
+       	  jQuery('.block-content ul > li:nth-child(1)').hide();
+           jQuery('.block-content ul > li:nth-child(4)').remove();
+           jQuery('.block-content ul > li:nth-child(2)').remove();
+            jQuery('.block-content ul > li:nth-child(6)').hide();
+            jQuery('.block-content ul > li:nth-child(7)').hide();
+             jQuery('.block-content ul > li:nth-child(8)').hide();
+              jQuery('.block-content ul > li:nth-child(9)').hide();
+             jQuery('.block-content ul > li:nth-child(10)').hide();
+              jQuery('.block-content ul > li:nth-child(11)').hide();
+               jQuery('.block-content ul > li:nth-child(12)').hide();
+                     jQuery('.block-content ul > li:nth-child(13)').hide();
+                       jQuery('.block-content ul > li:nth-child(14)').hide();
+                        jQuery('.block-content ul > li:nth-child(15)').remove();
+                       jQuery('.block-content ul > li:nth-child(16)').remove();
+                        jQuery('.block-content ul > li:nth-child(17)').remove();
+                       
+
+
+
+      });
+    </script>  
+
+<?php
+
+}
+?>
+
+
+<?php
+
+if($zz!="")
+{
+?>
+
+<script>
+    jQuery(document).ready(function(){
+           
+      jQuery('.myaccount_links ul > li:nth-child(1)').hide();
+	   jQuery('.myaccount_links ul > li:nth-child(2)').hide();
+	jQuery('.block-content ul > li:nth-child(2)').hide();
+             jQuery('.block-content ul > li:nth-child(4)').hide();
+             jQuery('.block-content ul > li:nth-child(5)').hide();
+              jQuery('.block-content ul > li:nth-child(6)').hide();
+                   jQuery('.block-content ul > li:nth-child(7)').hide();
+                   jQuery('.block-content ul > li:nth-child(8)').hide();
+                   jQuery('.block-content ul > li:nth-child(9)').hide();
+                    jQuery('.block-content ul > li:nth-child(10)').hide();
+                   jQuery('.block-content ul > li:nth-child(11)').hide();
+                     jQuery('.block-content ul > li:nth-child(12)').hide();
+                     jQuery('.block-content ul > li:nth-child(13)').hide();
+                    // jQuery('.block-content ul > li:nth-child(15)').hide();
+                       //jQuery('.block-content ul > li:nth-child(15)').hide();
+                      jQuery('.block-content ul > li:nth-child(17)').hide();
+                        jQuery('.block-content ul > li:nth-child(18)').hide();
+
+
+      });
+    </script>  
+
+<?php
+
+}
+?>
+   <?php endif ?>
+
+
+
+

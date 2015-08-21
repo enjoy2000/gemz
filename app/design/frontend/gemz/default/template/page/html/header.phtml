@@ -1,0 +1,457 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+
+<div class="blackoverlay"></div>
+<div id="showterms"><a class="closepopup" href="javascript:;">x</a><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('terms')->toHtml(); ?></div>
+
+
+<div class="header-language-background">
+  <div class="header-language-container">
+    <div class="store-language-container"> <?php echo $this->getChildHtml('store_language') ?> </div>
+    <?php //echo $this->getChildHtml('currency_switcher') ?>
+    
+    <!--<p class="welcome-msg"><?php //echo $this->getChildHtml('welcome') ?> <?php //echo $this->getAdditionalHtml() ?></p>--> 
+    
+  </div>
+</div>
+
+<style>
+
+
+.fmrs-bsize-ss.fmrs-bdes-ss2.fmrs-button-host {
+    float: right;
+}
+</style>
+
+
+
+<header id="header" class="page-header">
+  <div class="page-header-container"> 
+  
+  	<div class="top_left">
+	<a class="logo" href="<?php echo $this->getUrl('') ?>"> <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="large" /> <img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small" /> </a>
+   
+</div>
+
+
+	<div class="top_right">
+	<div class="top_links">
+ 
+   <h5 class="slogan"><!--<img src="<?php //echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>frontend/gemz/default/images/slogan-new.png" />-->
+   Purchase Fine Jewelry Direct From Designers
+   </h5>
+    <div class="myaccount_links"> <?php echo $this->getChildHtml('topLinks') ?> </div>
+    
+    <div class="cartmenu"><a title="Wishlist" href="<?php echo $this->getUrl('wishlist') ?>" class="addtocart"><!--<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>frontend/rwd/default/images/addtowishlist.png" />--></a> <?php echo $this->getChildHtml('minicart_head'); ?> </div>
+    
+    <div id="header-search" class="skip-content"><?php echo $this->getChildHtml('topSearch') ?> <a href="javascript:;" class="search_togglebutton">&nbsp;</a></div>
+    
+    <div class="clear"></div>
+
+</div>
+  
+   <?php // In order for the language switcher to display next to logo on smaller viewports, it will be moved here.
+              // See app.js for details ?>
+    <div class="store-language-container"></div>
+    <div class="social_media_icon">
+        <a href="http://instagram.com/gemz.gallery/" class="instagram" title="Instagram"></a> 
+        <a href="https://plus.google.com/100916448292850023244" rel="publisher" class="googleplus" title="Google plus"></a> 
+        <a href="http://www.pinterest.com/gemzgallery0092/" class="printrest" title="pinterest"></a> 
+        <a href="https://www.facebook.com/gemzgaller?ref=hl" class="facebook" title="Facebook"></a> 
+        <a href="https://twitter.com/GEMZGALLERY" class="twitter" title="Twitter"></a> 
+     </div>
+     
+     <div class="mob_menu"> <a href="javascript:;" class="menu">Menu</a> </div>
+     <div id="header-nav" class="skip-content">
+    <!-- <a href="mailto:dh@gemz.gallery" target="_blank" class="alretbell" title="Our Concierge Can Help"><img src="<?php echo  $this->getSkinUrl('images/concierge_icon.png');?>" ></a>-->
+  	<div class="navoverlay"></div>
+    <div class="container"> <?php //echo $this->getChildHtml('topMenu') ?>
+    
+    <!--
+    	<nav>
+   
+<?php
+//$exporter = new XmlCreateCategoryTree();
+?>
+<div class="clear"></div>
+</nav>-->
+
+
+
+
+
+<?php
+
+    echo $this->getLayout()->createBlock('core/template')->setTemplate('includes/menu.phtml')->toHtml();
+
+    ?>
+
+
+    
+      
+    </div>
+    
+    <!-- <div class="menu3_overlay"></div>--> 
+  </div>
+     
+      <!-- Account -->
+    
+    <div id="header-account" class="skip-content"> <?php echo $this->getChildHtml('topLinks') ?> </div>
+    
+    <!-- Cart --> 
+     
+	<div class="clear"></div>
+	</div>
+  
+   
+    <!-- Skip Links --> 
+    
+    <!--<div class="skip-links">
+            <a href="#header-nav" class="skip-link skip-nav">
+                <span class="icon"></span>
+                <span class="label"><?php echo $this->__('Menu'); ?></span>
+            </a>
+
+            <a href="#header-search" class="skip-link skip-search">
+                <span class="icon"></span>
+                <span class="label"><?php echo $this->__('Search'); ?></span>
+            </a>
+
+            <a href="#header-account" class="skip-link skip-account">
+                <span class="icon"></span>
+                <span class="label"><?php echo $this->__('Account'); ?></span>
+            </a>
+
+           
+
+            <div class="header-minicart">
+                <?php echo $this->getChildHtml('minicart_head'); ?>
+            </div>
+
+
+        </div>
+--> 
+    <!-- Search --> 
+    
+   
+    
+    <!-- <div id="header-cart" class="skip-content">
+            <div class="mini-cart">
+                <div class="menu-wrapper">
+                    <div class="menu cart-menu">
+                        <div class="empty">Your cart is empty.</div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <br class="clear" />
+<!--this is your button -->
+<!--FMRS-BUTTON:BEGIN-->
+<link   href='//static.findmyringsize.com/shared/buttons/fmrs-buttons.css' rel='stylesheet' type='text/css' />
+<a id='ringsizer' class='fmrs-bsize-ss fmrs-bdes-ss2  fmrs-button-host'  alt='Find Your Ring Size' href='//debbihensling.findmyringsize.com' target='_blank' >Find Your Ring Size</a> 
+<!--FMRS-BUTTON:END-->
+    <div class="clear"></div>
+  </div>
+  
+  <!-- Navigation -->
+   <?php
+  
+
+ 
+
+ 
+class XmlCreateCategoryTree
+{
+    function __construct()
+    {
+    
+        $this->createCategoryTree();
+    }
+ 
+    public function createCategoryTree()
+    {
+        echo "<ul>";
+       echo '<li  class="menu0"><a href="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'"  category">Home</a>';
+        $id = 2;
+        $categories = $this->getCategories($id);
+        if($categories[0]['name'] != ''){
+            $b=0;
+            foreach($categories as $category){
+                $b++;
+                 echo '<li class="menu'.$b.'"><a href="'.$category['url'].'" title="View the products the "'.$category['name'].'" category">'.$category['name'].'</a><span class="mob_dropdown"></span>';
+                //echo $category['url']."\n77";
+                $sub_categories = $this->getCategories($category['id']);
+                if($sub_categories[0]['name'] != ''){
+                    	$a=0;
+                    	echo "<div class='nav_wrapper'>";
+                    	echo "<div class='container'>";
+                        foreach($sub_categories as $sub_category){
+                            $a++;
+                             echo ' <div class="col'.$a." ".$sub_category['name'].' colum"><h1>'.$sub_category['name'].'</h1>';
+                             
+                       // echo '---'.$sub_category['name']."\n";
+                        $sub_sub_categories = $this->getCategories($sub_category['id']);
+                        if($sub_sub_categories[0]['name'] != ''){
+                             echo "<ul>";
+                                echo "<div class='rightside'>";
+                            $ccc=0;
+                            foreach($sub_sub_categories as $sub_sub_category){
+                                $ccc++;
+                                if($ccc>9)
+                                {
+                                      echo '<li class="sub_cat"><a href="'.$sub_sub_category['url'].'" >'.$sub_sub_category['name'].'</a></li>';
+                                }
+                              //  echo "--- ---".$sub_sub_category['name']."\n";
+                              
+                            }
+                             echo "</div>";
+                            echo "<div class='leftside'>";
+                            $ccc=0;
+                            foreach($sub_sub_categories as $sub_sub_category){
+                                $ccc++;
+                                if($ccc<=9)
+                                {
+                                      echo '<li class="sub_cat"><a href="'.$sub_sub_category['url'].'?abbc" >'.$sub_sub_category['name'].'</a></li>';
+                                }
+                              //  echo "--- ---".$sub_sub_category['name']."\n";
+                              
+                            }
+                             echo "</div>";
+                         
+                             echo "</ul>";
+                        }
+                         echo "</div> ";
+                    }
+                    	 echo "<div class='clear'></div></div></div>";
+	
+   
+                }
+                  echo '</li>';
+            }
+        }
+         echo "</ul>";
+    }
+    
+     
+    private function getCategories($id){
+        $children = Mage::getModel('catalog/category')->getCategories($id);
+        $cat = array();
+        foreach ($children as $category){
+            $cat['name'] = $category->getName();
+            $cat['id'] = $category->getId();
+            $cat['url'] = Mage::getModel("catalog/category")->load($category->getId())->getUrl();
+            $allCat[] = $cat;
+        }
+        return $allCat;
+    }
+}
+  
+  
+
+      
+  ?>    
+  
+</header>
+
+<?php /* ?>
+<!--for slider --> 
+<script>
+jQuery(document).ready(function() {
+jQuery('.bxslider').bxSlider({
+auto: true,
+infiniteLoop: true,
+hideControlOnEnd: true,
+pager: false,
+});
+});
+</script>
+<?php
+$routeName = Mage::app()->getRequest()->getRouteName();
+$identifier = Mage::getSingleton('cms/page')->getIdentifier();
+ 
+if($routeName == 'cms' && $identifier == 'home') { ?>
+<ul class="bxslider">
+  <?php
+	$model = Mage::getModel("sslider/sslider")->getCollection(); 
+
+	foreach ($model as $item) {
+
+	?>
+  <li>
+    <div class="slider"><a href="<?php echo $item->getUrl(); ?>"> <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$item->getImage(); ?>" ></a>
+      <div class="caption"> <?php echo $item->getContent(); ?> </div>
+    </div>
+  </li>
+  <?php
+
+	}
+
+?>
+</ul>
+<?php
+} 
+?>
+<!-- End Slide --> 
+
+<?php */ ?>
+<?php
+$routeName = Mage::app()->getRequest()->getRouteName();
+$identifier = Mage::getSingleton('cms/page')->getIdentifier();
+ 
+if($routeName == 'cms' && $identifier == 'home') { ?>
+<div class="header-image-block">
+
+<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('header-image-block1')->toHtml();?>
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('header-image-block2')->toHtml();?>
+<div class="clear">&nbsp;</div>
+</div>
+<?php
+} 
+?>
+<script>
+jQuery(document).ready(function(){
+    
+
+    
+			window.onorientationchange = function()
+		{
+		   window.location.reload();
+		}
+});
+
+jQuery(document).ready(function (){
+	jQuery('.search_togglebutton').click(function() {
+		jQuery(this).hide();
+		jQuery('#header-search .search-button').toggleClass('active');
+		jQuery('#header-search').addClass('expand');
+	});
+	
+	jQuery('.myaccount_links .last a').click(function() {
+		jQuery('.lgoin_dropdown').slideToggle('fast');
+	});
+	
+	
+	jQuery('.cartmenu .cart').click(function() {
+		jQuery('.cartlist').show('fast');
+	});
+	
+	jQuery('.closepopup').click(function() {
+		jQuery('.cartlist').hide();
+	});
+	
+
+	
+	/*if (jQuery(window).width() > 1025){
+		
+		jQuery(window).bind("scroll", function() {
+		    if (jQuery(this).scrollTop() > 142) {
+		        jQuery("#header-nav").addClass('navfixed');
+		    }else {
+	        jQuery("#header-nav").removeClass('navfixed');
+	    }
+		
+	});
+	
+	}*/
+	
+	if (jQuery(window).width() > 770){
+	jQuery('#header-nav nav ul li').on('mouseenter', function() {
+			jQuery(this).addClass('active');
+			jQuery('#header-nav nav ul li ul li').removeClass('active');
+		});
+		
+		jQuery('#header-nav nav ul li').on('mouseleave', function() {
+				jQuery(this).removeClass('active');
+	});
+		
+	
+	}
+	
+	
+	if (jQuery(window).width() < 769){
+	
+	jQuery('#header-nav nav ul li .mob_dropdown').click(function(){
+			jQuery('#header-nav nav ul li ul li').removeClass('active');
+			jQuery(this).next('.nav_wrapper').slideToggle();
+	});
+	
+	jQuery('.login-mobile span').click(function(){
+			jQuery(this).removeClass('active');
+			jQuery('.lgoin_dropdown').slideToggle();
+	});
+	
+	
+	}
+	
+	jQuery('.mob_menu').click(function() {
+		jQuery('.skip-content').slideToggle();
+    jQuery('.skip-content li.has-sub > a').click(function(e){
+        e.preventDefault();
+
+        jQuery(this).parent().find('ul.sub').slideToggle();
+    });
+	});
+	
+	jQuery('.col-main .std h1:first-child').addClass('title');
+	
+	jQuery('.bx-viewport .caption em a').click(function (){
+		jQuery('#habla_oplink_a').trigger('click');
+	});	
+	
+	
+	
+
+});
+</script> 
+<?php echo $this->getChildHtml('topContainer'); ?> 
+
+
+
+
+
+
+<!--this is your pop-up ring sizer magic : put this on the bottom of your page before your <\body> tag -->
+<!--FMRS-POPUP:BEGIN -->
+<script type='text/javascript'>
+    var host = (("https:" == document.location.protocol) ? "https://" : "http://"); document.write(unescape("%3Cscript src='" + host + "findmyringsize.com/Shared/Embed/fmrs-1.0.js' type='text/javascript'%3E%3C/script%3E"));	
+</script>
+
+<script>
+    var ringsizer = new FMRS();
+    ringsizer.initialize({
+        'client': 'debbihensling',
+        'mode': 'overlay',
+        'overlaySettings': { boxTheme: 'facebook', shadowOverlay: true }
+    });
+    ringsizer.bind();
+</script>
+
+<!--FMRS-POPUP:END-->

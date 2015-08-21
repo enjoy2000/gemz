@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<config>
+    <sections>					
+        <customer>
+            <groups>
+                <profileimage_group translate="label">
+                    <label>Profileimage Thumbnail</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <profileimage_field_width translate="label tooltip comment">
+                            <label>Profileimage Width</label>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                            <comment>Adjust the width of the Profile image</comment>
+                        </profileimage_field_width>
+                        <profileimage_field_height translate="label tooltip comment">
+                            <label>Profileimage Height</label>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                            <comment>Adjust the height of the Profile image</comment>
+                        </profileimage_field_height>
+                    </fields>
+                </profileimage_group>
+                <profileimage_widget translate="label">
+                    <label>Profileimage Upload Widget</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label tooltip comment">
+                            <label>Enable Profileimage Upload</label>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <comment>Upload Button will appear for Customer Account Registration Form</comment>
+                        </enabled>
+                    </fields>
+                </profileimage_widget>
+            </groups>
+        </customer>
+    </sections>
+</config>

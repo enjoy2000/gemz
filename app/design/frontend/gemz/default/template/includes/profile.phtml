@@ -1,0 +1,130 @@
+	<div class="profileimage-wrapper">
+    	<div class="left">
+        	<div class="userinfo">
+            	<strong> <?php
+                    $customer = Mage::getSingleton('customer/session')->getCustomer();
+ 
+
+ echo    $customer->getName(); // Full Name
+
+                    ?></strong>
+                <div class="profilepic">
+				     <?php
+ $customer = Mage::getSingleton('customer/session')->getCustomer();
+        if($customer){
+            $customerObj = Mage::getModel('customer/customer')->load($customer->getId());
+            if($profileimage = $customerObj->getSstechProfileimage()){
+			
+      $img=  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."customer".$this->_profileimage = $profileimage; 
+	  ?>
+	  <img src="<?php echo $img; ?>" />
+	  <?php
+            }else{
+                $this->_profileimage = null;     
+            }
+        }
+
+?>
+				</div>
+                <div class="info">
+				<?php
+				$customer = Mage::getSingleton('customer/session')->getCustomer();
+ echo    $customer->getCompanyDescription(); // Full Name
+
+                    ?>
+				</div>
+            </div>
+        </div>
+        
+        
+    	<div class="right">
+        	<h2>Jewelry box</h2>
+        	<ul>
+            	
+				<?php
+					   
+					   
+					 
+
+        $limit = 5;
+       $starting_from = 0;
+	   
+       $product_collection = Mage::getModel('catalog/product')->getCollection()
+       ->addAttributeToSelect('*') // add all attributes - optional
+	   ->setOrder('name', 'asc')
+	   ->addAttributeToFilter('status',1)
+		->addAttributeToFilter('seller_id',$customer->getId())
+		//->setPage(2, 3);
+		; 
+
+		/* populate toolbar collection with your collection */
+		// $toolbar = Mage::getBlockSingleton('catalog/product_list')->getToolbarBlock();
+		// $toolbar->setCollection($product_collection);
+
+		//echo $toolbar->toHtml();  // to Show toolbar
+
+
+		//getting the product collection, results are ordered by product name
+
+		// $product_collection->getSelect()->limit($limit,$starting_from);   
+
+		//where $limit will be the number of results we want, $starting_from will be the index of the result set to be considered as starting point (note 0 is the index of first row)
+		//this will ouptput 5 records starting from 1rd record
+
+       foreach($product_collection as $_product)
+       { ?>
+	   
+			<li>
+			<a href="<?php echo $_product->getProductUrl(); ?>"><img src="<?php echo $_product->getImageUrl(); ?>" alt="<?php echo $_product->getName();?>" /></a>
+            <span>
+            <?php echo $_product->getShortDescription(); ?>
+            <a href="<?php echo $_product->getProductUrl(); ?>">View</a>
+            </span>
+			</li>
+			  
+			<?php } ?>
+			
+			
+                <div class="clear"></div>
+            </ul>
+            
+            
+        </div>
+
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54a1229723eb1f28" async="async"></script>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_sharing_toolbox"></div>
+        <div class="clear"></div>
+    </div>
+
+	
+<?php /*
+  //for addtofavorites
+	$cid=$customer->getId();
+    $resource = Mage::getSingleton('core/resource');
+    $readConnection = $resource->getConnection('core_read');
+   
+    $query = "SELECT * FROM addtofavorites where customer_id = $cid";
+
+    $results = $readConnection->fetchAll($query);
+	
+	foreach($results as $test)
+	{
+    $prid = $test['product_id'];
+	$product_collection = Mage::getModel('catalog/product')->getCollection()
+	 ->addAttributeToSelect('*')
+    ->addAttributeToFilter('entity_id', $prid)
+    ;
+?>
+<li>
+			<a href="<?php echo $product_collection->getFirstItem()->getProductUrl(); ?>"><img src="<?php echo $product_collection->getFirstItem()->getImageUrl(); ?>" alt="<?php echo $product_collection->getFirstItem()->getName();?>" /></a>
+			</li>
+<?php
+	}
+	 
+	 
+
+
+*/
+
+?>

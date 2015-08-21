@@ -1,0 +1,361 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Add Jewelry') ?></h1>
+</div>
+<!-- Navigation -->
+
+
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<form action="<?php echo $this->getUrl('*/*/save') ?>" method="post" id="form-validate" enctype="multipart/form-data">
+
+    <!-- Hidden inputs for additional information -->
+    <input type="hidden" name="product[name]" id="name" value="Jewelry"
+           title="<?php echo $this->__('Product Name') ?>" class="input-text required-entry"/>
+    <input type="hidden" name="product[description]" id="description" value="Jewelry Description"
+           title="<?php echo $this->__('Product Name') ?>" class="input-text required-entry"/>
+    <input type="hidden" name="product[stock_data][is_in_stock]" value="1" />
+    <input type="hidden" name="product[tax_class_id]" value="0" />
+           
+    <div class="fieldset">
+        <?php echo $this->getBlockHtml('formkey') ?>
+        <h2 class="legend"><?php echo $this->__('Product Information') ?></h2>
+        <ul class="form-list">
+            <li>
+                <div class="field">
+                    <label for="category" class="required"><em>*</em><?php echo $this->__('Product Category') ?></label>
+
+                    <div class="input-box">
+                        <select name="product[category_ids][]" id="category" class="required-entry select multiselect"
+                                multiple="multiple">
+                            <option value="0"><?php echo $this->__('Please Select Category--'); ?></option>
+                            <?php
+                            $categoriesArray = Mage::getModel('catalog/category')
+                                ->getCollection()
+                                ->addAttributeToSelect('name')
+                                ->addAttributeToFilter('level', 2) // select top categories only
+                                ->addAttributeToSort('path', 'asc')
+                                ->addFieldToFilter('is_active', array('eq' => '1'))
+                                ->load()
+                                ->toArray();
+
+                            $categories = [];
+                            foreach ($categoriesArray as $categoryId => $category) {
+                                if (isset($category['name'])) {
+                                    $categories[] = array(
+                                        'label' => $category['name'],
+                                        'level' => $category['level'],
+                                        'value' => $categoryId
+                                    );
+                                }
+                            }
+                            foreach ($categories as $cat) {
+                                ?>
+
+                                <option 
+                                    <?php
+                                    if (in_array($cat['value'], $this->getFormData()->getCategoriesIds())) {
+                                        echo "selected=selected";
+                                    }
+                                    ?>
+                                    value="<?php echo $cat['value']; ?>"><?php echo $cat['label'] ?></option>
+
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <!--<div class="field">
+                    <label for="name" class="required"><em>*</em><?php echo $this->__('Product Name') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="product[name]" id="name" value="<?php echo $this->getFormData()->getName(); ?>" title="<?php echo $this->__('Product Name') ?>" class="input-text required-entry" />
+                    </div>
+                </div>-->
+            </li>
+            <!--  <li>
+                <div class="field">
+                    <label for="description" class="required"><em>*</em><?php echo $this->__('Description') ?></label>
+                    <div class="input-box">
+                        <textarea name="product[description]" id="description" class="input-text required-entry" title="<?php echo $this->__('Description') ?>" rows="4" ><?php echo $this->getFormData()->getDescription(); ?></textarea>
+                    </div>
+                </div> 
+            </li>  -->
+            <li>
+                <div class="field">
+                    <label for="short_description"
+                           class="required"><em>*</em><?php echo $this->__('Short Description') ?></label>
+
+                    <div class="input-box">
+                        <textarea name="product[short_description]" id="short_description"
+                                  class="input-text required-entry" title="<?php echo $this->__('Short Description') ?>"
+                                  rows="4"><?php echo $this->getFormData()->getDescription(); ?></textarea>
+                    </div>
+                </div>
+            </li>
+
+
+            
+
+
+            <input type="hidden" name="product[delivery_time]" id="delivery_time"
+                   value="<?php echo $this->getFormData()->getDeliveryTime(); ?>"
+                   title="<?php echo $this->__('Delivery Time') ?>" class="input-text"/>
+
+            <!-- <li>
+                <div class="field">
+                    <label for="delivery_time"><?php echo $this->__('Delivery Time') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="product[delivery_time]" id="delivery_time" value="<?php echo $this->getFormData()->getDeliveryTime(); ?>" title="<?php echo $this->__('Delivery Time') ?>" class="input-text" />
+                    </div>
+                </div> -->
+            <!--<div class="field">
+                    <label for="shipping_charges"><?php //echo $this->__('Shipping Charges') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="product[shipping_charges]" id="shipping_charges" value="<?php echo $this->getFormData()->getShippingCharges(); ?>" title="<?php echo $this->__('Shipping Charges') ?>" class="input-text" />
+                    </div>
+                </div>
+            </li>-->
+            <li>
+                <div class="field">
+                    <label for="sku" class="required"><em>*</em><?php echo $this->__('SKU') ?></label>
+
+                    <div class="input-box">
+                        <input type="text" name="product[sku]" id="sku"
+                               value="<?php echo $this->getFormData()->getSku(); ?>"
+                               title="<?php echo $this->__('SKU') ?>" class="input-text required-entry"/>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="price" class="required"><em>*</em><?php echo $this->__('Price') ?></label>
+
+                    <div class="input-box">
+                        <input type="text" name="product[price]" id="price"
+                               value="<?php echo $this->getFormData()->getPrice(); ?>"
+                               title="<?php echo $this->__('Price') ?>"
+                               class="input-text required-entry validate-number"/>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="qty" class="required"><?php echo $this->__('Availability') ?></label>
+
+                    <div class="input-box">
+                        <input name="product[availability]" id="availability" type="text" value="<?php echo $this->getFormData()->getAvailability() ?>" />
+                    </div>
+                </div>
+            </li>
+            <input type="hidden" name="product[weight]" id="weight" value="0" title="<?php echo $this->__('Weight') ?>"
+                   class="input-text required-entry validate-number"/>
+            <!--  <li>
+                <div class="field">
+                    <label for="stock" class="required"><em>*</em><?php echo $this->__('Stock') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="product[qty]" id="qty" value="<?php echo $this->getFormData()->getQty(); ?>" title="<?php echo $this->__('Stock') ?>" class="input-text required-entry validate-number" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="weight" class="required"><em>*</em><?php echo $this->__('Weight') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="product[weight]" id="weight" value="<?php echo $this->getFormData()->getWeight(); ?>" title="<?php echo $this->__('Weight') ?>" class="input-text required-entry validate-number" />
+                    </div>
+                </div>
+            </li>
+        </ul>-->
+    </div>
+    <div class="field2 field">
+        <div class="upload-head">
+            <label for="image" class="required"><?php echo $this->__('Upload Image') ?></label>
+        </div>
+        <div class="input-box">
+            <input type="hidden" name="product[image][new]" value="1"/>
+            <table class="marketplace-image data-table">
+                <tr>
+                    <th><?php echo $this->__('Image') ?></th>
+                    <td><input multiple type="file" id="product-image" name="image[]"
+                               title="<?php echo $this->__('Image') ?>" class="input-text"/></td>
+                </tr>
+
+            </table>
+            <b><span
+                    class="img-format"><?php echo $this->__('(Small Image / Thumbnail Image : Allowed upto ' . Mage::helper('marketplace')->getNewProductUploadImageSize() . ' bytes and jpg, jpeg, png & gif format)') ?></span></b>
+        </div>
+        <ul>
+            <li>
+                <div class="field">
+                    <label for="metal"><em></em><?php echo $this->__('Style') ?></label>
+
+                    <div class="input-box">
+                        <?php
+
+
+                        $attribute_code = "style";
+                        $attribute_details = Mage::getSingleton("eav/config")->getAttribute("catalog_product", $attribute_code);
+                        $options = $attribute_details->getSource()->getAllOptions(false);
+                        echo '<select class=" select" name="product[style]" id="style">';
+                        echo '<option value="">--Select--</option>';
+                        foreach ($options as $option) {
+                            ?>
+
+
+                            <option value="<?php echo $option["value"]; ?>"><?php echo $option["label"]; ?></option>
+
+                        <?php
+
+                        }
+                        echo '</select>';
+                        ?>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="field">
+                    <label for="metal"><em></em><?php echo $this->__('Metal') ?></label>
+
+                    <div class="input-box">
+                        <?php
+                        $attribute_code = "metal";
+                        $attribute_details = Mage::getSingleton("eav/config")->getAttribute("catalog_product", $attribute_code);
+                        $options = $attribute_details->getSource()->getAllOptions(false);
+                        echo '<select class=" select" name="product[metal]" id="metal">';
+                        echo '<option>--Select--</option>';
+                        foreach ($options as $option) {
+                            ?>
+
+
+                            <option <?php echo ($option["value"] == $this->getFormData()->getMetal()) ? 'selected="selected"' : '' ?> value="<?php echo $option["value"]; ?>"><?php echo $option["label"]; ?></option>
+
+                        <?php
+
+                        }
+                        echo '</select>';
+                        ?>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="field">
+                    <label for="Stone"><em></em><?php echo $this->__('Stone') ?></label>
+
+                    <div class="input-box">
+                        <?php
+                        $attribute_code = "stone";
+                        $attribute_details = Mage::getSingleton("eav/config")->getAttribute("catalog_product", $attribute_code);
+                        $options = $attribute_details->getSource()->getAllOptions(false);
+                        $stones = explode(',', $this->getFormData()->getStone());
+                        echo '<select class=" select" multiple name="product[stone][]" id="stone">';
+                        echo '<option>--Select--</option>';
+                        foreach ($options as $option) {
+                            ?>
+
+
+                            <option <?php echo (in_array($option["value"], $stones)) ? 'selected="selected"' : '' ?> value="<?php echo $option["value"]; ?>"><?php echo $option["label"]; ?></option>
+
+                        <?php
+
+                        }
+                        echo '</select>';
+                        ?>
+                    </div>
+                </div>
+            </li>
+
+
+            <li>
+                <div class="field">
+                    <label for="pricerange"><em></em><?php echo $this->__('Price Range') ?></label>
+
+                    <div class="input-box">
+                        <?php
+
+
+                        $attribute_code = "pricerange";
+                        $attribute_details = Mage::getSingleton("eav/config")->getAttribute("catalog_product", $attribute_code);
+                        $options = $attribute_details->getSource()->getAllOptions(false);
+                        echo '<select class=" select" name="product[pricerange]" id="pricerange">';
+                        echo '<option>--Select--</option>';
+                        foreach ($options as $option) {
+                            ?>
+
+
+                            <option <?php echo ($option["value"] == $this->getFormData()->getPricerange()) ? 'selected="selected"' : '' ?> value="<?php echo $option["value"]; ?>"><?php echo $option["label"]; ?></option>
+
+                        <?php
+
+                        }
+                        echo '</select>';
+                        ?>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="field">
+                    <label for="stone-size-weight"><em></em><?php echo $this->__('Stone Size & Weight') ?></label>
+
+                    <div class="input-box">
+                        <input name="product[stone_size_weight]" id="stone-size-weight" type="text" value="<?php echo $this->getFormData()->getStoneSizeWeight() ?>" />
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <div class="field">
+                    <label for="stone-measurements-weight"><em></em><?php echo $this->__('Measurements') ?></label>
+
+                    <div class="input-box">
+                        <input name="product[measurements]" id="measurements" type="text" value="<?php echo $this->getFormData()->getMeasurements() ?>" />
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+
+        <p class="back-link">
+            <a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>">
+                <small>&laquo; </small>
+                <?php echo $this->__('Back') ?>
+            </a>
+        </p>
+        <button type="submit" title="<?php echo $this->__('Save') ?>" class="button">
+            <span><span><?php echo $this->__('Save') ?></span></span></button>
+    </div>
+</form>
+<?php echo $this->helper('core/js')->getTranslatorScript() ?>
+
+<script language="javascript" type="text/javascript">
+    window.onload = function () {
+        if (document.getElementById('page_content')) {
+            if (document.getElementById('page_content').value == '') {
+                document.getElementById('page_content').value = "<p>Page Content</p>";
+            }
+        }
+    }
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    var productForm = new VarienForm('form-validate', true);
+</script>

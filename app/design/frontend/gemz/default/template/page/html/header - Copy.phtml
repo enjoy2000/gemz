@@ -1,0 +1,290 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+<div class="header-language-background">
+    <div class="header-language-container">
+        <div class="store-language-container">
+            <?php echo $this->getChildHtml('store_language') ?>
+        </div>
+
+        <?php //echo $this->getChildHtml('currency_switcher') ?>
+
+        <!--<p class="welcome-msg"><?php //echo $this->getChildHtml('welcome') ?> <?php //echo $this->getAdditionalHtml() ?></p>-->
+        
+        
+        
+        
+    </div>
+</div>
+<div class="top_links">
+<div class="container">
+		
+        <div id="header-search" class="skip-content">
+            <?php echo $this->getChildHtml('topSearch') ?>
+        </div>   
+        
+        	<div class="myaccount_links">
+  <?php echo $this->getChildHtml('topLinks') ?>
+  
+            </div>
+			
+             
+			                 
+		
+<div class="clear"></div>                                	
+</div>
+</div>
+
+<header id="header" class="page-header">
+    <div class="page-header-container">
+        <a class="logo" href="<?php echo $this->getUrl('') ?>">
+            <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="large" />
+            <img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small" />
+        </a>
+
+		<h5 class="slogan">Where exquisite taste in fine jewelry and talent meet.</h5>
+		
+        <?php // In order for the language switcher to display next to logo on smaller viewports, it will be moved here.
+              // See app.js for details ?>
+        <div class="store-language-container"></div>
+
+		<div class="social_media_icon">
+        	<a href="javascript:;" class="instagram" title="Instagram"></a>
+            <a href="javascript:;" class="googleplus" title="Google plus"></a>
+            <a href="javascript:;" class="printrest" title="pinterest"></a>
+        </div>
+        <!-- Skip Links -->
+
+        <!--<div class="skip-links">
+            <a href="#header-nav" class="skip-link skip-nav">
+                <span class="icon"></span>
+                <span class="label"><?php echo $this->__('Menu'); ?></span>
+            </a>
+
+            <a href="#header-search" class="skip-link skip-search">
+                <span class="icon"></span>
+                <span class="label"><?php echo $this->__('Search'); ?></span>
+            </a>
+
+            <a href="#header-account" class="skip-link skip-account">
+                <span class="icon"></span>
+                <span class="label"><?php echo $this->__('Account'); ?></span>
+            </a>
+
+           
+
+            <div class="header-minicart">
+                <?php echo $this->getChildHtml('minicart_head'); ?>
+            </div>
+
+
+        </div>
+-->
+        <!-- Search -->
+
+        
+
+        <!-- Account -->
+		<div class="mob_menu">
+        	<a href="javascript:;" class="menu">Menu</a>
+        </div>
+        
+        <div id="header-account" class="skip-content">
+            <?php echo $this->getChildHtml('topLinks') ?>
+            
+            <div></div>
+        </div>
+
+        <!-- Cart -->
+
+        <!-- <div id="header-cart" class="skip-content">
+            <div class="mini-cart">
+                <div class="menu-wrapper">
+                    <div class="menu cart-menu">
+                        <div class="empty">Your cart is empty.</div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        
+        
+        
+        <div class="clear"></div>
+    </div>
+    
+      <!-- Navigation -->
+
+        <div id="header-nav" class="skip-content">
+           <div class="container"> <?php echo $this->getChildHtml('topMenu') ?>
+           
+	           	<div class="cartmenu">
+				
+				 <?php echo $this->getChildHtml('minicart_head'); ?>
+				<a href="javascript:;" class="cart">
+									<?php
+      $count = $this->helper('checkout/cart')->getSummaryCount();  //get total items in cart
+     // $total = $this->helper('checkout/cart')->getQuote()->getGrandTotal(); //get total price
+      if($count==0)
+      {
+        echo $this->__('(0 ITEMS)',$count);
+      }
+      if($count==1)
+      {
+        echo $this->__('(1 ITEM)',$count);
+      }
+      if($count>1)
+      {
+        echo $this->__('(%s ITMES)',$count);
+      }
+     // echo $this->__('', $this->helper('core')->formatPrice($total, false));
+	  ?>
+				</a>
+                	
+                	<div class="cartlist">
+                    	<a href="javascript:;" class="closepopup">x</a>
+						<div class="clear"></div>
+	
+	  <?php
+	  $items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems();
+
+foreach($items as $item) {
+
+	//echo 'ID: '.$item->getProductId().'<br />';
+	echo 'Name: '.$item->getName().'<br />';
+	echo 'Sku: '.$item->getSku().'<br />';
+	echo 'Quantity: '.$item->getQty().'<br />';
+//	echo 'Price: '.$item->getPrice().'<br />';
+	echo 'Price: '.$formattedPrice = Mage::helper('core')->currency($item->getPrice(), true, false).'<br />';
+	echo "<br />";
+}
+
+    ?>
+					 <div class="minicart-actions">
+             
+                <ul class="checkout-types minicart">
+                   
+                    <li>
+                        <a title="Checkout" class="button checkout-button" href="<?php echo $this->getUrl('checkout/cart'); ?>">
+                            <?php echo $this->__('Checkout') ?>
+                        </a>
+                    </li>
+                </ul>
+            </div>	
+						
+                    </div>
+                </div>
+           </div>
+        </div>
+        
+</header>
+<!--for slider -->
+<script>
+jQuery( document ).ready(function() {
+jQuery('.bxslider').bxSlider({
+auto: true,
+pager: false,
+});
+});
+</script>
+
+
+<?php
+$routeName = Mage::app()->getRequest()->getRouteName();
+$identifier = Mage::getSingleton('cms/page')->getIdentifier();
+ 
+if($routeName == 'cms' && $identifier == 'home') { ?>	
+<ul class="bxslider">
+
+
+<?php
+	$model = Mage::getModel("samratslider/samratslider")->getCollection(); 
+	foreach ($model as $item) {
+	?>
+	<li>
+    <div class="slider">
+   
+   
+    <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$item->getImage(); ?>" >
+ <div class="caption">
+     <?php echo $item->getContent(); ?>
+    </div>
+    </div>
+    </li>
+	<?php
+	
+	}
+
+?>
+</ul>
+
+<?php
+} 
+?>
+<!-- End Slide -->
+<script>
+	jQuery('.search-button').click(function() {
+		jQuery(this).toggleClass('active');
+		jQuery('#header-search').addClass('expand');
+	});
+	
+	jQuery('.myaccount_links .last a').click(function() {
+		jQuery('.lgoin_dropdown').slideToggle('fast');
+	});
+	
+	
+	jQuery('.cartmenu .cart').click(function() {
+		jQuery('.cartlist').show('fast');
+	});
+	
+	jQuery('.closepopup').click(function() {
+		jQuery('.cartlist').hide();
+	});
+	
+	
+	if (jQuery(window).width() > 1024){
+		
+		jQuery(window).bind("scroll", function() {
+		    if (jQuery(this).scrollTop() > 142) {
+		        jQuery("#header-nav").addClass('navfixed');
+		    }else {
+	        jQuery("#header-nav").removeClass('navfixed');
+	    }
+	});
+	
+	}
+	
+	jQuery('.mob_menu').click(function() {
+		jQuery('.skip-content').slideToggle();
+	});
+	
+	
+</script>
+
+<?php echo $this->getChildHtml('topContainer'); ?>

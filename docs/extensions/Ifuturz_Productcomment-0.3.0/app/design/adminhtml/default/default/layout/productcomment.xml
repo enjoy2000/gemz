@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <productcomment_adminhtml_productcomment_index>        
+        <reference name="content">
+            <block type="productcomment/adminhtml_productcomment" name="productcomment"/>
+        </reference>
+    </productcomment_adminhtml_productcomment_index>
+</layout>

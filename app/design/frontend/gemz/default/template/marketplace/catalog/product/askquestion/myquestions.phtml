@@ -1,0 +1,62 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+    echo $this->getMessagesBlock()->getGroupedHtml();
+?>
+<?php $collection = $this->getCollection(); ?>
+<div class="page-title">
+    <h1><?php echo $this->__('My Questions') ?></h1>
+</div>
+<?php echo $this->getPagerHtml(); ?>
+<?php if ($collection->getSize()): ?>
+    <table class="data-table" id="my-question-table">
+        <col width="1" />
+        <col width="1" />
+        <col />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <thead>
+            <tr>
+                <th style="width: 40px;"><?php echo $this->__('SKU#') ?></th>
+                <th style="width: auto;"><?php echo $this->__('Question') ?></th>
+                <th style="width: 80px;"><?php echo $this->__('Product Name') ?></th>
+                <th style="width: 75px;"><?php echo $this->__('Created At') ?></th>
+                <th style="width: 70px;"><?php echo $this->__('Action') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php $_odd = ''; ?>
+            <?php foreach ($collection as $row): ?>
+                <tr>
+                    <td><?php echo $this->helper('marketplace/data')->getSku($row->getProductId()) ?></td>
+                    <td><span class="nobr"><?php echo $row->getQuestion(); ?></span></td>
+                    <td><?php echo $this->helper('marketplace/data')->getProductName($row->getProductId()) ?></td>
+                    <td><?php echo $this->formatDate($row->getCreatedTime()) ?></td>
+                    <td><a href="<?php echo Mage::getBaseUrl() . 'marketplace/productquestion/reply/id/' . $row->getProductId() . '/q_id/' . $row->getEntityId(); ?>"><?php echo $this->__('View / Reply') ?>
+                        </a></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <script type="text/javascript">decorateTable('my-question-table');</script>
+    <?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+    <p><?php echo $this->__('There are no questions.'); ?></p>
+<?php endif ?>

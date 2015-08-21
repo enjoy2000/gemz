@@ -1,0 +1,118 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+
+    $orderId = '';
+    $orderId = $this->getRequest()->getParam('order_id');
+    $_order = Mage::getModel("sales/order")->load($orderId); 
+?>
+<h1><?php echo $this->__('Order #%s', $_order->getRealOrderId()) ?></h1>
+<p class="order-date"><?php echo $this->__('Order Date: %s', $this->formatDate($_order->getCreatedAtStoreDate(), 'long')) ?></p>
+<div class="col2-set">
+    <?php if (!$_order->getIsVirtual()): ?>
+    <div class="col-1">
+        <h2><?php echo $this->__('Shipping Address') ?></h2>
+        <address><?php echo $_order->getShippingAddress()->format('html') ?></address>
+    </div>
+    <div class="col-2">
+    <?php else: ?>
+    <div class="col-1">
+    <?php endif; ?>
+        <h2><?php echo $this->__('Billing Address') ?></h2>
+        <address><?php echo $_order->getBillingAddress()->format('html') ?></address>
+    </div>
+<?php if (!$_order->getIsVirtual()): ?>
+</div>
+<div class="col2-set">
+    <div class="col-1">
+        <h2><?php echo $this->__('Shipping Method') ?></h2>
+         <?php echo $this->escapeHtml($_order->getShippingDescription()) ?>
+    </div>
+<?php endif; ?>
+    <div class="col-2">
+        <h2><?php echo $this->__('Payment Method') ?></h2>
+         <?php echo $_order->getPayment()->getMethodInstance()->getTitle(); ?>
+    </div>
+</div>
+<h2><?php echo $this->__('Items Ordered') ?></h2>
+<table class="data-table" id="my-orders-table">
+    <col />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('Product Name') ?></th>
+            <th><?php echo $this->__('SKU') ?></th>
+            <th class="a-right"><?php echo $this->__('Price') ?></th>
+            <th class="a-center"><?php echo $this->__('Qty') ?></th>
+            <th class="a-right"><?php echo $this->__('Subtotal') ?></th>
+        </tr>
+    </thead>
+    <?php
+       $_count = $subtotal = $shippingCharge = $grandTotal = 0;
+       $orderId = '';
+       $orderId = $this->getRequest()->getParam('order_id');
+       $marketPlaceModel = Mage::getModel('marketplace/order');
+       $orderItemCollection = $marketPlaceModel->getOrderDetails($orderId);
+    ?>
+    <?php //$_items = $_order->getItemsCollection(); ?>
+    <?php $_count = $orderItemCollection->count();?>
+    <?php foreach ($orderItemCollection as $_item):?>
+    <?php if ($_item->getParentItem()) continue; ?>
+    <tbody>
+        <?php echo $this->getItemHtml($_item) ?>
+        <?php $subtotal += (float)$_item->getRowTotal();?>
+        <?php $shippingCharge += (float)$_item->getShippingCharges();?>
+    </tbody>
+    <?php endforeach; ?>
+    <tfoot>
+        <!--Calculate subtotal,shipping charge and grandtotal-->
+                <tfoot>
+                   <tr>
+                       <td><?php echo $this->__('Subtotal') ?></td>
+                       <td>
+                            <?php echo $fomattedSubtotal = Mage::helper('core')->currency($subtotal, true, false);?>
+                       </td>
+                    </tr>
+                    <tr>
+                       <td><?php echo $this->__('Shipping & Handling') ?></td>
+                       <td>
+                          <?php echo $formtattedShipCharge = Mage::helper('core')->currency($shippingCharge, true, false);?>
+                        </td>
+                    </tr>
+                    <tr>
+                      <?php if($subtotal || $shiipingCharge):?>
+                        <td><?php echo $this->__('Grandtotal') ?></td>
+                       <td>
+                          <?php $grandTotal = $subtotal + $shippingCharge;?>
+                          <?php echo $grandTotal = Mage::helper('core')->currency($grandTotal, true, false);?>
+                        </td>
+                      <?php endif;?>
+                    </tr>
+                </tfoot>
+                <!--Calculate subtotal,shipping charge and grandtotal-->
+    </tfoot>
+</table>
+<div class="buttons-set">
+        <button onclick="window.close();" class="button" title="Close Window" type="button"><span><span>Close Window</span></span></button>
+    </div>
+<script type="text/javascript">decorateTable('my-orders-table', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>
+<script type="text/javascript">window.print();</script>

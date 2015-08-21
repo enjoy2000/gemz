@@ -1,0 +1,90 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<?php $collection = $this->getCollection(); ?>
+<div class="dashboard">
+<div class="page-title">
+    <h1><?php echo $this->__('Marketplace - My Products') ?></h1>
+</div>
+<div class="marketplace-account box-recent">
+<div class="marketplace-head page-title">
+    <h2><?php echo $this->__('Product List') ?></h2>
+    <a href="<?php echo $this->getUrl('marketplace/product/add') ?>" class="common-orange-button btn-add-product"><?php echo $this->__('Add Product') ?></a>
+    <div class="clear"></div>
+</div>
+<div style="clear:both"></div>
+<div class="marketplace-account box-recent">
+<?php echo $this->getPagerHtml(); ?>
+<?php if($collection->getSize()): ?>
+<table class="data-table" id="my-custom-table">
+    <col width="1" />
+    <col width="1" />
+    <col />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('ID #') ?></th>
+            <th><?php echo $this->__('SKU') ?></th>
+          <!--  <th><?php echo $this->__('Product name') ?></th>-->
+            <th><?php echo $this->__('Price') ?></th>
+            <th><?php echo $this->__('Status') ?></th>   
+            <th><?php echo $this->__('Created at') ?></th>
+            <th><?php echo $this->__('Action') ?></th>            
+        </tr>
+    </thead>
+    <?php $productModel = Mage::getModel('catalog/product'); // Project object
+         $mstatusAttribute = $productModel->getResource()->getAttribute("marketplace_state"); // Selected attribute object
+   ?>
+    <tbody>
+        <?php $_odd = ''; ?>
+        <?php foreach ($collection as $productData): ?>
+        <?php $productStatus = $mstatusAttribute->getSource()->getOptionText($productData->getMarketplaceState()); // Label of the status  ?> 
+        <?php $createdDate = @explode(" ",$productData->getCreatedAt());  ?> 
+                 
+        <tr> <?php $productId=$productData->getEntityId(); ?>   
+            <td><a href="<?php echo $this->getUrl()."marketplace/product/edit/id/".$productId; ?>"><?php echo $productId ?></a></td>
+            <td><span><?php echo  $productData->getSku(); ?></span></td>
+            <!--<td><span><?php echo  $productData->getName(); ?></span></td>-->
+            <td><span><?php echo Mage::helper('core')->currency($productData->getPrice(),true, false); ?></span></td>
+            <td><span><?php echo $productStatus;  ?></span></td>
+            <td><span><?php echo $createdDate[0] ?></span></td>
+            <td><a href="<?php echo $this->getUrl()."marketplace/product/edit/id/".$productId; ?>"> <?php echo $this->__('Edit') ?></a>&nbsp;|&nbsp;<a href="#" onClick="deleteConfirm('<?php echo $this->getUrl()."marketplace/product/softDelete/id/".$productId;?>')"><?php echo $this->__('Delete') ?></a></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<script type="text/javascript">
+    decorateTable('my-custom-table');
+    function deleteConfirm(location){
+        if(confirm("Are you sure you want to delete this product?")){
+          window.location.href = location;
+        }
+    }
+</script>
+<?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+    <p><?php echo $this->__('You have no products.'); ?></p>
+<?php endif ?>
+</div>
+</div>
+</div>

@@ -1,0 +1,89 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+
+   $orderId = '';
+   $orderId = $this->getRequest()->getParam('order_id');
+   $marketPlaceModel = Mage::getModel('marketplace/marketplace');
+   $orderDetails = $marketPlaceModel->getOrderDetails($orderId);
+   $seller_id = Mage::getSingleton('customer/session')->getId();
+?>
+<?php $_order = Mage::getModel("sales/order")->load($orderId); ?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title title-buttons">
+    <h1><?php echo $this->__('Order #%s - %s', $_order->getRealOrderId(), $_order->getStatusLabel()) ?></h1>
+    <a href="<?php echo $this->getUrl('marketplace/order/printorder',$arguement=array('order_id' => $orderId,'seller_id' => $seller_id)) ?>" class="link-print" onclick="this.target='_blank';"><?php echo $this->__('Print Order') ?></a>
+</div>
+<?php echo $this->getStatusHistoryRssUrl($_order) ?>
+<dl class="order-info">
+    <dt><?php echo $this->__('About This Order:') ?></dt>
+</dl>
+<p class="order-date"><?php echo $this->__('Order Date: %s', $this->formatDate($_order->getCreatedAtStoreDate(), 'long')) ?></p>
+<?php if (!$_order->getIsVirtual()): ?>
+<div class="col2-set order-info-box">
+    <div class="col-1">
+        <div class="box">
+            <div class="box-title">
+                <h2><?php echo $this->__('Shipping Address') ?></h2>
+            </div>
+            <div class="box-content">
+                <address><?php echo $_order->getShippingAddress()->format('html') ?></address>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="box">
+            <div class="box-title">
+                <h2><?php echo $this->__('Shipping Method') ?></h2>
+            </div>
+            <div class="box-content">
+                <?php if ($_order->getShippingDescription()): ?>
+                    <?php echo $this->escapeHtml($_order->getShippingDescription()) ?>
+                <?php else: ?>
+                    <p><?php echo $this->helper('sales')->__('No shipping information available'); ?></p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<div class="col2-set order-info-box">
+    <div class="col-1">
+        <div class="box">
+            <div class="box-title">
+                <h2><?php echo $this->__('Billing Address') ?></h2>
+            </div>
+            <div class="box-content">
+                <address><?php echo $_order->getBillingAddress()->format('html') ?></address>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="box box-payment">
+            <div class="box-title">
+                <h2><?php echo $this->__('Payment Method') ?></h2>
+            </div>
+            <div class="box-content">
+                <?php echo $_order->getPayment()->getMethodInstance()->getTitle(); ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->getChildHtml('items');?>
+<?php echo $this->getChildHtml('selleroptions');?>

@@ -1,0 +1,84 @@
+<?php
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+    $collection = Mage::getModel("marketplace/buyerseller")->getColection();
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="page-title">
+    <h1><?php echo $this->__('Marketplace Orders') ?></h1>
+</div>
+<?php // echo $this->getPagerHtml(); ?>
+<?php if(count($collection)): ?>
+<table class="data-table" id="my-orders-table">
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th><?php echo $this->__('Order #') ?></th>
+            <th><?php echo $this->__('Date') ?></th>
+            <th><?php echo $this->__('Product') ?></th>
+            <th><?php echo $this->__('Comment') ?></th>
+            <th><?php echo $this->__('From') ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $_odd = ''; ?>
+        <?php foreach ($collection as $_order): ?>
+        <tr>
+            <td><?php echo $_order[0]['increment_id'] ?></td>
+            <td><span class="nobr"><?php echo $this->formatDate($_order[0]['created_at']) ?></span></td>
+            <td><?php echo $_order[0]['value'] ?></td>
+            <td><?php echo $_order[0]['comment'] ?></td>
+            <td><em><?php echo $_order[0]['customer_firstname']." ".$_order[0]['customer_lastname'] ?></em></td>
+             
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<script type="text/javascript">decorateTable('my-orders-table');</script>
+<?php //echo $this->getPagerHtml(); ?>
+<form id="question_reply_question_form" method="post" action="<?php echo $this->getBaseUrl().'marketplace/buyerseller/replyquestion'?>" >
+<input type="hidden" name="order_id" value="<?php echo $this->getRequest()->getParam('order')?>" />
+<input type="hidden" name="customer_id" value="<?php echo Mage::getSingleton('customer/session')->getCustomer()->getId();?>" />
+<input type="hidden" name="product_id" value="<?php echo $this->getRequest()->getParam('product')?>"/>
+   <ul class="form-list">
+            <li class="wide">
+                <label for="comment" class=""><?php echo $this->__('Reply') ?><span class="required">*</span></label>
+                <div class="input-box">
+                    <textarea name="reply" id="reply" title="<?php echo $this->__('Reply') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                </div>
+                 <div class="check-box">
+                   <input type="checkbox" name="notify" value="Notify">Notify by email
+                </div>
+            </li>
+        </ul> 
+    <div class="buttons-set">
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button"><span><?php echo $this->__('Submit') ?></span></button>
+    </div>
+</form>
+<?php else: ?>
+    <p><?php echo $this->__('You have received no orders comments.'); ?></p>
+<?php endif ?>
+<script type="text/javascript">
+var myForm = new VarienForm('question_reply_question_form', true);
+</script>

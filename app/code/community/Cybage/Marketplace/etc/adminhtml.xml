@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+-->
+<config>
+    <menu>
+        <marketplace translate="title" module="marketplace">
+            <title>Marketplace</title>
+            <sort_order>71</sort_order>
+            <children>
+                <seller translate="title" module="marketplace">
+                    <title>Manage Sellers</title>
+                    <sort_order>850</sort_order>
+                    <action>marketplace/adminhtml_seller</action>
+                </seller>
+                <orderby translate="title" module="marketplace">
+                    <title>Orders By Each Seller</title>
+                    <sort_order>860</sort_order>
+                    <action>marketplace/adminhtml_orderby</action>
+                </orderby>
+                <commission translate="title" module="marketplace">
+                    <title>Manage Payments</title>
+                    <sort_order>870</sort_order>
+                    <action>marketplace/adminhtml_commission</action>
+                </commission>
+            </children>
+        </marketplace>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <marketplace translate="title">
+                                        <title>Marketplace Section</title>
+                                    </marketplace>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <marketplace translate="title" module="marketplace">
+                        <title>Marketplace</title>
+                        <sort_order>100</sort_order>
+                        <children>
+                            <seller translate="title">
+                                <title>Manage Sellers</title>
+                            </seller>
+                            <orderby translate="title">
+                                <title>Orders By Each Seller</title>
+                            </orderby>
+                            <commission translate="title">
+                                <title>Pending Payment and Commission Report</title>
+                            </commission>
+                        </children>
+                    </marketplace>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

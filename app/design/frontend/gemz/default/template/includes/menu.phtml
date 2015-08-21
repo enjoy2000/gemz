@@ -1,0 +1,152 @@
+<?php
+$rootId = 2;
+$categories = Mage::getModel('catalog/category')->getCategories($rootId);
+?>
+<nav>
+<ul>
+    <li class="menu0">
+        <a category="" href="http://gemz.gallery/">Home</a>
+    </li>
+
+
+    <!-- Add custom menu -->
+    <?php 
+    $sellers = Mage::helper('gemz')->getDesignersForHomeMenu();
+    ?>
+    <li class="has-sub menu1 designers">
+        <a title="<?php echo $this->__('Designers') ?>">
+            <?php echo $this->__('Designers') ?>
+        </a>
+        <ul class="sub">
+            <div class="left">
+            <?php 
+            $iSeller = 1;
+            foreach ($sellers as $seller) : ?>
+                <li>
+                    <?php
+                    $sellerName = ucfirst($seller->getFirstname() . ' ' . $seller->getLastname());
+                    $sellerCompany = $seller->getCompanyName() ? $seller->getCompanyName() : '';
+                    $sellerUrl = $this->getBaseUrl() . "marketplace/" . str_replace(' ', '-', $sellerCompany) . ".html";
+                    ?>
+                    <a data-name="<?php echo $sellerName ?>" title="<?php echo $sellerCompany ?>" href="<?php echo $sellerUrl ?>"><?php echo $sellerCompany ? $sellerCompany : $sellerName; ?></a>
+                </li>
+                <?php if ($iSeller == ceil(count($sellers)/3)) : ?>
+                    </div><div class="middle">
+                <?php elseif ($iSeller == ceil(count($sellers)/3)*2) : ?>
+                    </div><div class="right">
+                <?php endif; ?>
+            <?php 
+            $iSeller++;
+            endforeach; ?>
+                <li style="padding-left: 20px; font-weight: bold;">
+                    <span>
+                        <?php echo $this->__('More') ?>
+                    </span>
+                </li>
+            </div>
+        </ul>
+    </li>
+
+    <?php
+    // style attribute
+    $styleAttribute = Mage::getResourceModel('catalog/product_attribute_collection')
+                    ->addFieldToFilter('is_filterable_in_search', array('gt' => 0))
+                    ->addFieldToFilter('attribute_code', 'style')
+                    ->getFirstItem()
+    ;
+    //var_dump($attributes);die;
+    
+    $i = 2;
+    $layer = Mage::getModel("catalog/layer");
+    foreach ($categories as $category):
+        $categoryUrl = Mage::getModel('catalog/category')->load($category->getId())->getUrl();
+        $layer->setCurrentCategory(Mage::getModel('catalog/category')->load($category->getId()));
+        $filterAttributes = $layer->getFilterableAttributes();
+    ?>
+    <li class="has-sub menu<?php echo $i; echo ($i == $categories->count() + 1) ? ' last' : ''; ?>">
+        <a category"="" <?php echo strtolower($category->getName()) ?>"=""
+            title="View the products in category <?php echo $category->getName() ?>"
+            href="<?php echo $categoryUrl ?>">
+            <?php echo $category->getName() ?>
+        </a>
+        <ul class="sub">
+            <div class="items">
+	            <?php
+	            $options = $styleAttribute->getSource()->getAllOptions(false);
+	            $listStyles = Mage::helper('gemz')->getListStyles();
+	            foreach ($options as $option) :
+	                $attributeLink = $categoryUrl
+	                    . Mage::helper('catalin_seo')->getRoutingSuffix()
+	                    . '/'
+	                    . $styleAttribute->getAttributeCode()
+	                    . '/'
+	                    . Mage::helper('catalin_seo')->urlize($option['label'])
+	                ;
+	            ?>
+	            	<?php if (in_array($option['label'], $listStyles[$category->getName()][style])) : ?>
+		            <li>
+		                <a href="<?php echo $attributeLink ?>" title="<?php echo $option['label'] ?>">
+		                    <?php echo $option['label'] ?>
+		                </a>
+		            </li>
+		    	<?php endif; ?>
+	            <?php endforeach; ?>
+	            <li>
+	                <a href="<?php echo $categoryUrl ?>" title="<?php echo $this->__('View All') ?>">
+	                    <?php echo $this->__('View All') ?>
+	                </a>
+	            </li>
+            </div>
+            
+            <div class="image">
+            	<img src="<?php echo $this->getSkinUrl('images/menu/' . strtolower($category->getName()) . '.jpg') ?>" alt="" />
+            </div>
+        </ul>
+        <?php /** ?>
+        <span class="mob_dropdown">
+        </span>
+        <div class="nav_wrapper">
+            <div class="container">
+                <?php $j = 1;foreach ($filterAttributes as $attribute) : ?>
+                <div class="colum col<?php echo $j . ' ' . $attribute->getFrontendLabel() ?>">
+                    <h1><?php echo $attribute->getFrontendLabel() ?></h1>
+                    <ul>
+                        <div class="leftside">
+                        <?php
+                        $options = $attribute->getSource()->getAllOptions(false);
+                        $iAttribute = 1;
+                        foreach ($options as $option) :
+                            $attributeLink = $categoryUrl
+                                . Mage::helper('catalin_seo')->getRoutingSuffix()
+                                . '/'
+                                . $attribute->getAttributeCode()
+                                . '/'
+                                . Mage::helper('catalin_seo')->urlize($option['label'])
+                            ;
+                        ?>
+                        
+                        <?php if ($category->getName() == 'Bracelets' && $attribute->getAttributeCode() == 'style' && $iAttribute == 8) {break;} ?>
+                        
+                        <?php if (count($options) > 12 && $iAttribute == 10) :  // 2 columns attribute ?>
+                        </div>
+                        <div class="rightside">
+                        <?php endif; ?>
+                        <li class="sub_cat">
+                            <a href="<?php echo $attributeLink ?>">
+                                <?php echo $option['label'] ?>
+                            </a>
+                        </li>
+                        <?php $iAttribute++; endforeach; ?>
+                        </div>
+                    </ul>
+                </div>
+                <?php $j++; endforeach; ?>
+                <br class="clear"/>
+            </div>
+        </div>
+    <?php */ ?>
+    </li>
+    <?php $i++;endforeach; ?>
+</ul>
+<div class="clear"></div>
+</nav>

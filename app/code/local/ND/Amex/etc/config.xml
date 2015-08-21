@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ND Amex payment gateway
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so you can be sent a copy immediately.
+ *
+ * Original code copyright (c) 2008 Irubin Consulting Inc. DBA Varien
+ *
+ * @category   Fontis
+ * @package    ND_Amex
+ * @copyright  Copyright (c) 2010 ND Amex
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <ND_Amex>
+            <version>0.1.1</version>
+        </ND_Amex>
+    </modules>
+    <global>
+        <models>
+            <amex>
+                <class>ND_Amex_Model</class>
+            </amex>
+        </models>
+        <helpers>
+            <amex>
+                <class>ND_Amex_Helper</class>
+            </amex>
+        </helpers>
+        <resources>
+            <amex_setup>
+                <setup>
+                    <module>ND_Amex</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </amex_setup>
+            <amex_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </amex_write>
+            <amex_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </amex_read>
+        </resources>
+        <blocks>
+            <amex><class>ND_Amex_Block</class></amex>
+        </blocks>        
+    </global>
+    <frontend>
+        <secure_url>
+            <amex_server>/amex/server</amex_server>
+        </secure_url>
+        <routers>
+            <amex>
+                <use>standard</use>
+                <args>
+                    <module>ND_Amex</module>
+                    <frontName>amex</frontName>
+                </args>
+            </amex>
+        </routers>
+        <translate>
+            <modules>
+                <ND_Amex>
+                    <files>
+                        <default>ND_Amex.csv</default>
+                    </files>
+                </ND_Amex>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <amex>
+                    <file>amex.xml</file>
+                </amex>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <translate>
+            <modules>
+                <ND_Amex>
+                    <files>
+                        <default>ND_Amex.csv</default>
+                    </files>
+                </ND_Amex>
+            </modules>
+        </translate>
+    </adminhtml>
+    <default>
+        <payment>            
+            <amex_server>
+                <merchant_id backend_model="adminhtml/system_config_backend_encrypted"/>                
+                <model>amex/server</model>
+                <title>Amex Express</title>
+                <order_status>processing</order_status>
+                <allowspecific>0</allowspecific>
+            </amex_server>
+        </payment>
+    </default>
+</config>

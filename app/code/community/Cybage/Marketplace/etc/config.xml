@@ -1,0 +1,280 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Cybage Marketplace Plugin
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * It is available on the World Wide Web at:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you are unable to access it on the World Wide Web, please send an email
+ * To: Support_Magento@cybage.com.  We will send you a copy of the source file.
+ *
+ * @category   Marketplace Plugin
+ * @package    Cybage_Marketplace
+ * @copyright  Copyright (c) 2014 Cybage Software Pvt. Ltd., India
+ *             http://www.cybage.com/pages/centers-of-excellence/ecommerce/ecommerce.aspx
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author     Cybage Software Pvt. Ltd. <Support_Magento@cybage.com>
+ */
+-->
+<config>
+    <modules>
+        <Cybage_Marketplace>
+            <version>0.1.8</version>
+        </Cybage_Marketplace>
+    </modules>
+    <frontend>
+        <routers>
+            <marketplace>
+                <use>standard</use>
+                <args>
+                    <module>Cybage_Marketplace</module>
+                    <frontName>marketplace</frontName>
+                </args>
+            </marketplace>
+            <customer>
+                <args>
+                    <modules>
+                        <cybage_marketplace before="Mage_Customer">Cybage_Marketplace</cybage_marketplace>
+                    </modules>
+                </args>
+            </customer>	
+        </routers>
+        <layout>
+            <updates>
+                <marketplace>
+                    <file>marketplace.xml</file>
+                </marketplace>
+            </updates>
+        </layout>
+        <events>
+            <checkout_cart_product_add_after>
+                <observers>
+                    <checkout_product_observer>
+                        <type>singleton</type>
+                        <class>Cybage_Marketplace_Model_Observer</class>
+                        <method>saveSellerId</method>
+                    </checkout_product_observer>
+                </observers>
+            </checkout_cart_product_add_after>
+        </events>
+    </frontend>
+    <admin>
+        <routers>
+            <marketplace>
+                <use>admin</use>
+                <args>
+                    <module>Cybage_Marketplace</module>
+                    <frontName>marketplace</frontName>
+                </args>
+            </marketplace>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Cybage_Marketplace_Adminhtml before="Mage_Adminhtml">Cybage_Marketplace_Adminhtml</Cybage_Marketplace_Adminhtml>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <events>
+            <catalog_product_attribute_update_before>
+                <observers>
+                    <marketplace>
+                        <type>singleton</type>
+                        <class>Cybage_Marketplace_Model_Observer</class>
+                        <method>validateMassActionProductMarketplaceStatus</method>
+                    </marketplace>
+                </observers>
+            </catalog_product_attribute_update_before>
+        </events>
+        <layout>
+            <updates>
+                <marketplace>
+                    <file>marketplace.xml</file>
+                </marketplace>
+            </updates>
+        </layout>
+    </adminhtml>
+    <global>  
+        <events>
+            <catalog_product_save_before>
+                <observers>
+                    <marketplace>
+                        <type>singleton</type>
+                        <class>Cybage_Marketplace_Model_Observer</class>
+                        <method>validateProductMarketplaceStatus</method>
+                    </marketplace>
+                </observers>
+            </catalog_product_save_before>
+        </events>
+        <models>
+            <marketplace>
+                <class>Cybage_Marketplace_Model</class>
+                <resourceModel>marketplace_resource</resourceModel>
+            </marketplace>
+            <marketplace_resource>
+                <class>Cybage_Marketplace_Model_Resource</class>
+                <entities>
+                    <question>
+                        <table>marketplace_askquestion_question</table>
+                    </question>
+                    <reply>
+                        <table>marketplace_askquestion_reply</table>
+                    </reply>
+                    <commission>
+                        <table>marketplace_commission</table>
+                    </commission>
+                    <buyerseller>
+                        <table>marketplace_buyersellercomm_notifications</table>
+                    </buyerseller>
+                    <logging>
+                        <table>marketplace_logging</table>
+                    </logging>
+                </entities>                
+            </marketplace_resource>
+            <customer_resource>
+                <rewrite>
+                    <customer>Cybage_Marketplace_Model_Resource_Customer</customer>
+                </rewrite>
+            </customer_resource>
+            <sales>
+                <rewrite>
+                    <order>Cybage_Marketplace_Model_Order</order>
+                </rewrite>
+            </sales>
+        </models>
+        <resources>
+            <marketplace_setup>
+                <setup>
+                    <module>Cybage_Marketplace</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+            </marketplace_setup>
+        </resources>
+        <helpers>
+            <marketplace>
+                <class>Cybage_Marketplace_Helper</class>
+            </marketplace>
+        </helpers>
+        <blocks>           
+            <marketplace>
+                <class>Cybage_Marketplace_Block</class>
+            </marketplace>            
+            <review_product_view>Cybage_Marketplace_Block_Review_Product_View</review_product_view>
+            <review_product_view_list>Cybage_Marketplace_Block_Review_Product_View_List</review_product_view_list>
+            <adminhtml>
+                <rewrite>
+                    <catalog_product_grid>Cybage_Marketplace_Block_Adminhtml_Catalog_Product_Grid</catalog_product_grid>
+                </rewrite>
+            </adminhtml>
+            <!--Show products of approved seller only-->
+            <catalog>
+                <rewrite> 
+                   <product_list>Cybage_Marketplace_Block_Catalog_Product_List</product_list>
+                </rewrite>
+             </catalog>
+             <!--Show products of approved seller only-->
+      </blocks>
+        <fieldsets>
+            <sales_convert_quote_item>
+                <seller_id>
+                    <to_order_item>*</to_order_item>
+                </seller_id>
+            </sales_convert_quote_item>
+        </fieldsets>
+        <template>
+            <email>
+                <sales_email_order_processing_template translate="label" module="sales">
+                    <label>From Seller</label>
+                    <file>sales/customer_processing_new.html</file>
+                    <type>html</type>
+                </sales_email_order_processing_template>
+                <sales_email_order_completed_template translate="label" module="sales">
+                    <label>From Seller</label>
+                    <file>sales/customer_completed_new.html</file>
+                    <type>html</type>
+                </sales_email_order_completed_template>
+                <sales_email_order_cancelled_template translate="label" module="sales">
+                    <label>From Seller</label>
+                    <file>sales/customer_cancelled_new.html</file>
+                    <type>html</type>
+                </sales_email_order_cancelled_template>
+                <sales_email_product_comment_template translate="label" module="sales">
+                    <label>Product Comment</label>
+                    <file>sales/product_comment.html</file>
+                    <type>html</type>
+                </sales_email_product_comment_template>
+                <marketplace_seller_email_template translate="label" module="marketplace">
+                    <label>Seller email Template</label>
+                    <file>newseller_account.html</file>
+                    <type>html</type>
+                </marketplace_seller_email_template>
+                <marketplace_seller_email_status_template translate="label" module="marketplace">
+                    <label>Seller Status Email Template</label>
+                    <file>seller_status.html</file>
+                    <type>html</type>
+                </marketplace_seller_email_status_template>
+                <marketplace_seller_email_payment_template translate="label" module="marketplace">
+                    <label>Seller Payment Email Template</label>
+                    <file>seller_payment.html</file>
+                    <type>html</type>
+                </marketplace_seller_email_payment_template>
+                <marketplace_seller_order_pending_reminder_template translate="label" module="marketplace">
+                    <label>Pending Order Reminder Email Template</label>
+                    <file>pendingorder_reminder.html</file>
+                    <type>html</type>
+                </marketplace_seller_order_pending_reminder_template>
+            </email>
+        </template>
+    </global>
+    <default>
+        <marketplace>
+            <product>
+                <status>2</status>
+                <visibility>1</visibility>
+                <upload_image_size>1519159</upload_image_size>
+            </product>
+        </marketplace>
+        <sales_email>
+            <order>
+                <enabled>1</enabled>
+                <processing_template>sales_email_order_processing_template</processing_template>
+                <completed_template>sales_email_order_completed_template</completed_template>
+                <cancelled_template>sales_email_order_cancelled_template</cancelled_template>
+                <identity>sales</identity>
+            </order>
+            <product_comment>sales_email_product_comment_template</product_comment>
+        </sales_email>
+        <seller_page>
+            <attribute_name>seller_id</attribute_name>
+            <seo_display>marketplace</seo_display>
+        </seller_page>
+        <!--
+        /*For creating new router by srinidhid*/
+        -->
+        <web>
+            <routers>
+                <cybagemarketplace>
+                    <area>frontend</area>
+                    <class>Cybage_Marketplace_Controller_Router</class>
+                </cybagemarketplace>
+            </routers>
+        </web>
+    </default>
+    <crontab>
+        <jobs>
+            <pendingorder_send_all>
+                <schedule>
+                    <cron_expr>0 1 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>marketplace/observer::pendingorders</model>
+                </run>
+            </pendingorder_send_all>
+        </jobs>
+    </crontab>
+</config>

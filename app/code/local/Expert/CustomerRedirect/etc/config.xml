@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Expert_CustomerRedirect>
+            <version>1.0.0.3</version>
+        </Expert_CustomerRedirect>
+    </modules>
+    <frontend>
+        <routers>
+            <customer>
+                <args>
+                    <modules>
+                        <expert_customerredirect before="Mage_Customer">Expert_CustomerRedirect</expert_customerredirect>
+                    </modules>
+                </args>
+            </customer>
+        </routers>
+    </frontend>    
+    <global>  
+        <helpers>
+            <expert_customerredirect>
+                <class>Expert_CustomerRedirect_Helper</class>
+            </expert_customerredirect>
+        </helpers>
+    </global>
+</config>

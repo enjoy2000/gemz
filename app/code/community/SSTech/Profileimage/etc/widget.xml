@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<widget>
+    <profileimage type="profileimage/widget_upload">
+        <name>Upload Profileimage</name>
+        <description>Upload Profileimage from frontend pages</description>
+        <parameters>
+            <title>
+                <required>1</required>
+                <visible>1</visible>
+                <value>Profileimage</value>
+                <label>Widget Title</label>
+                <type>text</type>
+            </title>
+            <template translate="label">
+                <label>Template</label>
+                <visible>1</visible>
+                <type>select</type>
+                <value>profileimage/widget/account.phtml</value>
+                <values>
+                    <customer_account_template>
+                        <value>profileimage/widget/account.phtml</value>
+                        <label>Template for use with Customer Registration</label>
+                    </customer_account_template>
+                </values>
+            </template>
+        </parameters>
+        <supported_blocks>
+            <register_form_before>
+                <block_name>customer.form.register.fields.before</block_name>
+                <template>
+                    <file>customer_account_template</file>
+                </template>
+            </register_form_before>
+            <register_form_additional_info>
+                <block_name>form.additional.info</block_name>
+                <template>
+                    <file>customer_account_template</file>
+                </template>
+            </register_form_additional_info>
+            <register_page_content>
+                <block_name>content</block_name>
+                <template>
+                    <file>customer_account_template</file>
+                </template>
+            </register_page_content>
+        </supported_blocks>
+    </profileimage>
+</widget>
