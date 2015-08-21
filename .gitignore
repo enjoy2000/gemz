@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 .modgit/
 .idea/
+=======
+.htaccess.sample
+.modgit/
+.modman/
+>>>>>>> b2a72dfc5679de3f54b83944462297292430bc6f
 app/code/community/Phoenix/
 app/code/community/Cm/
 app/code/core/
@@ -21,6 +27,10 @@ app/etc/modules/Mage_Bundle.xml
 app/etc/modules/Mage_Captcha.xml
 app/etc/modules/Mage_Centinel.xml
 app/etc/modules/Mage_Compiler.xml
+<<<<<<< HEAD
+=======
+app/etc/modules/Mage_ConfigurableSwatches.xml
+>>>>>>> b2a72dfc5679de3f54b83944462297292430bc6f
 app/etc/modules/Mage_Connect.xml
 app/etc/modules/Mage_CurrencySymbol.xml
 app/etc/modules/Mage_Downloadable.xml
@@ -43,13 +53,23 @@ app/etc/local.xml
 app/.htaccess
 app/locale/
 app/Mage.php
+<<<<<<< HEAD
 cron.php
+=======
+/cron.php
+>>>>>>> b2a72dfc5679de3f54b83944462297292430bc6f
 cron.sh
 downloader/
 errors/
 favicon.ico
+<<<<<<< HEAD
 get.php
 index.php
+=======
+/get.php
+includes/
+/index.php
+>>>>>>> b2a72dfc5679de3f54b83944462297292430bc6f
 index.php.sample
 /install.php
 js/blank.html
@@ -75,6 +95,7 @@ lib/.htaccess
 lib/LinLibertineFont/
 lib/Mage/
 lib/PEAR/
+lib/Pelago/
 lib/phpseclib/
 lib/Varien/
 lib/Zend/
@@ -96,6 +117,8 @@ media/catalog/product/cache/
 media/wysiwyg/
 media/tmp/
 api.php
+media/catalog/product/placeholder/default/
+/api.php
 nbproject/
 pear
 pear/
@@ -106,6 +129,7 @@ shell/abstract.php
 shell/compiler.php
 shell/indexer.php
 shell/log.php
+sitemap.xml
 skin/adminhtml/default/default/
 skin/adminhtml/default/enterprise
 skin/frontend/base/
