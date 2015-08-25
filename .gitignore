@@ -133,3 +133,10 @@ var/
 vendor/
 composer.lock
 error_log
+app/bootstrap.php
+dev/
+lib/Net/
+media/css/
+media/wysiwyg/
+shell/
+
