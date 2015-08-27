@@ -301,6 +301,26 @@ class Gemzgallery_Gemz_ProductController extends Cybage_Marketplace_ProductContr
 
             return;
         }
+        
+        /**
+
+         *     Add categories to Form data 
+
+         * */
+
+        $product['categories_ids'] = $product->getCategoryIds();
+
+
+
+        $session->setMarketplaceFormData($product->getData());
+
+        $this->loadLayout();
+
+        //  $this->getLayout()->getBlock('marketplace_edit')->setFormAction( Mage::getUrl('*/*/save') );
+
+        $this->_initLayoutMessages('marketplace/session');
+
+        $this->renderLayout();
     }
 }
 
