@@ -301,5 +301,6 @@ class Gemzgallery_Gemz_ProductController extends Cybage_Marketplace_ProductContr
 
             return;
         }
+    }
 }
 
