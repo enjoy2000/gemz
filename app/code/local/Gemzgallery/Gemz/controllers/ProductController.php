@@ -291,15 +291,15 @@ class Gemzgallery_Gemz_ProductController extends Cybage_Marketplace_ProductContr
                 $product->setTypeId(Mage_Catalog_Model_Product_Type::DEFAULT_TYPE);
 
                 Mage::logException($e);
+                
+                $session->addError($this->__('Your product does not exist.'));
+
+                $this->_redirect('*/product/');
+    
+                return;
 
             }
 
-        } else {
-            $session->addError($this->__('Your product does not exist.'));
-
-            $this->_redirect('*/product/');
-
-            return;
         }
         
         /**
