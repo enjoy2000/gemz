@@ -47,6 +47,10 @@
 </ol>
 <script type="text/javascript">
 //<![CDATA[
+    // InitiateCheckout
+    // Track when people enter the checkout flow (ex. click/landing page on checkout button)
+    fbq('track', 'InitiateCheckout');
+    
     var accordion = new Accordion('checkoutSteps', '.step-title', true);
     <?php if($this->getActiveStep()): ?>
     accordion.openSection('opc-<?php echo $this->getActiveStep() ?>');

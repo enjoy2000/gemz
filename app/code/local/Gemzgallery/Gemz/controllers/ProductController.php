@@ -251,5 +251,79 @@ class Gemzgallery_Gemz_ProductController extends Cybage_Marketplace_ProductContr
         header('Content-Type: application/json');
         echo json_encode($result);
     }
+    
+    /**
+
+     *    Edit marketplace product
+
+     * */
+
+    public function editAction() {
+
+        $this->_validateCustomerLogin();
+
+        $session = $this->_getSession();
+
+        $product = Mage::getModel('catalog/product');
+
+        $productId = $this->getRequest()->getParam('id');
+
+
+
+        if ($productId) {
+
+            try {
+
+                $product->load($productId);
+                
+                if (!$product->getId()) {
+                
+                    $session->addError($this->__('Your product does not exist.'));
+    
+                    $this->_redirect('*/product/');
+        
+                    return;
+                }
+
+                if ($product->getMarketplaceState() == Mage::helper('marketplace')->getDeletedOptionValue()) {
+
+                    $session->addError($this->__('Not allow to update product details.'));
+
+                    $this->_redirect('*/product/');
+
+                    return;
+
+                }
+
+            } catch (Exception $e) {
+
+                $product->setTypeId(Mage_Catalog_Model_Product_Type::DEFAULT_TYPE);
+
+                Mage::logException($e);
+
+            }
+
+        }
+        
+        /**
+
+         *     Add categories to Form data 
+
+         * */
+
+        $product['categories_ids'] = $product->getCategoryIds();
+
+
+
+        $session->setMarketplaceFormData($product->getData());
+
+        $this->loadLayout();
+
+        //  $this->getLayout()->getBlock('marketplace_edit')->setFormAction( Mage::getUrl('*/*/save') );
+
+        $this->_initLayoutMessages('marketplace/session');
+
+        $this->renderLayout();
+    }
 }
 

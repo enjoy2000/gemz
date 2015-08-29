@@ -128,6 +128,10 @@
     </form>
     <script type="text/javascript">
     //<![CDATA[
+        // ViewContent
+        // Track key page views (ex: product page, landing page or article)
+        fbq('track', 'ViewContent');
+    
         var productAddToCartForm = new VarienForm('product_addtocart_form');
         productAddToCartForm.submit = function(button, url) {
             if (this.validator.validate()) {
