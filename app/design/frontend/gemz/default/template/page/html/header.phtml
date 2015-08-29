@@ -93,30 +93,11 @@
      <div id="header-nav" class="skip-content">
     <!-- <a href="mailto:dh@gemz.gallery" target="_blank" class="alretbell" title="Our Concierge Can Help"><img src="<?php echo  $this->getSkinUrl('images/concierge_icon.png');?>" ></a>-->
   	<div class="navoverlay"></div>
-    <div class="container"> <?php //echo $this->getChildHtml('topMenu') ?>
-    
-    <!--
-    	<nav>
-   
-<?php
-//$exporter = new XmlCreateCategoryTree();
-?>
-<div class="clear"></div>
-</nav>-->
-
-
-
-
-
-<?php
-
+    <div class="">
+    <?php
     echo $this->getLayout()->createBlock('core/template')->setTemplate('includes/menu.phtml')->toHtml();
-
     ?>
 
-
-    
-      
     </div>
     
     <!-- <div class="menu3_overlay"></div>--> 
@@ -130,10 +111,10 @@
      
 	<div class="clear"></div>
 	</div>
-  
-   
-    <!-- Skip Links --> 
-    
+
+
+    <!-- Skip Links -->
+
     <!--<div class="skip-links">
             <a href="#header-nav" class="skip-link skip-nav">
                 <span class="icon"></span>
@@ -158,11 +139,11 @@
 
 
         </div>
---> 
-    <!-- Search --> 
-    
-   
-    
+-->
+    <!-- Search -->
+
+
+
     <!-- <div id="header-cart" class="skip-content">
             <div class="mini-cart">
                 <div class="menu-wrapper">
@@ -182,146 +163,8 @@
   </div>
   
   <!-- Navigation -->
-   <?php
-  
-
- 
-
- 
-class XmlCreateCategoryTree
-{
-    function __construct()
-    {
-    
-        $this->createCategoryTree();
-    }
- 
-    public function createCategoryTree()
-    {
-        echo "<ul>";
-       echo '<li  class="menu0"><a href="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'"  category">Home</a>';
-        $id = 2;
-        $categories = $this->getCategories($id);
-        if($categories[0]['name'] != ''){
-            $b=0;
-            foreach($categories as $category){
-                $b++;
-                 echo '<li class="menu'.$b.'"><a href="'.$category['url'].'" title="View the products the "'.$category['name'].'" category">'.$category['name'].'</a><span class="mob_dropdown"></span>';
-                //echo $category['url']."\n77";
-                $sub_categories = $this->getCategories($category['id']);
-                if($sub_categories[0]['name'] != ''){
-                    	$a=0;
-                    	echo "<div class='nav_wrapper'>";
-                    	echo "<div class='container'>";
-                        foreach($sub_categories as $sub_category){
-                            $a++;
-                             echo ' <div class="col'.$a." ".$sub_category['name'].' colum"><h1>'.$sub_category['name'].'</h1>';
-                             
-                       // echo '---'.$sub_category['name']."\n";
-                        $sub_sub_categories = $this->getCategories($sub_category['id']);
-                        if($sub_sub_categories[0]['name'] != ''){
-                             echo "<ul>";
-                                echo "<div class='rightside'>";
-                            $ccc=0;
-                            foreach($sub_sub_categories as $sub_sub_category){
-                                $ccc++;
-                                if($ccc>9)
-                                {
-                                      echo '<li class="sub_cat"><a href="'.$sub_sub_category['url'].'" >'.$sub_sub_category['name'].'</a></li>';
-                                }
-                              //  echo "--- ---".$sub_sub_category['name']."\n";
-                              
-                            }
-                             echo "</div>";
-                            echo "<div class='leftside'>";
-                            $ccc=0;
-                            foreach($sub_sub_categories as $sub_sub_category){
-                                $ccc++;
-                                if($ccc<=9)
-                                {
-                                      echo '<li class="sub_cat"><a href="'.$sub_sub_category['url'].'?abbc" >'.$sub_sub_category['name'].'</a></li>';
-                                }
-                              //  echo "--- ---".$sub_sub_category['name']."\n";
-                              
-                            }
-                             echo "</div>";
-                         
-                             echo "</ul>";
-                        }
-                         echo "</div> ";
-                    }
-                    	 echo "<div class='clear'></div></div></div>";
-	
-   
-                }
-                  echo '</li>';
-            }
-        }
-         echo "</ul>";
-    }
-    
-     
-    private function getCategories($id){
-        $children = Mage::getModel('catalog/category')->getCategories($id);
-        $cat = array();
-        foreach ($children as $category){
-            $cat['name'] = $category->getName();
-            $cat['id'] = $category->getId();
-            $cat['url'] = Mage::getModel("catalog/category")->load($category->getId())->getUrl();
-            $allCat[] = $cat;
-        }
-        return $allCat;
-    }
-}
-  
-  
-
-      
-  ?>    
-  
 </header>
 
-<?php /* ?>
-<!--for slider --> 
-<script>
-jQuery(document).ready(function() {
-jQuery('.bxslider').bxSlider({
-auto: true,
-infiniteLoop: true,
-hideControlOnEnd: true,
-pager: false,
-});
-});
-</script>
-<?php
-$routeName = Mage::app()->getRequest()->getRouteName();
-$identifier = Mage::getSingleton('cms/page')->getIdentifier();
- 
-if($routeName == 'cms' && $identifier == 'home') { ?>
-<ul class="bxslider">
-  <?php
-	$model = Mage::getModel("sslider/sslider")->getCollection(); 
-
-	foreach ($model as $item) {
-
-	?>
-  <li>
-    <div class="slider"><a href="<?php echo $item->getUrl(); ?>"> <img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$item->getImage(); ?>" ></a>
-      <div class="caption"> <?php echo $item->getContent(); ?> </div>
-    </div>
-  </li>
-  <?php
-
-	}
-
-?>
-</ul>
-<?php
-} 
-?>
-<!-- End Slide --> 
-
-<?php */ ?>
 <?php
 $routeName = Mage::app()->getRequest()->getRouteName();
 $identifier = Mage::getSingleton('cms/page')->getIdentifier();
