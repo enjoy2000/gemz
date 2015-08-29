@@ -657,7 +657,7 @@ opacity: 0.8; }
 .pages { float: right; overflow: hidden; margin-left: 15px; }
 .pages strong { display: none; }
 .pages li { float: left; }
-.pages a, .pages .current { display: inline-block; border: 0; font-size: 13px; text-align: center; text-transform: uppercase; vertical-align: middle; white-space: nowrap; line-height: 30px; width: 25px; height: 30px; padding: 0; color: #3399cc; font-family: 'Open Sans', sans-serif; }
+.pages li > a, .pages .current { display: inline-block; border: 0; font-size: 13px; text-align: center; text-transform: uppercase; vertical-align: middle; white-space: nowrap; line-height: 30px; width: 25px; height: 30px; padding: 0; color: #3399cc; font-family: 'Open Sans', sans-serif; }
 .pages .current, .pages .current:hover { color: #636363; border: 1px solid #cccccc; width: 30px; background-color: #FFFFFF; cursor: default; }
 .pages .next, .pages .previous { font: 0/0 a; text-shadow: none; color: transparent; background-color: transparent; position: relative; }
 .pages .next:hover, .pages .previous:hover { border: 1px solid #3399cc; }
