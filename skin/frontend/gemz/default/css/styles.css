@@ -900,7 +900,7 @@ html, body { height: 100%; }
  * Header
  * ============================================ */
 @media only screen and (min-width: 771px) {
-.page-header { /*background:#272727; */}
+.page-header { /*background:#272727; */ margin: 0;}
 .page-header-container { position: relative; max-width: 1040px; margin: 0 auto; padding: 14px 30px; }
 .container { position: relative; max-width: 980px; margin: 0 auto; }
 }
@@ -3088,6 +3088,12 @@ header .top_right { float:right; width:73%; position:relative; }
 .necklace-lenth{ margin:68px 0 30px;}
 .necklace-lenth > img{ border:1px solid #eeeeee;}
 
+#our-designers {
+    margin-bottom: 10px;
+}
+#our-designers .designer img {
+    border: solid 1px #d3d3d3;
+}
 
 
 

@@ -329,10 +329,34 @@ $identifier = Mage::getSingleton('cms/page')->getIdentifier();
 if($routeName == 'cms' && $identifier == 'home') { ?>
 <div class="header-image-block">
 
-<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('header-image-block1')->toHtml();?>
-<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('header-image-block2')->toHtml();?>
-<div class="clear">&nbsp;</div>
+    <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('header-image-block2')->toHtml();?>
+    <img src="<?php echo $this->getSkinUrl('images/home/header.jpeg') ?>" alt="" usemap="#Map" />
+    <map name="Map" id="Map">
+        <area alt="" title="<?php echo $this->__('Fireworks Ring') ?>"
+              href="<?php echo $this->getBaseUrl() ?>fireworks-ring"
+              shape="poly" coords="169,91,160,76,173,59,189,46,204,46,218,69,194,92,181,95" />
+
+        <area alt="" title="<?php echo $this->__('Jane Taylor Jewelry') ?>"
+              href="<?php echo $this->getBaseUrl() ?>marketplace/Jane-Taylor-Jewelry.html"
+              shape="poly" coords="430,298,449,262,492,218,521,193,585,163,681,147,650,198,641,250,638,285,641,300" />
+
+        <area alt="" title="<?php echo $this->__('Expect Compliments') ?>"
+              href="<?php echo $this->getBaseUrl() ?>expect-compliments"
+              shape="poly" coords="700,127,690,93,696,72,707,65,718,65,722,98,725,115,725,130" />
+
+        <area alt="" title="<?php echo $this->__('Expect Compliments') ?>"
+              href="<?php echo $this->getBaseUrl() ?>expect-compliments"
+              shape="poly" coords="950,135,944,118,948,90,944,66,971,62,974,132" />
+
+        <area alt="" title="<?php echo $this->__('Expect Necklace') ?>"
+              href="<?php echo $this->getBaseUrl() ?>expect-necklace"
+              shape="poly" coords="707,148,701,196,706,230,727,248,767,266,728,262,762,283,787,291,821,292,861,289,907,280,932,250,956,212,965,186,961,162,937,144,927,176,914,210,853,246,814,257,765,235,755,182,742,196,747,144,753,127" />
+    </map>
+    <div class="clear">&nbsp;</div>
 </div>
+
+
+
 <?php
 } 
 ?>
