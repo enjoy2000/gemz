@@ -3098,6 +3098,9 @@ header .top_right { float:right; width:73%; position:relative; }
 #our-designers .designer img {
     border: solid 1px #d3d3d3;
 }
+#top-slider #myCarousel {
+    padding: 0;
+}
 
 
 
