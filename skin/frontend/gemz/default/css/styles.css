@@ -2850,7 +2850,8 @@ line-height:18px; text-align:center; margin:-14px 0 0 8px;
 .cms-page-view .std p:first-letter, .cms-no-route .std p:first-letter { text-transform:capitalize; }
 .scaffold-form { }
 .scaffold-form input[type="email"], .scaffold-form input[type="search"], .scaffold-form input[type="number"], .scaffold-form input[type="password"], .scaffold-form input[type="tel"], .scaffold-form input[type="text"], .scaffold-form textarea { width:67.5%; resize:none; }
-.cms-home .featured-product .product-image { height:200px; text-align:center; vertical-align:middle; line-height:200px;}
+.featured-product .product-image { height:200px; text-align:center; vertical-align:middle; line-height:200px;}
+.featured-product h2.product-name {display: none;}
 #header-nav nav ul:first-child { /*margin-left:24.3%;*/ }
 #header-nav nav .container { position:relative;}
 #header-nav nav { margin:0; padding:0; }

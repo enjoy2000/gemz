@@ -13,7 +13,7 @@ class Mage_Catalog_Block_Product_Mostviewed extends Mage_Catalog_Block_Product_A
         Mage::getSingleton('catalog/product_status')->addVisibleFilterToCollection($products);
         Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($products);
 
-        $products->setPageSize(18)->setCurPage(1);
+        $products->setPageSize(16)->setCurPage(1);
         $this->setProductCollection($products);
     }
 }
