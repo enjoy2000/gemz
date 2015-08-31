@@ -1,5 +1,6 @@
 .modgit/
 .idea/
+*.pyc
 .htaccess.sample
 .modgit/
 .modman/
