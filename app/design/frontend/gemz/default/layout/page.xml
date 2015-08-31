@@ -58,7 +58,7 @@
                 <action method="addJs"><script>marketplace/fancybox/jquery-1.7.2.min.js</script></action>
                     <action method="addJs"><script>marketplace/fancybox/jquery.min.js</script></action>
                -->
-                <action method="addItem"><type>skin_js</type><name>js/boostrap.min.js</name></action>
+                <action method="addItem"><type>skin_js</type><name>js/bootstrap.min.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/jquery.bxslider.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/jquery.flexslider.js</name></action>
                 <action method="addItem"><type>skin_js</type><name>js/jquery.jcarousel.js</name></action>

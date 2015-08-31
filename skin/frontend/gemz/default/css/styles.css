@@ -3031,6 +3031,7 @@ h2.icon { background:url(../images/Gicon.png) 0 0 no-repeat; padding:0px 0 20px 
 
 .copyright { float:right; margin-top:16px; font-size:12px; }
 .copyright .social_media_icon { float:left; margin-top:22px; }
+.page-header {border: none;}
 .page-header .social_media_icon { display:none; }
 
 
