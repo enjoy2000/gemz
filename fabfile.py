@@ -16,13 +16,13 @@ env.user   = "debbiz"
 # Set the password [NOT RECOMMENDED]
 #env.password = "nothing"
 
-def update_upgrade():
+def clear_cache():
     """
         Update the default OS installation's
         basic default tools.
                                             """
-    sudo("yum update -y")
-    #sudo("aptitude -y upgrade")
+    run("rm -rf ~/public_html/var/cache/mage*")
+    run("redis-cli FLUSHALL")
 
 def deploy():
     """ Pull new code and run script to set permissions """
