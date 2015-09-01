@@ -120,6 +120,10 @@ class Gemzgallery_Gemz_Helper_Data extends Mage_Core_Helper_Abstract
                 'frey@freyana.com',
                 'deirdre@denise-james.com',
                 'S.Rezac@sbcglobal.net',
+                'info@erikstewartjewelry.com',
+                'orlyravitz@012.net.il',
+                'info@kaalidesigns.com',
+                'Giulia@dinnyhall.co.uk',
             ];
             $sellers = Mage::getModel('customer/customer')
                 ->getCollection()
