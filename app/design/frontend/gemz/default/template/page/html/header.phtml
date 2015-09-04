@@ -27,290 +27,251 @@
  * @var Mage_Page_Block_Html_Header $this
  */
 ?>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic'
+      rel='stylesheet' type='text/css'>
 
 <div class="blackoverlay"></div>
-<div id="showterms"><a class="closepopup" href="javascript:;">x</a><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('terms')->toHtml(); ?></div>
+<div id="showterms"><a class="closepopup"
+                       href="javascript:;">x</a><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('terms')->toHtml(); ?>
+</div>
 
 
 <div class="header-language-background">
-  <div class="header-language-container">
-    <div class="store-language-container"> <?php echo $this->getChildHtml('store_language') ?> </div>
-    <?php //echo $this->getChildHtml('currency_switcher') ?>
-    
-    <!--<p class="welcome-msg"><?php //echo $this->getChildHtml('welcome') ?> <?php //echo $this->getAdditionalHtml() ?></p>--> 
-    
-  </div>
+    <div class="header-language-container">
+        <div class="store-language-container"> <?php echo $this->getChildHtml('store_language') ?> </div>
+        <?php //echo $this->getChildHtml('currency_switcher') ?>
+
+        <!--<p class="welcome-msg"><?php //echo $this->getChildHtml('welcome') ?> <?php //echo $this->getAdditionalHtml() ?></p>-->
+
+    </div>
 </div>
 
 <style>
-
-
-.fmrs-bsize-ss.fmrs-bdes-ss2.fmrs-button-host {
-    float: right;
-}
+    .fmrs-bsize-ss.fmrs-bdes-ss2.fmrs-button-host {
+        float: right;
+    }
 </style>
 
 
-
 <header id="header" class="page-header">
-  <div class="page-header-container"> 
-  
-  	<div class="top_left">
-	<a class="logo" href="<?php echo $this->getUrl('') ?>"> <img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="large" /> <img src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small" /> </a>
-   
-</div>
-
-
-	<div class="top_right">
-	<div class="top_links">
- 
-   <h5 class="slogan"><!--<img src="<?php //echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>frontend/gemz/default/images/slogan-new.png" />-->
-   Purchase Fine Jewelry Direct From Designers
-   </h5>
-    <div class="myaccount_links"> <?php echo $this->getChildHtml('topLinks') ?> </div>
-    
-    <div class="cartmenu"><a title="Wishlist" href="<?php echo $this->getUrl('wishlist') ?>" class="addtocart"><!--<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>frontend/rwd/default/images/addtowishlist.png" />--></a> <?php echo $this->getChildHtml('minicart_head'); ?> </div>
-    
-    <div id="header-search" class="skip-content"><?php echo $this->getChildHtml('topSearch') ?> <a href="javascript:;" class="search_togglebutton">&nbsp;</a></div>
-    
-    <div class="clear"></div>
-
-</div>
-  
-   <?php // In order for the language switcher to display next to logo on smaller viewports, it will be moved here.
-              // See app.js for details ?>
-    <div class="store-language-container"></div>
-    <div class="social_media_icon">
-        <a href="http://instagram.com/gemz.gallery/" class="instagram" title="Instagram"></a> 
-        <a href="https://plus.google.com/100916448292850023244" rel="publisher" class="googleplus" title="Google plus"></a> 
-        <a href="http://www.pinterest.com/gemzgallery0092/" class="printrest" title="pinterest"></a> 
-        <a href="https://www.facebook.com/gemzgaller?ref=hl" class="facebook" title="Facebook"></a> 
-        <a href="https://twitter.com/GEMZGALLERY" class="twitter" title="Twitter"></a> 
-     </div>
-     
-     <div class="mob_menu"> <a href="javascript:;" class="menu">Menu</a> </div>
-     <div id="header-nav" class="skip-content">
-    <!-- <a href="mailto:dh@gemz.gallery" target="_blank" class="alretbell" title="Our Concierge Can Help"><img src="<?php echo  $this->getSkinUrl('images/concierge_icon.png');?>" ></a>-->
-  	<div class="navoverlay"></div>
-    <div class="">
-    <?php
-    echo $this->getLayout()->createBlock('core/template')->setTemplate('includes/menu.phtml')->toHtml();
-    ?>
-
-    </div>
-    
-    <!-- <div class="menu3_overlay"></div>--> 
-  </div>
-     
-      <!-- Account -->
-    
-    <div id="header-account" class="skip-content"> <?php echo $this->getChildHtml('topLinks') ?> </div>
-    
-    <!-- Cart --> 
-     
-	<div class="clear"></div>
-	</div>
-
-
-    <!-- Skip Links -->
-
-    <!--<div class="skip-links">
-            <a href="#header-nav" class="skip-link skip-nav">
-                <span class="icon"></span>
-                <span class="label"><?php echo $this->__('Menu'); ?></span>
+    <div class="page-header-container">
+        <div class="top_left">
+            <a class="logo" href="<?php echo $this->getUrl('') ?>"> <img src="<?php echo $this->getLogoSrc() ?>"
+                                                                         alt="<?php echo $this->getLogoAlt() ?>"
+                                                                         class="large"/> <img
+                    src="<?php echo $this->getLogoSrcSmall() ?>" alt="<?php echo $this->getLogoAlt() ?>" class="small"/>
             </a>
-
-            <a href="#header-search" class="skip-link skip-search">
-                <span class="icon"></span>
-                <span class="label"><?php echo $this->__('Search'); ?></span>
-            </a>
-
-            <a href="#header-account" class="skip-link skip-account">
-                <span class="icon"></span>
-                <span class="label"><?php echo $this->__('Account'); ?></span>
-            </a>
-
-           
-
-            <div class="header-minicart">
-                <?php echo $this->getChildHtml('minicart_head'); ?>
-            </div>
-
 
         </div>
--->
-    <!-- Search -->
 
 
+        <div class="top_right">
+            <div class="top_links">
 
-    <!-- <div id="header-cart" class="skip-content">
-            <div class="mini-cart">
-                <div class="menu-wrapper">
-                    <div class="menu cart-menu">
-                        <div class="empty">Your cart is empty.</div>
-                    </div>
+                <h5 class="slogan">
+                    <!--<img src="<?php //echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>frontend/gemz/default/images/slogan-new.png" />-->
+                    Purchase Fine Jewelry Direct From Designers
+                </h5>
+
+                <div class="myaccount_links"> <?php echo $this->getChildHtml('topLinks') ?> </div>
+
+                <div class="cartmenu"><a title="Wishlist" href="<?php echo $this->getUrl('wishlist') ?>"
+                                         class="addtocart">
+                        <!--<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>frontend/rwd/default/images/addtowishlist.png" />--></a> <?php echo $this->getChildHtml('minicart_head'); ?>
+                </div>
+
+                <div id="header-search" class="skip-content"><?php echo $this->getChildHtml('topSearch') ?> <a
+                        href="javascript:;" class="search_togglebutton">&nbsp;</a></div>
+
+                <div class="clear"></div>
+
+            </div>
+
+            <?php // In order for the language switcher to display next to logo on smaller viewports, it will be moved here.
+            // See app.js for details ?>
+            <div class="store-language-container"></div>
+            <div class="social_media_icon">
+                <a href="http://instagram.com/gemz.gallery/" class="instagram" title="Instagram"></a>
+                <a href="https://plus.google.com/100916448292850023244" rel="publisher" class="googleplus"
+                   title="Google plus"></a>
+                <a href="http://www.pinterest.com/gemzgallery0092/" class="printrest" title="pinterest"></a>
+                <a href="https://www.facebook.com/gemzgaller?ref=hl" class="facebook" title="Facebook"></a>
+                <a href="https://twitter.com/GEMZGALLERY" class="twitter" title="Twitter"></a>
+            </div>
+
+            <div class="mob_menu"><a href="javascript:;" class="menu">Menu</a></div>
+            <div id="header-nav" class="skip-content">
+                <div class="navoverlay"></div>
+                <div class="">
+                    <?php
+                    echo $this->getLayout()->createBlock('core/template')->setTemplate('includes/menu.phtml')->toHtml();
+                    ?>
                 </div>
             </div>
-        </div> -->
-        <br class="clear" />
-<!--this is your button -->
-<!--FMRS-BUTTON:BEGIN-->
-<link   href='//static.findmyringsize.com/shared/buttons/fmrs-buttons.css' rel='stylesheet' type='text/css' />
-<a id='ringsizer' class='fmrs-bsize-ss fmrs-bdes-ss2  fmrs-button-host'  alt='Find Your Ring Size' href='//debbihensling.findmyringsize.com' target='_blank' >Find Your Ring Size</a> 
-<!--FMRS-BUTTON:END-->
-    <div class="clear"></div>
-  </div>
-  
-  <!-- Navigation -->
+
+            <!-- Account -->
+            <div id="header-account" class="skip-content"> <?php echo $this->getChildHtml('topLinks') ?> </div>
+
+            <!-- Cart -->
+            <div class="clear"></div>
+        </div>
+        <br class="clear"/>
+        <!--this is your button -->
+        <!--FMRS-BUTTON:BEGIN-->
+        <link href='//static.findmyringsize.com/shared/buttons/fmrs-buttons.css' rel='stylesheet' type='text/css'/>
+        <a id='ringsizer' class='fmrs-bsize-ss fmrs-bdes-ss2  fmrs-button-host' alt='Find Your Ring Size'
+           href='//debbihensling.findmyringsize.com' target='_blank'>Find Your Ring Size</a>
+        <!--FMRS-BUTTON:END-->
+        <div class="clear"></div>
+    </div>
+
+    <!-- Navigation -->
 </header>
 
 <?php
 $routeName = Mage::app()->getRequest()->getRouteName();
 $identifier = Mage::getSingleton('cms/page')->getIdentifier();
- 
-if($routeName == 'cms' && $identifier == 'home') { ?>
-<div id="top-slider">
 
-    <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('header-image-block2')->toHtml();?>
-    <!--
-    <img src="<?php echo $this->getSkinUrl('images/home/header.jpeg') ?>" alt="" usemap="#Map" />
-    <map name="Map" id="Map">
-        <area alt="" title="Fireworks Ring"
-              href="/fireworks-ring"
-              shape="poly" coords="169,91,160,76,173,59,189,46,204,46,218,69,194,92,181,95" />
+if ($routeName == 'cms' && $identifier == 'home') : ?>
+    <div id="top-slider" class="container">
+        <div class="row">
 
-        <area alt="" title="Jane Taylor Jewelry"
-              href="/marketplace/Jane-Taylor-Jewelry.html"
-              shape="poly" coords="430,298,449,262,492,218,521,193,585,163,681,147,650,198,641,250,638,285,641,300" />
+        <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('header-image-block2')->toHtml(); ?>
+        <div id="myCarousel" class="carousel slide col-md-9" data-ride="carousel"><!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active"><img src="<?php echo $this->getSkinUrl('images/home/header.jpeg') ?>" alt="" usemap="#Map" /> <map id="Map" name="Map">
+                        <area title="Fireworks Ring" shape="poly" coords="169,91,160,76,173,59,189,46,204,46,218,69,194,92,181,95" href="/fireworks-ring" alt="" />
 
-        <area alt="" title="Expect Compliments"
-              href="/expect-compliments"
-              shape="poly" coords="700,127,690,93,696,72,707,65,718,65,722,98,725,115,725,130" />
+                        <area title="Jane Taylor Jewelry" shape="poly" coords="430,298,449,262,492,218,521,193,585,163,681,147,650,198,641,250,638,285,641,300" href="/marketplace/Jane-Taylor-Jewelry.html" alt="" />
 
-        <area alt="" title="Expect Compliments"
-              href="/expect-compliments"
-              shape="poly" coords="950,135,944,118,948,90,944,66,971,62,974,132" />
+                        <area title="Expect Compliments" shape="poly" coords="700,127,690,93,696,72,707,65,718,65,722,98,725,115,725,130" href="/expect-compliments" alt="" />
 
-        <area alt="" title="Expect Necklace"
-              href="/expect-necklace"
-              shape="poly" coords="707,148,701,196,706,230,727,248,767,266,728,262,762,283,787,291,821,292,861,289,907,280,932,250,956,212,965,186,961,162,937,144,927,176,914,210,853,246,814,257,765,235,755,182,742,196,747,144,753,127" />
-    </map>
-    -->
-    <div class="clear">&nbsp;</div>
-</div>
+                        <area title="Expect Compliments" shape="poly" coords="950,135,944,118,948,90,944,66,971,62,974,132" href="/expect-compliments" alt="" />
 
+                        <area title="Expect Necklace" shape="poly" coords="707,148,701,196,706,230,727,248,767,266,728,262,762,283,787,291,821,292,861,289,907,280,932,250,956,212,965,186,961,162,937,144,927,176,914,210,853,246,814,257,765,235,755,182,742,196,747,144,753,127" href="/expect-necklace" alt="" />
+                    </map></div>
+                <div class="item doghouse"><img src="<?php echo $this->getSkinUrl('images/home/dogbanner.jpg') ?>" alt="" usemap="#Map2" /><map id="Map2" name="Map2">
+                        <area title="In The Doghouse" shape="poly" coords="806,177,811,275,935,265,920,177" href="/in-the-doghouse" alt="" />
+                    </map></div>
+                <div class="item"><img src="<?php echo $this->getSkinUrl('images/home/boring.jpg') ?>" alt="" usemap="#Map3" /><map id="Map3" name="Map3">
+                        <area title="Erik Stewart" shape="poly" coords="110,249,108,184,425,187,417,259" href="/marketplace/Erik-Stewart-Jewelry.html" alt="" />
 
+                        <area title="FREYANA" shape="poly" coords="535,270,561,114,668,110,701,261" href="/marketplace/FREYANA.html" alt="" />
 
-<?php
-} 
-?>
+                        <area title="Suzan Rezac" shape="poly" coords="734,227,967,179,969,300,758,302" href="/marketplace/Suzan-Rezac.html" alt="" />
+                    </map></div>
+            </div>
+        </div>
+
+        <div class="col-md-3 shades">
+            <a href="<?php echo $this->getUrl('gemz/list/index', [
+                'attribute' => 'stone',
+                'value' => 'sapphire'
+            ]) ?>" title="<?php echo $this->__('Fifty shasdes of Sapphire') ?>">
+                <img src="<?php echo $this->getSkinUrl('images/home/50shades.jpg') ?>" alt="" />
+            </a>
+        </div>
+
+        <div class="clear">&nbsp;</div>
+        </div>
+    </div>
+<?php endif; ?>
 <script>
-jQuery(document).ready(function(){
-    
-
-    
-			window.onorientationchange = function()
-		{
-		   window.location.reload();
-		}
-});
-
-jQuery(document).ready(function (){
-	jQuery('.search_togglebutton').click(function() {
-		jQuery(this).hide();
-		jQuery('#header-search .search-button').toggleClass('active');
-		jQuery('#header-search').addClass('expand');
-	});
-	
-	jQuery('.myaccount_links .last a').click(function() {
-		jQuery('.lgoin_dropdown').slideToggle('fast');
-	});
-	
-	
-	jQuery('.cartmenu .cart').click(function() {
-		jQuery('.cartlist').show('fast');
-	});
-	
-	jQuery('.closepopup').click(function() {
-		jQuery('.cartlist').hide();
-	});
-	
-
-	
-	/*if (jQuery(window).width() > 1025){
-		
-		jQuery(window).bind("scroll", function() {
-		    if (jQuery(this).scrollTop() > 142) {
-		        jQuery("#header-nav").addClass('navfixed');
-		    }else {
-	        jQuery("#header-nav").removeClass('navfixed');
-	    }
-		
-	});
-	
-	}*/
-	
-	if (jQuery(window).width() > 770){
-	jQuery('#header-nav nav ul li').on('mouseenter', function() {
-			jQuery(this).addClass('active');
-			jQuery('#header-nav nav ul li ul li').removeClass('active');
-		});
-		
-		jQuery('#header-nav nav ul li').on('mouseleave', function() {
-				jQuery(this).removeClass('active');
-	});
-		
-	
-	}
-	
-	
-	if (jQuery(window).width() < 769){
-	
-	jQuery('#header-nav nav ul li .mob_dropdown').click(function(){
-			jQuery('#header-nav nav ul li ul li').removeClass('active');
-			jQuery(this).next('.nav_wrapper').slideToggle();
-	});
-	
-	jQuery('.login-mobile span').click(function(){
-			jQuery(this).removeClass('active');
-			jQuery('.lgoin_dropdown').slideToggle();
-	});
-	
-	
-	}
-	
-	jQuery('.mob_menu').click(function() {
-		jQuery('.skip-content').slideToggle();
-    jQuery('.skip-content li.has-sub > a').click(function(e){
-        e.preventDefault();
-
-        jQuery(this).parent().find('ul.sub').slideToggle();
+    jQuery(document).ready(function () {
+        window.onorientationchange = function () {
+            window.location.reload();
+        }
+        jQuery('#top-slider .shades').height(jQuery('#top-slider #myCarousel').height());
     });
-	});
-	
-	jQuery('.col-main .std h1:first-child').addClass('title');
-	
-	jQuery('.bx-viewport .caption em a').click(function (){
-		jQuery('#habla_oplink_a').trigger('click');
-	});	
-	
-	
-	
 
-});
-</script> 
-<?php echo $this->getChildHtml('topContainer'); ?> 
+    jQuery(document).ready(function () {
+        jQuery('.search_togglebutton').click(function () {
+            jQuery(this).hide();
+            jQuery('#header-search .search-button').toggleClass('active');
+            jQuery('#header-search').addClass('expand');
+        });
+
+        jQuery('.myaccount_links .last a').click(function () {
+            jQuery('.lgoin_dropdown').slideToggle('fast');
+        });
 
 
+        jQuery('.cartmenu .cart').click(function () {
+            jQuery('.cartlist').show('fast');
+        });
+
+        jQuery('.closepopup').click(function () {
+            jQuery('.cartlist').hide();
+        });
 
 
+        /*if (jQuery(window).width() > 1025){
 
+         jQuery(window).bind("scroll", function() {
+         if (jQuery(this).scrollTop() > 142) {
+         jQuery("#header-nav").addClass('navfixed');
+         }else {
+         jQuery("#header-nav").removeClass('navfixed');
+         }
+
+         });
+
+         }*/
+
+        if (jQuery(window).width() > 770) {
+            jQuery('#header-nav nav ul li').on('mouseenter', function () {
+                jQuery(this).addClass('active');
+                jQuery('#header-nav nav ul li ul li').removeClass('active');
+            });
+
+            jQuery('#header-nav nav ul li').on('mouseleave', function () {
+                jQuery(this).removeClass('active');
+            });
+
+
+        }
+
+
+        if (jQuery(window).width() < 769) {
+
+            jQuery('#header-nav nav ul li .mob_dropdown').click(function () {
+                jQuery('#header-nav nav ul li ul li').removeClass('active');
+                jQuery(this).next('.nav_wrapper').slideToggle();
+            });
+
+            jQuery('.login-mobile span').click(function () {
+                jQuery(this).removeClass('active');
+                jQuery('.lgoin_dropdown').slideToggle();
+            });
+
+
+        }
+
+        jQuery('.mob_menu').click(function () {
+            jQuery('.skip-content').slideToggle();
+            jQuery('.skip-content li.has-sub > a').click(function (e) {
+                e.preventDefault();
+
+                jQuery(this).parent().find('ul.sub').slideToggle();
+            });
+        });
+
+        jQuery('.col-main .std h1:first-child').addClass('title');
+
+        jQuery('.bx-viewport .caption em a').click(function () {
+            jQuery('#habla_oplink_a').trigger('click');
+        });
+
+
+    });
+</script>
+<?php echo $this->getChildHtml('topContainer'); ?>
 
 <!--this is your pop-up ring sizer magic : put this on the bottom of your page before your <\body> tag -->
 <!--FMRS-POPUP:BEGIN -->
 <script type='text/javascript'>
-    var host = (("https:" == document.location.protocol) ? "https://" : "http://"); document.write(unescape("%3Cscript src='" + host + "findmyringsize.com/Shared/Embed/fmrs-1.0.js' type='text/javascript'%3E%3C/script%3E"));	
+    var host = (("https:" == document.location.protocol) ? "https://" : "http://");
+    document.write(unescape("%3Cscript src='" + host + "findmyringsize.com/Shared/Embed/fmrs-1.0.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 
 <script>
@@ -318,7 +279,7 @@ jQuery(document).ready(function (){
     ringsizer.initialize({
         'client': 'debbihensling',
         'mode': 'overlay',
-        'overlaySettings': { boxTheme: 'facebook', shadowOverlay: true }
+        'overlaySettings': {boxTheme: 'facebook', shadowOverlay: true}
     });
     ringsizer.bind();
 </script>

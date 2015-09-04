@@ -22,6 +22,13 @@
                 </args>
             </marketplace>
         </routers>
+        <layout>
+            <updates>
+                <gemz>
+                    <file>gemz.xml</file>
+                </gemz>
+            </updates>
+        </layout>
     </frontend>
     <global>
         <resources>
@@ -45,6 +52,11 @@
                 </connection>
             </gemz_read>
         </resources>
+        <blocks>
+            <gemz>
+                <class>Gemzgallery_Gemz_Block</class>
+            </gemz>
+        </blocks>
         <helpers>
             <gemz>
                 <class>Gemzgallery_Gemz_Helper</class>
@@ -55,6 +67,10 @@
                 <from><![CDATA[#^/marketplace/product/#]]></from>
                 <to>/gemz/product/</to>
             </gemzgallery_gemz_marketplace_product>
+            <list_attribute>
+                <from><![CDATA[#^/all-products/#]]></from>
+                <to><![CDATA[/gemz/list/attribute/]]></to>
+            </list_attribute>
         </rewrite>
     </global>
 </config>
