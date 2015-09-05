@@ -3120,10 +3120,6 @@ header .top_right { float:right; width:73%; position:relative; }
 .trending-designer .item + .item {
     margin-right: 0;
 }
-.next-trending .kiss img,
-.item.fili img{
-    height: 200px;
-}
 .page-header {
     padding-bottom: 0
 }
@@ -3141,8 +3137,30 @@ header .top_right { float:right; width:73%; position:relative; }
 .trending-designer .trending {
     margin-bottom: 0;
 }
+.trending-designer .irit-designer {
+    padding-left: 12px;
+}
+.trending-designer .irit-designer img {
+    border: solid 2px #eee;
 
-
-
-
-
+}
+@media only screen and (min-width: 771px) {
+    .trending-designer .irit-designer img {
+        height: 204px;
+        width: 100%;
+    }
+    .next-trending .kiss img,
+    .item.fili img{
+        height: 200px;
+    }
+    .next-trending .no-carousel .item,
+    .chic-hot .no-carousel .item {
+        margin-right: 24px;
+    }
+    .row.trending-designer .item:first-child {
+        margin-right: 24px;
+    }
+    .row.trending-designer .trending {
+        padding-right: 11px;
+    }
+}
