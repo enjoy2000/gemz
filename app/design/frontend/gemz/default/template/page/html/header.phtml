@@ -27,6 +27,7 @@
  * @var Mage_Page_Block_Html_Header $this
  */
 ?>
+<?php $bodyClass = $this->getLayout()->getBlock("root")->getBodyClass(); ?>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic'
       rel='stylesheet' type='text/css'>
 
@@ -62,6 +63,12 @@
                 <h5 class="slogan">
                     Purchase Fine Jewelry Direct From Designers
                 </h5>
+
+                <div class="hello hidden-xs">
+                    <a href="<?php echo $this->getBaseUrl() ?>marketplace/Madstone-Design.html" title="<?php echo $this->__('New to GEMZ') ?>">
+                        <img src="<?php echo $this->getSkinUrl('images/home/hello.jpg') ?>" alt="" />
+                    </a>
+                </div>
 
                 <div class="myaccount_links"> <?php echo $this->getChildHtml('topLinks') ?> </div>
 
@@ -107,7 +114,7 @@
             <div class="clear"></div>
         </div>
         <?php ?>
-        <?php if (strpos($this->getBodyClass(), 'category-rings') !== false) : ?>
+        <?php if (strpos($bodyClass, 'category-rings') !== false) : ?>
         <br class="clear"/>
         <!--this is your button -->
         <!--FMRS-BUTTON:BEGIN-->
@@ -162,7 +169,7 @@ if ($routeName == 'cms' && $identifier == 'home') : ?>
             </div>
         </div>
 
-        <div class="col-md-3 shades">
+        <div class="col-md-3 shades hidden-xs">
             <a href="<?php echo $this->getUrl('gemz/list/index', [
                 'attribute' => 'stone',
                 'value' => 'sapphire'

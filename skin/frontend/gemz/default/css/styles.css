@@ -3117,8 +3117,30 @@ header .top_right { float:right; width:73%; position:relative; }
 #top-slider #myCarousel {
     padding: 0;
 }
-
-
+.trending-designer .item + .item {
+    margin-right: 0;
+}
+.next-trending .kiss img,
+.item.fili img{
+    height: 200px;
+}
+.page-header {
+    padding-bottom: 0
+}
+.page-header .hello img {
+    width: 90px;
+}
+.page-header .hello {
+    position: absolute;
+    top: -18px;
+    right: 174px;
+    -ms-transform: rotate(-20deg);
+    -webkit-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+}
+.trending-designer .trending {
+    margin-bottom: 0;
+}
 
 
 

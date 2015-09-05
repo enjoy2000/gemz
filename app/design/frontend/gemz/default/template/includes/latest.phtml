@@ -1,175 +1,240 @@
-<div class="latest-product">
-     <h1 class="title">Trending</h1>
-  
-    <div class="owl-carousels">
-                      
-                  <?php
-    $_helper = $this->helper('catalog/output');
-    $storeId = Mage::app()->getStore()->getId();
-    $catalog = $this->getLayout()->createBlock('catalog/product_list')->setStoreId($storeId);
-    $collection = Mage::getModel('catalog/product')->getCollection();
-    $collection->addAttributeToSelect('sparkle');
-    $collection->addFieldToFilter(array(
-    array('attribute' => 'sparkle', 'eq' => true),
-    ));
-   ?>
-   <?php if (!$collection->count()) : ?>
-    <p class="note-msg"><?php echo $this->__('There are no new products at the moment.') ?></p>
-   <?php else : ?>
-       <?php foreach ($collection as $_product) :
-       $_product = Mage::getModel('catalog/product')->setStoreId($storeId)->load($_product->getId());
-    ?>
-    <?php if($_product->getStatus()==1): ?>
-    <div class="item">
-    <div class="products">
-    
+<div class="row trending-designer">
+    <div class="latest-product col-md-6 trending">
+        <h2 class="title">Trending</h2>
+        <div class="owl-carousels no-carousel">
+            <?php
+            $_helper = $this->helper('catalog/output');
+            $storeId = Mage::app()->getStore()->getId();
+            $catalog = $this->getLayout()->createBlock('catalog/product_list')->setStoreId($storeId);
+            $collection = Mage::getModel('catalog/product')->getCollection();
+            $collection
+                ->addAttributeToSelect('*')
+                ->addFieldToFilter([
+                    ['attribute' => 'sparkle', 'eq' => true],
+                ])
+                ->setPageSize(2)
+                ->setCurPage(1)
+            ;
+            ?>
+            <?php if (!$collection->count()) : ?>
+                <p class="note-msg"><?php echo $this->__('There are no new products at the moment.') ?></p>
+            <?php else : ?>
+                <?php foreach ($collection as $_product) : ?>
+                    <div class="item">
+                        <div class="products">
+                            <a class="product-image" href="<?php echo $_product->getProductUrl() ?>"
+                               title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                               class="product-image"><img
+                                    src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(250, 200); ?>"
+                                    alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"/></a>
+                            <h2 class="product-name"><a
+                                    href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->htmlEscape($_product->getName()) ?></a>
+                            </h2>
+                            <div class="show-desc">
+                                <div
+                                    class="pro-desc"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+                                <div class="price-box">
+                                    <div class="regular-price">
+                                        <div
+                                            class="price"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                            // Get the Special Price
+                            $specialprice = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialPrice();
+                            // Get the Special Price FROM date
+                            $specialPriceFromDate = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialFromDate();
+                            // Get the Special Price TO date
+                            $specialPriceToDate = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialToDate();
 
- <a class="product-image" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(250,200); ?>"  alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
-          
-                      
-                  <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->htmlEscape($_product->getName())?></a></h2>
+                            $newToDate = Mage::getModel('catalog/product')->load($_product->getId())->getNewsToDate();
+                            // Get Current date
+                            $today = time();
 
-       
-<div class="show-desc">
+                            if ($specialprice) {
 
-
-<div class="pro-desc"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
-             
-       
-             
- 	 <div class="price-box">      
-                                  <div class="regular-price">
-<div class="price"><?php echo  Mage::helper('core')->currency($_product->getPrice(),true,false); ?></div>
-</div>
-                	</div>   
-        
- </div>        
-             
-      <?php 
-    // Get the Special Price
-    $specialprice = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialPrice(); 
-    // Get the Special Price FROM date
-   $specialPriceFromDate = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialFromDate();
-    // Get the Special Price TO date
-   $specialPriceToDate = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialToDate();
-   
-   $newToDate = Mage::getModel('catalog/product')->load($_product->getId())->getNewsToDate();
-    // Get Current date
-    $today =  time();
- 
-    if ($specialprice){
-        
-        if($today >= strtotime( $specialPriceFromDate) && $today <= strtotime($specialPriceToDate) || $today >= strtotime( $specialPriceFromDate) && is_null($specialPriceToDate)) {
-       // echo '<span class="sale-product">Sale</span>';
-      }
-      }
-       if($today <= strtotime($newToDate)) {
-        //echo '<span class="new-product"><b>New</b></span>';
-      }
-?>  
-
-
-
-<?php if (Mage::getSingleton('customer/session')->isLoggedIn()==0): ?>
-<?php 
-				   $_url = Mage::helper('checkout/cart')->getAddUrl($_product);
-				   
-				   ?>
- <?php if($_product->isSaleable()):?>
-              <button class="add2cart btn-cart button" onclick="setLocation('<?=$_url?>')"><?=__('Add to Cart')?></button>
-		<!--	 <a class="add2cart" href="" onclick="setLocation('<?=$_url?>')"><img src="<?php echo $this->getSkinUrl()?>/images/cart.png"></a>-->
-                   <?php endif;?>
-				   
-				 <!--  <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocationAjax('<?php echo $_url ?>','<?php echo $_product->getId()?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
-				   <span id='ajax_loader<?php echo $_product->getId()?>' style='display:none'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></span>-->
-
-                
-                    <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                        <a class="add2wishlist" href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>"><img src="<?php echo $this->getSkinUrl()?>images/addfavorite.png"></a>
-                        <?php endif; ?>   
-<?php else: ?>
-<?php
-				$customer = Mage::getSingleton('customer/session')->getCustomer();
-$zz=   $customer->getCompanyDescription(); // Full Name
-if($zz=="")
-{
-?>
-
-  
-<?php 
-				   $_url = Mage::helper('checkout/cart')->getAddUrl($_product);
-				   
-				   ?>
- <?php if($_product->isSaleable()):?>
-              <button class="add2cart btn-cart button" onclick="setLocation('<?=$_url?>')"><?=__('Add to Cart')?></button>
-		<!--	 <a class="add2cart" href="" onclick="setLocation('<?=$_url?>')"><img src="<?php echo $this->getSkinUrl()?>/images/cart.png"></a>-->
-                   <?php endif;?>
-				   
-				 <!--  <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocationAjax('<?php echo $_url ?>','<?php echo $_product->getId()?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
-				   <span id='ajax_loader<?php echo $_product->getId()?>' style='display:none'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></span>-->
-
-                
-                    <?php if ($this->helper('wishlist')->isAllow()) : ?>
-                        <a class="add2wishlist" href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>"><img src="<?php echo $this->getSkinUrl()?>images/addfavorite.png"></a>
-                        <?php endif; ?>    
-						
-
-<?php
-
-}
-?>
-   <?php endif ?>  
- 
-    </div>
-        
-             
-                   
-              </div>
-             
-             <?php endif; ?>
-             
-          <?php endforeach; ?>
-
-   <?php endif ?>
-                          
+                                if ($today >= strtotime($specialPriceFromDate) && $today <= strtotime($specialPriceToDate) || $today >= strtotime($specialPriceFromDate) && is_null($specialPriceToDate)) {
+                                    // echo '<span class="sale-product">Sale</span>';
+                                }
+                            }
+                            if ($today <= strtotime($newToDate)) {
+                                //echo '<span class="new-product"><b>New</b></span>';
+                            }
+                            ?>
+                            <?php if (Mage::getSingleton('customer/session')->isLoggedIn() == 0): ?>
+                                <?php
+                                $_url = Mage::helper('checkout/cart')->getAddUrl($_product);
+                                ?>
+                                <?php if ($_product->isSaleable()): ?>
+                                    <button class="add2cart btn-cart button"
+                                            onclick="setLocation('<?= $_url ?>')"><?= __('Add to Cart') ?></button>
+                                    <!--	 <a class="add2cart" href="" onclick="setLocation('<?= $_url ?>')"><img src="<?php echo $this->getSkinUrl() ?>/images/cart.png"></a>-->
+                                <?php endif; ?>
+                                <!--  <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocationAjax('<?php echo $_url ?>','<?php echo $_product->getId() ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+                       <span id='ajax_loader<?php echo $_product->getId() ?>' style='display:none'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>'/></span>-->
+                                <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                                    <a class="add2wishlist"
+                                       href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>"><img
+                                            src="<?php echo $this->getSkinUrl() ?>images/addfavorite.png"></a>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <?php
+                                $customer = Mage::getSingleton('customer/session')->getCustomer();
+                                $zz = $customer->getCompanyDescription(); // Full Name
+                                if ($zz == "") {
+                                    ?>
+                                    <?php
+                                    $_url = Mage::helper('checkout/cart')->getAddUrl($_product);
+                                    ?>
+                                    <?php if ($_product->isSaleable()): ?>
+                                        <button class="add2cart btn-cart button"
+                                                onclick="setLocation('<?= $_url ?>')"><?= __('Add to Cart') ?></button>
+                                        <!--	 <a class="add2cart" href="" onclick="setLocation('<?= $_url ?>')"><img src="<?php echo $this->getSkinUrl() ?>/images/cart.png"></a>-->
+                                    <?php endif;?>
+                                    <!--  <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocationAjax('<?php echo $_url ?>','<?php echo $_product->getId()?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+                       <span id='ajax_loader<?php echo $_product->getId()?>' style='display:none'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></span>-->
+                                    <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                                        <a class="add2wishlist"
+                                           href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>"><img
+                                                src="<?php echo $this->getSkinUrl() ?>images/addfavorite.png"></a>
+                                    <?php endif; ?>
+                                <?php
+                                }
+                                ?>
+                            <?php endif ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif ?>
         </div>
+    </div>
+
+    <div class="col-md-6 irit-designer">
+        <h2 class="title">Designer of the month</h2>
+        <div class="img">
+            <a href="<?php echo $this->getBaseUrl() ?>marketplace/Irit-Design.html" title="<?php echo $this->__('Irit Design') ?>">
+                <img src="<?php echo $this->getSkinUrl('images/home/irit.jpg') ?>" alt="" />
+            </a>
+        </div>
+    </div>
 </div>
 
+<div class="next-trending latest-product">
+    <div class="owl-carousels no-carousel">
+        <?php
+        $nextTrendingCollection = Mage::getModel('catalog/product')->getCollection();
+        $nextTrendingCollection
+            ->addAttributeToSelect('*')
+            ->addFieldToFilter([
+                ['attribute' => 'sparkle', 'eq' => true],
+            ])
+            ->getSelect()
+            ->limit(8, 2)
+        ;
+        ?>
+        <?php if (!$nextTrendingCollection->count()) : ?>
+            <p class="note-msg"><?php echo $this->__('There are no new products at the moment.') ?></p>
+        <?php else : ?>
+            <?php foreach ($nextTrendingCollection as $_product) : ?>
+                <?php if ($_product->getId() == $nextTrendingCollection->getLastItem()->getId()) : ?>
+                <div class="item kiss">
+                    <div class="products">
+                        <a href="#" title="<?php echo $this->__('Let\'s KISS') ?>">
+                            <img src="<?php echo $this->getSkinUrl('images/home/kiss.jpg') ?>" alt="" />
+                        </a>
+                    </div>
+                </div>
+                <?php break; endif; ?>
+                <div class="item">
+                    <div class="products">
+                        <a class="product-image" href="<?php echo $_product->getProductUrl() ?>"
+                           title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"
+                           class="product-image"><img
+                                src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(250, 200); ?>"
+                                alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>"/></a>
+                        <h2 class="product-name"><a
+                                href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->htmlEscape($_product->getName()) ?></a>
+                        </h2>
+                        <div class="show-desc">
+                            <div
+                                class="pro-desc"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+                            <div class="price-box">
+                                <div class="regular-price">
+                                    <div
+                                        class="price"><?php echo Mage::helper('core')->currency($_product->getPrice(), true, false); ?></div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                        // Get the Special Price
+                        $specialprice = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialPrice();
+                        // Get the Special Price FROM date
+                        $specialPriceFromDate = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialFromDate();
+                        // Get the Special Price TO date
+                        $specialPriceToDate = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialToDate();
 
-		  
-		  
-		  <script>
-            jQuery(document).ready(function() {
-              jQuery('.owl-carouselss').owlCarousel({
-                loop: true,
-                autoplay:3000,
-                margin: 10,
-                responsiveClass: true,
-                responsive: {
-                  0: {
-                    items: 1,
-                    nav: true
-                  },
-               450: {
-                    items: 2,
-                    nav: true
-                  },
-                  600: {
-                    items: 3,
-                    nav:true
-                  },
-                  1000: {
-                    items: 4,
-                    nav: true,
-                    loop: true,
-                    margin: 20
-                  }
-                }
-              });
-			  
-			   jQuery('.latest-product .owl-controls').insertBefore('.latest-product .owl-carousels');
-			  
-            });
-          </script>
+                        $newToDate = Mage::getModel('catalog/product')->load($_product->getId())->getNewsToDate();
+                        // Get Current date
+                        $today = time();
+
+                        if ($specialprice) {
+
+                            if ($today >= strtotime($specialPriceFromDate) && $today <= strtotime($specialPriceToDate) || $today >= strtotime($specialPriceFromDate) && is_null($specialPriceToDate)) {
+                                // echo '<span class="sale-product">Sale</span>';
+                            }
+                        }
+                        if ($today <= strtotime($newToDate)) {
+                            //echo '<span class="new-product"><b>New</b></span>';
+                        }
+                        ?>
+                        <?php if (Mage::getSingleton('customer/session')->isLoggedIn() == 0): ?>
+                            <?php
+                            $_url = Mage::helper('checkout/cart')->getAddUrl($_product);
+                            ?>
+                            <?php if ($_product->isSaleable()): ?>
+                                <button class="add2cart btn-cart button"
+                                        onclick="setLocation('<?= $_url ?>')"><?= __('Add to Cart') ?></button>
+                                <!--	 <a class="add2cart" href="" onclick="setLocation('<?= $_url ?>')"><img src="<?php echo $this->getSkinUrl() ?>/images/cart.png"></a>-->
+                            <?php endif; ?>
+                            <!--  <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocationAjax('<?php echo $_url ?>','<?php echo $_product->getId() ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+                       <span id='ajax_loader<?php echo $_product->getId() ?>' style='display:none'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>'/></span>-->
+                            <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                                <a class="add2wishlist"
+                                   href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>"><img
+                                        src="<?php echo $this->getSkinUrl() ?>images/addfavorite.png"></a>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <?php
+                            $customer = Mage::getSingleton('customer/session')->getCustomer();
+                            $zz = $customer->getCompanyDescription(); // Full Name
+                            if ($zz == "") {
+                                ?>
+                                <?php
+                                $_url = Mage::helper('checkout/cart')->getAddUrl($_product);
+                                ?>
+                                <?php if ($_product->isSaleable()): ?>
+                                    <button class="add2cart btn-cart button"
+                                            onclick="setLocation('<?= $_url ?>')"><?= __('Add to Cart') ?></button>
+                                    <!--	 <a class="add2cart" href="" onclick="setLocation('<?= $_url ?>')"><img src="<?php echo $this->getSkinUrl() ?>/images/cart.png"></a>-->
+                                <?php endif;?>
+                                <!--  <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocationAjax('<?php echo $_url ?>','<?php echo $_product->getId()?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+                       <span id='ajax_loader<?php echo $_product->getId()?>' style='display:none'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></span>-->
+                                <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                                    <a class="add2wishlist"
+                                       href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>"><img
+                                            src="<?php echo $this->getSkinUrl() ?>images/addfavorite.png"></a>
+                                <?php endif; ?>
+                            <?php
+                            }
+                            ?>
+                        <?php endif ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+            <div class="clear"></div>
+        <?php endif ?>
+    </div>
+</div>
 
 
