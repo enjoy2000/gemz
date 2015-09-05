@@ -13,6 +13,7 @@
             array('attribute' => 'chic', 'eq' => true),
         ));
         $collection->addAttributeToFilter('status', 1);
+        $collection->setPageSize(11)->setCurPage(1);
         ?>
         <?php if (!$collection->count()) : ?>
             <p class="note-msg"><?php echo $this->__('There are no new products at the moment.') ?></p>

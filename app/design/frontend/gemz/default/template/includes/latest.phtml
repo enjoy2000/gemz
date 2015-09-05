@@ -12,6 +12,7 @@
                 ->addFieldToFilter([
                     ['attribute' => 'sparkle', 'eq' => true],
                 ])
+                ->addAttributeToFilter('status', 1)
                 ->setPageSize(2)
                 ->setCurPage(1)
             ;
@@ -129,6 +130,7 @@
             ->addFieldToFilter([
                 ['attribute' => 'sparkle', 'eq' => true],
             ])
+            ->addAttributeToFilter('status', 1)
             ->getSelect()
             ->limit(8, 2)
         ;
