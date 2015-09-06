@@ -3139,6 +3139,7 @@ header .top_right { float:right; width:73%; position:relative; }
 }
 .trending-designer .irit-designer {
     padding-left: 12px;
+    margin-bottom: 20px;
 }
 .trending-designer .irit-designer img {
     border: solid 2px #eee;
@@ -3165,5 +3166,12 @@ header .top_right { float:right; width:73%; position:relative; }
     }
     #top-slider .shades {
         height: 232px;
+    }
+}
+@media only screen and (max-width: 771px) {
+
+    .next-trending .kiss img,
+    .item.fili img{
+        height: 150px;
     }
 }
