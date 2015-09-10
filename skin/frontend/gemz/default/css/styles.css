@@ -2781,7 +2781,7 @@ footer { /*background:#272727;*/ }
 .footer > ul pre.last a { color:#333; }
 .title { /*background:url(../images/Gicon.png) 0 0 no-repeat;*/ padding:0px 0 20px 0; font-weight:600; margin-bottom:0px; color:#038fc0; }
 .cms-home { /*background:#cdcccd*/ /*url(../images/logo_repeat.jpg) 0 0 repeat;*/ }
-.recent-purchase, .featured-product, .latest-product { overflow:hidden; }
+.recent-purchase, .featured-product, .latest-product { /*overflow:hidden;*/ }
 .recent-purchase ul { list-style:none; margin:0 -20px 0 0; padding:0; }
 .recent-purchase ul li { margin:0 14px 14px 0; border:solid 2px #000; float:left; width:18.4%; background:#fff; overflow:hidden; }
 .recent-purchase .product-name { /*display:none;*/ }
@@ -3163,6 +3163,16 @@ header .top_right { float:right; width:73%; position:relative; }
     }
     .row.trending-designer .trending {
         padding-right: 11px;
+    }
+    .row.trending-designer .trending > h2.title {
+        position: relative;
+    }
+    .row.trending-designer .trending > h2.title > img {
+        width: 247px;
+        position: absolute;
+        right: 0;
+        top: -17px;
+        height: 63px;
     }
     #top-slider .shades {
         height: 232px;

@@ -1,6 +1,9 @@
 <div class="row trending-designer">
     <div class="latest-product col-md-6 trending">
-        <h2 class="title">Trending</h2>
+        <h2 class="title">
+            Trending
+            <img class="img-responsive hidden-xs" src="<?php echo $this->getSkinUrl('images/home/tax.jpg') ?>" alt="" />
+        </h2>
         <div class="owl-carousels no-carousel">
             <?php
             $_helper = $this->helper('catalog/output');
@@ -112,7 +115,7 @@
     </div>
 
     <div class="col-md-6 irit-designer">
-        <h2 class="title">Designer of the month</h2>
+        <h2 class="title text-center">Designer of the month</h2>
         <div class="img">
             <a href="<?php echo $this->getBaseUrl() ?>marketplace/Irit-Design.html" title="<?php echo $this->__('Irit Design') ?>">
                 <img src="<?php echo $this->getSkinUrl('images/home/irit.jpg') ?>" alt="" />
@@ -142,7 +145,7 @@
                 <?php if ($_product->getId() == $nextTrendingCollection->getLastItem()->getId()) : ?>
                 <div class="item kiss">
                     <div class="products">
-                        <a href="#" title="<?php echo $this->__('Let\'s KISS') ?>">
+                        <a href="/lets-kiss" title="<?php echo $this->__('Let\'s KISS') ?>">
                             <img src="<?php echo $this->getSkinUrl('images/home/kiss.jpg') ?>" alt="" />
                         </a>
                     </div>

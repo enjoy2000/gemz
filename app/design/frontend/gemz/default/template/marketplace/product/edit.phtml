@@ -110,7 +110,7 @@
                     <div class="input-box">
                         <textarea name="product[short_description]" id="short_description"
                                   class="input-text required-entry" title="<?php echo $this->__('Short Description') ?>"
-                                  rows="4"><?php echo $this->getFormData()->getDescription(); ?></textarea>
+                                  rows="4"><?php echo $this->getFormData()->getShortDescription(); ?></textarea>
                     </div>
                 </div>
             </li>
@@ -260,7 +260,7 @@
                             ?>
 
 
-                            <option value="<?php echo $option["value"]; ?>"><?php echo $option["label"]; ?></option>
+                            <option <?php echo ($option["value"] == $this->getFormData()->getStyle()) ? 'selected="selected"' : '' ?> value="<?php echo $option["value"]; ?>"><?php echo $option["label"]; ?></option>
 
                         <?php
 
