@@ -1,6 +1,6 @@
 <div class="row trending-designer">
     <div class="latest-product col-md-6 trending">
-        <h2 class="title">
+        <h2 class="title text-center">
             Trending
             <img class="img-responsive hidden-xs" src="<?php echo $this->getSkinUrl('images/home/tax.jpg') ?>" alt="" />
         </h2>
@@ -135,14 +135,16 @@
             ])
             ->addAttributeToFilter('status', 1)
             ->getSelect()
-            ->limit(8, 2)
+            ->limit(7, 2)
         ;
         ?>
         <?php if (!$nextTrendingCollection->count()) : ?>
             <p class="note-msg"><?php echo $this->__('There are no new products at the moment.') ?></p>
         <?php else : ?>
-            <?php foreach ($nextTrendingCollection as $_product) : ?>
-                <?php if ($_product->getId() == $nextTrendingCollection->getLastItem()->getId()) : ?>
+            <?php
+            $iNextTrending = 1;
+            foreach ($nextTrendingCollection as $_product) : ?>
+                <?php if (5 == $iNextTrending) : ?>
                 <div class="item kiss">
                     <div class="products">
                         <a href="/lets-kiss" title="<?php echo $this->__('Let\'s KISS') ?>">
@@ -150,7 +152,7 @@
                         </a>
                     </div>
                 </div>
-                <?php break; endif; ?>
+                <?php endif; ?>
                 <div class="item">
                     <div class="products">
                         <a class="product-image" href="<?php echo $_product->getProductUrl() ?>"
@@ -236,7 +238,7 @@
                         <?php endif ?>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            <?php $iNextTrending++; endforeach; ?>
             <div class="clear"></div>
         <?php endif ?>
     </div>

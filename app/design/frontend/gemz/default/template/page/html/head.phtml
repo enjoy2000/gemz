@@ -50,6 +50,9 @@
 <?php echo $this->getChildHtml() ?>
 <?php echo $this->helper('core/js')->getTranslatorScript() ?>
 <?php echo $this->getIncludes() ?>
+<?php if (getenv('APP_ENV') == 'development') : ?>
+<link rel="stylesheet" type="text/css" href="<?php echo  $this->getSkinUrl('css/styles-dev.css'); ?>" media="all" />
+<?php endif; ?>
 <style>
 .cart-forms .shipping{display: none;}
 </style>

@@ -1,4 +1,5 @@
 .modgit/
+node_modules/
 .idea/
 *.pyc
 .htaccess.sample
