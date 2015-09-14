@@ -5,6 +5,7 @@ node_modules/
 .htaccess.sample
 .modgit/
 .modman/
+media/catalog/product/
 app/code/community/Phoenix/
 app/code/community/Cm/
 app/code/core/
