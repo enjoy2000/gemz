@@ -29,47 +29,7 @@
 
     <div class="footer-container">
         <div class="footer">
-            <?php //echo $this->getChildHtml() ?>
-
             <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('footer_links')->toHtml(); ?>
-            <!--
-            <ul>
-            <strong>For buyer</strong>
-            <li><a href="javascript:;">Why Buy with GEMZ?</a></li>
-            <li><a href="javascript:;">Account</a></li>
-            <li><a href="javascript:;">Delivery Time</a></li>
-            <li><a href="javascript:;">Guarantee</a></li>
-            <li><a href="javascript:;">Returns</a></li>
-            <li><a href="javascript:;">Shipping</a></li>
-            </ul>
-            <ul>
-            <strong>For Designer</strong>
-            <li><a href="javascript:;">Why Sell on GEMZ?</a></li>
-            <li><a href="javascript:;">Account</a></li>
-            <li><a href="javascript:;">Profile Page</a></li>
-            <li><a href="javascript:;">Sale Forms</a></li>
-            <li><a href="javascript:;">Upload your Design</a></li>
-            </ul>
-            <ul>
-            <strong>About Us</strong>
-            <li><a href="javascript:;">Contact Us</a></li>
-            <li><a href="javascript:;">Press</a></li>
-            <li><a href="javascript:;">Charities</a></li>
-            </ul>
-            <ul>
-            <strong>GEMZ.GALLERY</strong>
-            <li><a href="javascript:;">Terms of Services</a></li>
-            <li><a href="javascript:;">Privacy Policy</a></li>
-            <li><a href="javascript:;">Copyright Policy</a></li>
-            <li><a href="javascript:;">Legal</a></li>
-            </ul>
-            <ul>
-            <strong>Contact us</strong>
-            <pre>California,<br />United States<br />(949) 644 GEMZ (4369)</pre>
-            <pre>Toll Free:<br />(855) GO 2 GEMZ<br />(462 4369)</pre>
-            <pre class="last">Info@GEMZ.GALLERY</pre>
-            </ul>
-            -->
             <div class="clear"></div>
         </div>
     </div>
@@ -112,35 +72,38 @@
     <a href="#" class="scrollToTop">Scroll To Top</a>
     </div>
 </footer>
-
+<scrip type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.rwdImageMaps.min.js') ?>"></scrip>
 <script>
 
-    jQuery(function () {
-        jQuery('#habla_both_div').html('New text');
+    (function ($) {
+        // resize responive image maps
+        $('img[usemap]').rwdImageMaps();
+        
+        $('#habla_both_div').html('New text');
         //Check to see if the window is top if not then display button
-        jQuery(window).scroll(function () {
-            if (jQuery(this).scrollTop() > 100) {
-                jQuery('.scrollToTop').fadeIn();
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 100) {
+                $('.scrollToTop').fadeIn();
             } else {
-                jQuery('.scrollToTop').fadeOut();
+                $('.scrollToTop').fadeOut();
             }
         });
 
         //Click event to scroll to top
-        jQuery('.scrollToTop').click(function () {
-            jQuery('html, body').animate({scrollTop: 0}, 800);
+        $('.scrollToTop').click(function () {
+            $('html, body').animate({scrollTop: 0}, 800);
             return false;
         });
 
 
-        jQuery('.footer ul strong').on("click", function () {
-            //jQuery(this).next('div').slideToggle();
-            jQuery(this).parent('ul').find('li').slideToggle();
-            jQuery(this).parent('ul').find('pre').slideToggle();
+        $('.footer ul strong').on("click", function () {
+            //$(this).next('div').slideToggle();
+            $(this).parent('ul').find('li').slideToggle();
+            $(this).parent('ul').find('pre').slideToggle();
 
         });
 
-    });
+    })(jQuery);
 </script>
 
 
