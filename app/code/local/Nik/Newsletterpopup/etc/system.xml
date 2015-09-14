@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+        <nik translate="label">
+            <label>Nik Extensions</label>
+            <sort_order>400</sort_order>
+        </nik>
+	</tabs>
+	<sections>
+    <newsletterpopup translate="label" module="newsletterpopup">
+			<label>Manage Newsletter Discount</label>
+			<tab>nik</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>299</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<general translate="label">
+					<label>General Setting</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>1</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<active translate="label">
+							<label>Enable</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</active>
+						<include_js translate="label comment">
+							<label>Include jQuery</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+							<comment><![CDATA[Turn off jquery library if you already include it from another module]]></comment>
+						</include_js>
+						<form_title translate="label">
+							<label>Popup Title</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</form_title>
+						<hide_after_close translate="label comment">
+							<label>Hide Popup after closing</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>8</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+							<comment><![CDATA[After customers close the popup, it will not display again till cookie is expired.]]></comment>
+						</hide_after_close>
+                        <time_delay translate="label">
+                            <label>Popup Timing</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Delay in seconds(for example "3") after page load]]></comment>
+                        </time_delay>
+						<timeout translate="label">
+							<label>Cookies timeout</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>12</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Set a cookie to expire after X days]]></comment>
+						</timeout>
+
+						<notification translate="label">
+							<label>Notification</label>
+							<frontend_type>textarea</frontend_type>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</notification>
+					</fields>
+				</general>
+				<coupon_code_setting translate="label">
+					<label>Coupon Setting</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>40</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<allow_create translate="label comment">
+							<label>Create coupon code</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>1</sort_order>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</allow_create>
+						<email_sender translate="label comment">
+							<label>Email Sender</label>
+							<comment><![CDATA[Select the email sender]]></comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_identity</source_model>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</email_sender>
+						<email_template translate="label comment">
+              <label>Email Template</label>
+							<comment><![CDATA[Select an email template]]></comment>
+              <frontend_type>select</frontend_type>
+						  <source_model>adminhtml/system_config_source_email_template</source_model>
+						  <sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+            </email_template>
+						<discount_type translate="label">
+						  <label>Discount Type</label>
+							<frontend_type>select</frontend_type>
+							<source_model>newsletterpopup/system_config_discounttype</source_model>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</discount_type>
+						<discount_amount translate="label comment">
+              <label>Discount Amount</label>
+						  <frontend_type>text</frontend_type>
+							<sort_order>6</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Only enter numbers. Enter whole numbers for percents(5 = 5% discount).]]></comment>
+            </discount_amount>
+						<coupon_length translate="label comment">
+              <label>Length of coupon code</label>
+						  <frontend_type>text</frontend_type>
+							<sort_order>7</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+            </coupon_length>
+						<coupon_expires translate="label comment">
+              <label>Coupon expires in</label>
+						  <frontend_type>text</frontend_type>
+							<sort_order>8</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Entering "0" means no expiry.]]></comment>
+            </coupon_expires>
+						<number_coupon_use translate="label comment">
+              <label>Uses per Coupon</label>
+						  <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Coupon Use x Time]]></comment>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+            </number_coupon_use>
+					</fields>
+				</coupon_code_setting>
+			</groups>
+		</newsletterpopup>
+  </sections>
+</config>
