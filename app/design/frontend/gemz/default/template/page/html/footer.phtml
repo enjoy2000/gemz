@@ -72,12 +72,12 @@
     <a href="#" class="scrollToTop">Scroll To Top</a>
     </div>
 </footer>
-<scrip type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.rwdImageMaps.min.js') ?>"></scrip>
+<scrip type="text/javascript" src="<?php echo $this->getSkinUrl('js/imageMapResizer.min.js') ?>"></scrip>
 <script>
 
     (function ($) {
         // resize responive image maps
-        $('img[usemap]').rwdImageMaps();
+        $('map').imageMapResizer();
         
         $('#habla_both_div').html('New text');
         //Check to see if the window is top if not then display button
