@@ -111,6 +111,44 @@ $_helper = $this->helper('catalog/output');
                             <!-- Price HTML -->
                             <?php echo $this->getPriceHtml($_product, true) ?>
                         </a>
+
+                        <?php if (Mage::getSingleton('customer/session')->isLoggedIn() == 0): ?>
+                            <?php
+                            $_url = Mage::helper('checkout/cart')->getAddUrl($_product);
+                            ?>
+                            <?php if ($_product->isSaleable()): ?>
+                                <button class="add2cart btn-cart button"
+                                        onclick="setLocation('<?= $_url ?>')"><?= __('Add to Cart') ?></button>
+                            <?php endif; ?>
+
+                            <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                                <a class="add2wishlist"
+                                   href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>"><img
+                                        src="<?php echo $this->getSkinUrl() ?>images/addfavorite.png"></a>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <?php
+                            $customer = Mage::getSingleton('customer/session')->getCustomer();
+                            $zz = $customer->getCompanyName(); // Full Name
+                            if ($zz == "") :
+                            ?>
+                                <?php
+                                $_url = Mage::helper('checkout/cart')->getAddUrl($_product);
+
+                                ?>
+                                <?php if ($_product->isSaleable()): ?>
+                                    <button class="add2cart btn-cart button"
+                                            onclick="setLocation('<?= $_url ?>')"><?= __('') ?></button>
+                                    <!--	 <a class="add2cart" href="" onclick="setLocation('<?= $_url ?>')"><img src="<?php echo $this->getSkinUrl() ?>/images/cart.png"></a>-->
+                                <?php endif;?>
+
+                                <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                                    <a class="add2wishlist"
+                                       href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>"><img
+                                            src="<?php echo $this->getSkinUrl() ?>images/addfavorite.png"></a>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        <?php endif ?>
                     </li>
                     <?php /*if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
             <?php endif*/ ?>
