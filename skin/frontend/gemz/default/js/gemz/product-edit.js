@@ -31,4 +31,4 @@
             $('select#style option').prop('disabled', true);
         }
     }
-})(jQuery)
+})(jQuery);

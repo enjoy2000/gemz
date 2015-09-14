@@ -1,7 +1,3 @@
-/**
- * Tan Ngo
- */
-
 'use strict';
 module.exports = function (grunt) {
 

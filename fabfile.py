@@ -28,6 +28,9 @@ def deploy():
     """ Pull new code and run script to set permissions """
     with cd("~/public_html/"):
         run("/usr/local/cpanel/3rdparty/bin/git pull")
+
+    with cd("~/public_html/skin/frontend/gemz/default/tools/"):
+        run("grunt default")
     #sudo("/scripts/enablefileprotect")
 
 def update_install():
