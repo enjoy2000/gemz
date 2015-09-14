@@ -73,9 +73,12 @@
     </div>
 </footer>
 
+<script src="<?php echo $this->getSkinUrl('js/imageMapResizer.min.js') ?>"></script>
 <script>
 
     jQuery(function () {
+        jQuery('map').imageMapResize();
+        
         jQuery('#habla_both_div').html('New text');
         //Check to see if the window is top if not then display button
         jQuery(window).scroll(function () {
