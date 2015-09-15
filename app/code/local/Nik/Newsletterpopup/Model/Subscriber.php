@@ -2,8 +2,15 @@
 
 class Nik_Newsletterpopup_Model_Subscriber extends Mage_Newsletter_Model_Subscriber
 {
-    const XML_PATH_SUCCESS_EMAIL_TEMPLATE_WITH_COUPON = 'newsletterpopup/coupon_code_setting/email_template';
-    const XML_PATH_SUCCESS_EMAIL_TEMPLATE = 'newsletter/subscription/success_email_template';
+
+    const XML_PATH_CONFIRM_EMAIL_TEMPLATE       = 'newsletter/subscription/confirm_email_template';
+    const XML_PATH_CONFIRM_EMAIL_IDENTITY       = 'newsletter/subscription/confirm_email_identity';
+    const XML_PATH_SUCCESS_EMAIL_TEMPLATE       = 'newsletter/subscription/success_email_template';
+    const XML_PATH_SUCCESS_EMAIL_IDENTITY       = 'newsletter/subscription/success_email_identity';
+    const XML_PATH_UNSUBSCRIBE_EMAIL_TEMPLATE   = 'newsletter/subscription/un_email_template';
+    const XML_PATH_UNSUBSCRIBE_EMAIL_IDENTITY   = 'newsletter/subscription/un_email_identity';
+    const XML_PATH_CONFIRMATION_FLAG            = 'newsletter/subscription/confirm';
+    const XML_PATH_ALLOW_GUEST_SUBSCRIBE_FLAG   = 'newsletter/subscription/allow_guest_subscribe';
 
     public function sendConfirmationSuccessEmail()
     {
@@ -49,12 +56,13 @@ class Nik_Newsletterpopup_Model_Subscriber extends Mage_Newsletter_Model_Subscri
             }
         } else {
             $email->sendTransactional(
-                Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY),
                 Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_TEMPLATE),
+                Mage::getStoreConfig(self::XML_PATH_SUCCESS_EMAIL_IDENTITY),
                 $this->getEmail(),
                 $this->getName(),
                 array('subscriber' => $this)
             );
+
         }
 
         $translate->setTranslateInline(true);
