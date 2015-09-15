@@ -137,12 +137,14 @@
         <newsletterpopup>
             <general>
                 <active>1</active>
-				<hide_after_close>1</hide_after_close>
+                <hide_after_close>1</hide_after_close>
                 <include_js>1</include_js>
                 <form_title>Sign Up To Keep In Touch!</form_title>
                 <timeout>1</timeout>
                 <time_delay>2</time_delay>
-                <notification>Subscribe for the best deals. Your Information will never be shared with any third party.</notification>
+                <notification>Subscribe for the best deals. Your Information will never be shared with any third
+                    party.
+                </notification>
             </general>
             <coupon_code_setting>
                 <allow_create>0</allow_create>
