@@ -14,7 +14,7 @@
 <?php $popupDelayTime = Mage::helper('newsletterpopup')->popupDelayTime(); ?>
 <?php if(Mage::helper('newsletterpopup')->isEnabled()):?>
     <?php if(!isset($_COOKIE['email_subscribed'])):?>
-        <div style="border: solid 2px #000;" id="form-subscribe" class="window col-xs-12">
+        <div id="form-subscribe" class="window col-xs-12">
             <!-- TODO: use rewrite core newsletter to this link <?php //echo $this->getFormActionUrl() ?> -->
             <form class="form" role="form" action="/newsletterpopup/subscriber/new" method="post" id="subscribe-validate-detail">
                 <div class="form-content">
@@ -81,7 +81,7 @@
                     jQuery("#autostart").fancybox({
                         'overlayShow':true,
                         width: 400,
-                        height: 300,
+                        height: 'auto',
                         autoSize : false,
                         //frameHeight:540,
                         <?php if (Mage::helper('newsletterpopup')->isHideAfterClose()):?>
@@ -97,7 +97,7 @@
                     jQuery("#autostart").fancybox({
                         'overlayShow':true,
                         width: 400,
-                        height: 300,
+                        height: 'auto',
                         autoSize : false,
                         //frameHeight:540,
                         <?php if (Mage::helper('newsletterpopup')->isHideAfterClose()):?>
