@@ -1,0 +1,111 @@
+<?php
+/**
+ * Magento
+ * @namespace   Nik
+ * @extension   Newsletter Popup (Newsletterpopup)
+ * @version     0.1.1
+ * @copyright   Copyright (c) 2013 Nik Store. (http://www.nik.com/)
+ */
+
+/******* Newsletterpopup Templae - newsletterpopup.phtml ******/
+?>
+
+<?php $timeCookiesTimeout = Mage::helper('newsletterpopup')->timeCookiesTimeout(); ?>
+<?php $popupDelayTime = Mage::helper('newsletterpopup')->popupDelayTime(); ?>
+<?php if(Mage::helper('newsletterpopup')->isEnabled()):?>
+    <?php if(!isset($_COOKIE['email_subscribed'])):?>
+        <div id="form-subscribe" class="window">
+            <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="subscribe-validate-detail">
+                <div class="form-content">
+                    <label for="newsletter">HOW YOU FEEL ABOUT JEWELRY:</label>
+                    <div class="boxm col-xs-12">
+                        <div class="form-group radio">
+                            <label>
+                                <input type="radio" name="poll" value="1" />
+                                I only buy it to get out of trouble
+                            </label>
+                        </div>
+                        <div class="form-group radio">
+                            <label>
+                                <input type="radio" name="poll" value="2" />
+                                It looks good on my Pinterest page
+                            </label>
+                        </div>
+                        <div class="form-group radio">
+                            <label>
+                                <input type="radio" name="poll" value="3" />
+                                I buy seasonal pieces at walmart
+                            </label>
+                        </div>
+                        <div class="form-group radio">
+                            <label>
+                                <input type="radio" name="poll" value="4" />
+                                I love it! Please keep me informed...
+                            </label>
+                        </div>
+                    </div>
+                    <div class="boxm">
+                        <div class="input-box col-xs-8">
+                            <input type="hidden" value="<?php echo $popupDelayTime;?>">
+                            <input type="text" name="email" id="newsletter" title="<?php echo Mage::helper('newsletterpopup')->subscribeFormTitle() ?>" class="input-text required-entry validate-email" />
+                        </div>
+                        <div class="actions col-xs-4">
+                            <button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button subscribe-btn"><span><?php echo $this->__('Subscribe') ?></span></button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <?php if(Mage::helper('newsletterpopup')->getNotification() != ''):?>
+                <div id="notification">
+                    <address>*WE DO NOT SHARE YOUR INFORMATION</address>
+                </div>
+            <?php endif; ?>
+            <script type="text/javascript">
+                //<![CDATA[
+                var newsletterSubscriberFormDetail = new VarienForm('subscribe-validate-detail');
+                //]]>
+            </script>
+        </div>
+        <a id="autostart" href="#form-subscribe"></a>
+        <script type="text/javascript">
+            if (!jQuery.cookie('afterclose_cookies')) {
+                var popupCookieExpireAfter = <?php echo $timeCookiesTimeout ?>;
+                <?php if ($popupDelayTime > 0):?>
+                jQuery(function() {
+                    jQuery("#autostart").fancybox({
+                        'overlayShow':true,
+                        frameWidth:838,
+                        frameHeight:540,
+                        <?php if (Mage::helper('newsletterpopup')->isHideAfterClose()):?>
+                        afterClose: function() {
+                            jQuery.cookie('afterclose_cookies', 'true', { expires: popupCookieExpireAfter});
+                        }
+                        <?php endif;?>
+                    });
+                });
+                setTimeout( function() {jQuery('#autostart').trigger('click'); }, <?php echo $popupDelayTime*1000;?>);
+                <?php else:?>
+                jQuery(function() {
+                    jQuery("#autostart").fancybox({
+                        'overlayShow':true,
+                        frameWidth:838,
+                        frameHeight:540,
+                        <?php if (Mage::helper('newsletterpopup')->isHideAfterClose()):?>
+                        afterClose: function() {
+                            jQuery.cookie('afterclose_cookies', 'true', { expires: popupCookieExpireAfter});
+                        }
+                        <?php endif;?>
+                    }).trigger('click');
+                });
+                <?php endif;?>
+            }
+        </script>
+    <?php else: ?>
+        <input type="hidden" value="<?php echo $_COOKIE['email_subscribed'];?>">
+        <?php
+        $period = $timeCookiesTimeout*86400;
+        Mage::getModel('core/cookie')->delete('email_subscribed', $_COOKIE['email_subscribed'], $period);
+        ?>
+    <?php endif; ?>
+<?php endif; ?>
