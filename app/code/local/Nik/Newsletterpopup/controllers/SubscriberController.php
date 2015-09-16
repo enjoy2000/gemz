@@ -21,12 +21,34 @@ class Nik_Newsletterpopup_SubscriberController extends Mage_Newsletter_Subscribe
         // get poll result to send email
         if ($pollResult = $this->getRequest()->getPost('poll')) {
             if (isset($status) && $status == Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE) {
+                $email = (string)$this->getRequest()->getPost('email');
                 $poll = [
                     '1' => 'I only buy it to get out of trouble',
                     '2' => 'It looks good on my Pinterest page',
                     '3' => 'I buy seasonal pieces at walmart',
                     '4' => 'I love it! Please keep me informed...',
                 ];
+                $body = '<table'
+                    . '<tr><td colspan="2">Subscriber Info</td></tr>'
+                    . '<tr><td>Email</td><td>Poll Result</td></tr>'
+                    . '<tr><td>' . $email . '</td><td>' . $poll[$pollResult] . '</td></tr>'
+                    . '</table>'
+                    ;
+                $mail = Mage::getModel('core/mail')
+                    ->setToName('Debbi')
+                    //->setToEmail('info@gemz.gallery')
+                    ->setToEmail('enjoy3005@gmail.com')
+                    ->setBody($body)
+                    ->setSubject('Subject :')
+                    ->setFromEmail('info@gemz.gallery')
+                    ->setFromName('GEMZ.GALLERY')
+                    ->setType('html');
+                
+                try {
+                    $mail->send();
+                } catch (Exception $e) {
+                    Mage::getSingleton('core/session')->addError($e->getMessage());
+                }
             }
         }
     }
