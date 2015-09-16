@@ -1,0 +1,59 @@
+/********Css For newsletterpopup************/
+#form-subscribe { display: none; width: 350px; min-height:150px;}
+#form-subscribe .form-content label{float:left; width:100%; font-size:12px; font-weight:bold; color:#000000; margin:0 0 5px; text-align:left; text-transform:uppercase;}
+#form-subscribe .form-content .input-box{float:left; text-align:left;}
+#form-subscribe .form-content #notification{float:left; width:100%; margin:10px 0 0; text-align:left;}
+#form-subscribe .form-content #notification address{font-size:11px; font-style:italic; color:#8f8f8f;}
+#form-subscribe .form-content .input-box input.input-text{width:200px; height:25px;}
+#form-subscribe .form-content .input-box .validation-advice{width:192px; margin-left: -3px;}
+#form-subscribe .form-content .actions{float:right;}
+.boxm {
+    padding-left: 23px;
+    padding-top: 40px;
+    width: 87%;
+}
+.fancybox-inner button.button {
+    width: auto;
+    height: 31px;
+    margin-left: 5px;
+    border-radius: 2px;
+    float: right;
+    -webkit-border-fit: border !important;
+    text-transform: uppercase;
+}
+.fancybox-inner button:hover {
+    background: #3399CC !important;
+}
+.fancybox-inner button {
+    background: #000000 !important;
+}
+.fancybox-inner button span {
+    padding: 10px ;
+    border: none !important;
+    background: none !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    line-height: 1.25em !important;
+    text-shadow: none;
+    display: inline !important;
+    float: none;
+}
+
+.subscribe-btn {padding: 0 !important;
+    border: none !important;
+    background: none !important;
+    font-size: 1.25em !important;
+    font-weight: 600 !important;
+    line-height: 1.25em !important;
+    text-shadow: none;
+    display: inline !important;
+    float: none;}
+#subscribe-validate-detail {
+    border-bottom: 1px solid #E4E4E3;
+    display: block;
+    margin: 25px 0 19px;
+    padding: 0 0 61px;
+}
+.fancybox-inner #form-subscribe .form-content label {
+    text-align: center !important;
+}
