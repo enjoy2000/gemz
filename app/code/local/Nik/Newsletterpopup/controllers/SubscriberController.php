@@ -36,17 +36,18 @@ class Nik_Newsletterpopup_SubscriberController extends Mage_Newsletter_Subscribe
                     ;
                 $mail = Mage::getModel('core/mail')
                     ->setToName('Debbi')
-                    //->setToEmail('info@gemz.gallery')
+                    //->setToEmail('dh@gemz.gallery')
                     ->setToEmail('enjoy3005@gmail.com')
                     ->setBody($body)
                     ->setSubject('Subject :')
-                    ->setFromEmail('info@gemz.gallery')
+                    ->setFromEmail('dh@gemz.gallery')
                     ->setFromName('GEMZ.GALLERY')
                     ->setType('html');
                 
                 try {
                     $mail->send();
                 } catch (Exception $e) {
+                    Mage::log($e->getMessage());
                     Mage::getSingleton('core/session')->addError($e->getMessage());
                 }
             }
