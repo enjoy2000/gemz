@@ -52,14 +52,17 @@
                         <div class="actions col-xs-4">
                             <button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button subscribe-btn"><span><?php echo $this->__('Subscribe') ?></span></button>
                         </div>
+                        <p class="help-block">*WE DO NOT SHARE YOUR INFORMATION</p>
                     </div>
 
                 </div>
             </form>
             <?php if(Mage::helper('newsletterpopup')->getNotification() != ''):?>
+                <!--
                 <div id="notification">
                     <address>*WE DO NOT SHARE YOUR INFORMATION</address>
                 </div>
+                -->
             <?php endif; ?>
             <script type="text/javascript">
                 //<![CDATA[
