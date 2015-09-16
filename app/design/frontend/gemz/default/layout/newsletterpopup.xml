@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <cms_index_index>
+        <reference name="head">
+            <block type="core/template" name="popup.head" template="newsletterpopup/head.phtml"/>
+            <action method="addCss"><stylesheet>css/newsletterpopup/newsletterpopup.css</stylesheet></action>
+            <action method="addCss"><stylesheet>css/newsletterpopup/jquery.fancybox.css</stylesheet></action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="newsletterpopup/newsletterpopup" name="newsletterpopup" template="newsletterpopup/newsletterpopup.phtml" />
+        </reference>
+    </cms_index_index>
+</layout>
