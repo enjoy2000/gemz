@@ -34,7 +34,7 @@ class Nik_Newsletterpopup_SubscriberController extends Mage_Newsletter_Subscribe
                     . '<tr><td>' . $email . '</td><td>' . $poll[$pollResult] . '</td></tr>'
                     . '</table>'
                     ;
-                $mail = Mage::getModel('core/mail')
+                $mail = Mage::getModel('core/email')
                     ->setToName('Debbi')
                     //->setToEmail('dh@gemz.gallery')
                     ->setToEmail('enjoy3005@gmail.com')
