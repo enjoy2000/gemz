@@ -36,8 +36,8 @@ class Nik_Newsletterpopup_SubscriberController extends Mage_Newsletter_Subscribe
                     ;
                 $mail = Mage::getModel('core/email')
                     ->setToName('Debbi')
-                    //->setToEmail('dh@gemz.gallery')
-                    ->setToEmail('enjoy3005@gmail.com')
+                    ->setToEmail('dh@gemz.gallery')
+                    //->setToEmail('enjoy3005@gmail.com')
                     ->setBody($body)
                     ->setSubject('There is a new subscriber - Gemz.Gallery')
                     ->setFromEmail('dh@gemz.gallery')
