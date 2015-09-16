@@ -1,2 +1,13 @@
 .fancybox-inner {border: solid 2px #000;}
 #form-subscribe .radio label {font-size: 14px; font-weight: bold;}
+.tmp-styles-for-checkbox {
+    content: '';
+    position: absolute;
+    left: 10px;
+    background-color: #fff;
+    top: 1px;
+    width: 0;
+    height: 0;
+    border: solid 1px #000;
+    padding: 8px;
+}
