@@ -74,6 +74,14 @@
         </div>
         <a id="autostart" href="#form-subscribe"></a>
         <script type="text/javascript">
+            (function($){
+                $('#form-subscribe .radio label input').on('change', function(){
+                    if ($(this).is(':checked')) {
+                        $('#form-subscribe .radio label').removeClass('active');
+                        $(this).parent().addClass('active');
+                    }
+                });
+            })(jQuery);
             if (!jQuery.cookie('afterclose_cookies')) {
                 var popupCookieExpireAfter = <?php echo $timeCookiesTimeout ?>;
                 <?php if ($popupDelayTime > 0):?>
