@@ -107,6 +107,7 @@ media/xmlconnect/
 media/catalog/product/cache/
 media/wysiwyg/
 media/catalog/
+media/tmp/
 api.php
 media/catalog/product/placeholder/default/
 /api.php

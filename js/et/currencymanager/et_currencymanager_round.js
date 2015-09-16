@@ -54,7 +54,7 @@ function extendProductConfigformatPrice() {
                                          testPrecision < precision; testPrecision++) {
                                         //abs for 0.00199999999 or 1.1000000000001 fix
                                         if (Math.abs(Math.round(price * Math.pow(10, testPrecision))
-                                            - price * Math.pow(10, testPrecision))<0.0000001) {
+                                            - price * Math.pow(10, testPrecision)) < 0.0000001) {
                                             precision = testPrecision;
                                             break;
                                         }
@@ -108,7 +108,11 @@ function extendProductConfigformatPrice() {
     }
 }
 
-extendProductConfigformatPrice();
+try {
+    extendProductConfigformatPrice();
+} catch (e) {
+    extendProductConfigformatPriceTrigged = false;
+}
 
 try {
 
@@ -162,7 +166,7 @@ try {
                          testPrecision < format.precision; testPrecision++) {
                         //abs for 0.00199999999 or 1.1000000000001 fix
                         if (Math.abs(Math.round(price * Math.pow(10, testPrecision))
-                            - price * Math.pow(10, testPrecision))<0.0000001) {
+                            - price * Math.pow(10, testPrecision)) < 0.0000001) {
                             format.precision = testPrecision;
                             format.requiredPrecision = testPrecision;
                             break;
@@ -204,6 +208,15 @@ try {
             s = '';
         }
 
+        /**
+         * replace(/-/, 0) is only for fixing Safari, Chrome, IE bug which appears
+         * when Math.abs(0).toFixed() executed on "0" number.
+         * Result is "0.-0" :(
+         */
+        if (precision < 0) {
+            precision = 0;
+        }
+
         var i = parseInt(price = Math.abs(+price || 0).toFixed(precision)) + "";
         var pad = (i.length < integerRequired) ? (integerRequired - i.length) : 0;
         while (pad) {
@@ -213,14 +226,6 @@ try {
         j = (j = i.length) > groupLength ? j % groupLength : 0;
         re = new RegExp("(\\d{" + groupLength + "})(?=\\d)", "g");
 
-        /**
-         * replace(/-/, 0) is only for fixing Safari bug which appears
-         * when Math.abs(0).toFixed() executed on "0" number.
-         * Result is "0.-0" :(
-         */
-        if (precision < 0) {
-            precision = 0;
-        }
         var r = (j ? i.substr(0, j) + groupSymbol : "") + i.substr(j).replace(re, "$1" + groupSymbol) + (precision ? decimalSymbol + Math.abs(price - i).toFixed(precision).replace(/-/, 0).slice(2) : "")
         var pattern = '';
         if (format.pattern.indexOf('{sign}') == -1) {
@@ -231,8 +236,6 @@ try {
 
         return pattern.replace('%s', r).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
     }
-
-
 
 
 }

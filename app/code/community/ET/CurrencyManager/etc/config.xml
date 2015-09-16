@@ -22,7 +22,7 @@
     <modules>
         <ET_CurrencyManager>
             <name>ET Currency Manager</name>
-            <version>1.2.4</version>
+            <version>1.2.6</version>
             <descr>
                 <ru_RU><![CDATA[Модуль позволяет владельцу магазина просто и удобно управлять отображением цены: указывать свой символ валюты, количество знаков после запятой, позицию символа и др.]]>
                 </ru_RU>

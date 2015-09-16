@@ -9,7 +9,7 @@
 ############################################
 ## GoDaddy specific options
 
-   Options -MultiViews
+#   Options -MultiViews
 
 ## you might also need to add this line to php.ini
 ##     cgi.fix_pathinfo = 1
@@ -201,9 +201,6 @@
         order allow,deny
         deny from all
     </Files>
- <FilesMatch "\.(gif|jpeg|jpg|png|GIF|PNG|JPG|JPEG)$">
-            Allow from all
-        </FilesMatch>
 
 ############################################
 ## If running in cluster environment, uncomment this
