@@ -20,7 +20,7 @@ class Nik_Newsletterpopup_SubscriberController extends Mage_Newsletter_Subscribe
 
         // get poll result to send email
         if ($pollResult = $this->getRequest()->getPost('poll')) {
-            if (isset($status) && $status == Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE) {
+            if (isset($status) && $status != Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE) {
                 $email = (string)$this->getRequest()->getPost('email');
                 $poll = [
                     '1' => 'I only buy it to get out of trouble',
