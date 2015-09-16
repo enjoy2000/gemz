@@ -14,7 +14,7 @@
 <?php $popupDelayTime = Mage::helper('newsletterpopup')->popupDelayTime(); ?>
 <?php if(Mage::helper('newsletterpopup')->isEnabled()):?>
     <?php if(!isset($_COOKIE['email_subscribed'])):?>
-        <div id="form-subscribe" class="window col-xs-12">
+        <div style="border: solid 2px #000;" id="form-subscribe" class="window col-xs-12">
             <!-- TODO: use rewrite core newsletter to this link <?php //echo $this->getFormActionUrl() ?> -->
             <form class="form" role="form" action="/newsletterpopup/subscriber/new" method="post" id="subscribe-validate-detail">
                 <div class="form-content">
@@ -48,10 +48,10 @@
                     <div class="form-group">
                         <div class="input-box col-xs-8">
                             <input type="hidden" value="<?php echo $popupDelayTime;?>">
-                            <input type="text" placeholder="popup" name="email" id="newsletter" title="<?php echo Mage::helper('newsletterpopup')->subscribeFormTitle() ?>" class="input-text required-entry validate-email" />
+                            <input type="text" placeholder="Email" name="email" id="newsletter" title="<?php echo Mage::helper('newsletterpopup')->subscribeFormTitle() ?>" class="input-text required-entry validate-email" />
                         </div>
                         <div class="actions col-xs-4">
-                            <button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button subscribe-btn"><span><?php echo $this->__('Subscribe') ?></span></button>
+                            <button style="background: #000;" type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button subscribe-btn"><span><?php echo $this->__('Subscribe') ?></span></button>
                         </div>
                         <br class="clear" />
                         <p class="help-block text-center">*WE DO NOT SHARE YOUR INFORMATION</p>
@@ -81,7 +81,7 @@
                     jQuery("#autostart").fancybox({
                         'overlayShow':true,
                         width: 400,
-                        height: 500,
+                        height: 300,
                         autoSize : false,
                         //frameHeight:540,
                         <?php if (Mage::helper('newsletterpopup')->isHideAfterClose()):?>
@@ -97,7 +97,7 @@
                     jQuery("#autostart").fancybox({
                         'overlayShow':true,
                         width: 400,
-                        height: 500,
+                        height: 300,
                         autoSize : false,
                         //frameHeight:540,
                         <?php if (Mage::helper('newsletterpopup')->isHideAfterClose()):?>
