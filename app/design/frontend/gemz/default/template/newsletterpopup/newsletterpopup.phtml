@@ -18,7 +18,7 @@
             <!-- TODO: use rewrite core newsletter to this link <?php //echo $this->getFormActionUrl() ?> -->
             <form class="form" role="form" action="/newsletterpopup/subscriber/new" method="post" id="subscribe-validate-detail">
                 <div class="form-content">
-                    <label for="newsletter text-center">HOW YOU FEEL ABOUT JEWELRY:</label>
+                    <h2 class="text-center">HOW YOU FEEL ABOUT JEWELRY:</h2>
                     <div class="form-group">
                         <div class="radio col-xs-12">
                             <label>
@@ -80,7 +80,7 @@
                 jQuery(function() {
                     jQuery("#autostart").fancybox({
                         'overlayShow':true,
-                        frameWidth: 500,
+                        width: 500,
                         autoSize : false,
                         //frameHeight:540,
                         <?php if (Mage::helper('newsletterpopup')->isHideAfterClose()):?>
@@ -95,7 +95,7 @@
                 jQuery(function() {
                     jQuery("#autostart").fancybox({
                         'overlayShow':true,
-                        frameWidth: 500,
+                        width: 500,
                         autoSize : false,
                         //frameHeight:540,
                         <?php if (Mage::helper('newsletterpopup')->isHideAfterClose()):?>
