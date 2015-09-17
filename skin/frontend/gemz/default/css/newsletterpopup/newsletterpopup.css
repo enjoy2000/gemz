@@ -1,4 +1,5 @@
 .fancybox-inner {border: solid 2px #000;}
+#form-subscribe {display: none;}
 #form-subscribe .radio label {font-size: 14px; font-weight: bold;}
 #form-subscribe .radio label:before {
     content: '';
