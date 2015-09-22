@@ -1,4 +1,12 @@
 .fancybox-inner {border: solid 2px #000;}
+.fancybox-wrap .fancybox-close {
+    top: 5px;
+    right: 1px;
+    width: 25px;
+    height: 25px;
+    background: url('../../images/close-btn.png') center no-repeat transparent;
+    background-size: cover;
+}
 #form-subscribe {display: none;}
 #form-subscribe .radio label {font-size: 14px; font-weight: bold;}
 #form-subscribe .radio label:before {
