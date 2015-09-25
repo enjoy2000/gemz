@@ -1,0 +1,29 @@
+<?php
+/**
+ * Magento
+ * @namespace   Nik
+ * @extension   Newsletter Popup (Newsletterpopup)
+ * @version     0.1.1
+ * @copyright   Copyright (c) 2013 Nik Store. (http://www.nik.com/)
+ */
+
+/******* Newsletterpopup Templae - head.phtml ******/
+?>
+<?php
+$helper = Mage::helper('newsletterpopup');
+$timeCookiesTimeout = $helper->timeCookiesTimeout();
+$isIncludeJs = $helper->includeJs();
+?>
+<?php if($helper->isEnabled()): ?>
+    <?php if($isIncludeJs):?>
+        <script src="<?php echo $this->getJsUrl('nik/newsletterpopup/jquery.min.js');?>" type="text/javascript"></script>
+        <script src="<?php echo $this->getJsUrl('nik/newsletterpopup/jquery.noconflict.js');?>" type="text/javascript"></script>
+    <?php endif; ?>
+    <script src="<?php echo $this->getJsUrl('nik/newsletterpopup/jquery.fancybox.js');?>" type="text/javascript"></script>
+    <script src="<?php echo $this->getJsUrl('nik/newsletterpopup/jquery.cookie.js');?>" type="text/javascript"></script>
+<?php endif; ?>
+<script type="text/javascript">
+    //<![CDATA[
+    var popupCookieExpireAfter = <?php echo $timeCookiesTimeout; ?>;
+    //]]>
+</script>

@@ -14,46 +14,47 @@
 <?php $popupDelayTime = Mage::helper('newsletterpopup')->popupDelayTime(); ?>
 <?php if(Mage::helper('newsletterpopup')->isEnabled()):?>
     <?php if(!isset($_COOKIE['email_subscribed'])):?>
-        <div id="form-subscribe" class="window">
-            <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="subscribe-validate-detail">
+        <div id="form-subscribe" class="window col-xs-12">
+            <!-- TODO: use rewrite core newsletter to this link <?php //echo $this->getFormActionUrl() ?> -->
+            <form class="form" role="form" action="/newsletterpopup/subscriber/new" method="post" id="subscribe-validate-detail">
                 <div class="form-content">
-                    <label for="newsletter">HOW YOU FEEL ABOUT JEWELRY:</label>
-                    <div class="boxm col-xs-12">
-                        <div class="form-group radio">
-                            <label>
-                                <input type="radio" name="poll" value="1" />
+                    <h2 class="text-center">HOW YOU FEEL ABOUT JEWELRY:</h2>
+                    <div class="form-group text-uppercase">
+                        <div class="radio col-xs-12">
+                            <label for="poll1">
+                                <input id="poll1" type="radio" name="poll" value="1" />
                                 I only buy it to get out of trouble
                             </label>
                         </div>
-                        <div class="form-group radio">
-                            <label>
-                                <input type="radio" name="poll" value="2" />
+                        <div class="radio col-xs-12">
+                            <label for="poll2">
+                                <input id="poll2" type="radio" name="poll" value="2" />
                                 It looks good on my Pinterest page
                             </label>
                         </div>
-                        <div class="form-group radio">
-                            <label>
-                                <input type="radio" name="poll" value="3" />
+                        <div class="radio col-xs-12">
+                            <label for="poll3">
+                                <input id="poll3" type="radio" name="poll" value="3" />
                                 I buy seasonal pieces at walmart
                             </label>
                         </div>
                         <div class="radio col-xs-12">
-                            <label for="poll4">
-                                <input id="poll4" type="radio" name="poll" value="4" />
+                            <label for="poll4" class="active">
+                                <input checked id="poll4" type="radio" name="poll" value="4" />
                                 I love it! Please keep me informed...
                             </label>
                         </div>
                     </div>
-                    <div class="boxm">
+                    <div class="form-group">
                         <div class="input-box col-xs-8">
                             <input type="hidden" value="<?php echo $popupDelayTime;?>">
-                            <input type="text" name="email" id="newsletter" title="<?php echo Mage::helper('newsletterpopup')->subscribeFormTitle() ?>" class="input-text required-entry validate-email" />
+                            <input type="text" placeholder="Email" name="email" id="newsletter" title="<?php echo Mage::helper('newsletterpopup')->subscribeFormTitle() ?>" class="input-text required-entry validate-email" />
                         </div>
                         <div class="actions col-xs-4">
-                            <button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button subscribe-btn"><span><?php echo $this->__('Subscribe') ?></span></button>
+                            <button style="background: #000;" type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button subscribe-btn"><span><?php echo $this->__('Subscribe') ?></span></button>
                         </div>
                         <br class="clear" />
-                        <p class="help-block">*WE DO NOT SHARE YOUR INFORMATION</p>
+                        <p class="help-block text-center">*WE DO NOT SHARE YOUR INFORMATION</p>
                     </div>
 
                 </div>
@@ -73,14 +74,24 @@
         </div>
         <a id="autostart" href="#form-subscribe"></a>
         <script type="text/javascript">
+            (function($){
+                $('#form-subscribe .radio label input').on('change', function(){
+                    if ($(this).is(':checked')) {
+                        $('#form-subscribe .radio label').removeClass('active');
+                        $(this).parent().addClass('active');
+                    }
+                });
+            })(jQuery);
             if (!jQuery.cookie('afterclose_cookies')) {
                 var popupCookieExpireAfter = <?php echo $timeCookiesTimeout ?>;
                 <?php if ($popupDelayTime > 0):?>
                 jQuery(function() {
                     jQuery("#autostart").fancybox({
                         'overlayShow':true,
-                        frameWidth:838,
-                        frameHeight:540,
+                        width: 400,
+                        height: 'auto',
+                        autoSize : false,
+                        //frameHeight:540,
                         <?php if (Mage::helper('newsletterpopup')->isHideAfterClose()):?>
                         afterClose: function() {
                             jQuery.cookie('afterclose_cookies', 'true', { expires: popupCookieExpireAfter});
@@ -93,8 +104,10 @@
                 jQuery(function() {
                     jQuery("#autostart").fancybox({
                         'overlayShow':true,
-                        frameWidth:838,
-                        frameHeight:540,
+                        width: 400,
+                        height: 'auto',
+                        autoSize : false,
+                        //frameHeight:540,
                         <?php if (Mage::helper('newsletterpopup')->isHideAfterClose()):?>
                         afterClose: function() {
                             jQuery.cookie('afterclose_cookies', 'true', { expires: popupCookieExpireAfter});

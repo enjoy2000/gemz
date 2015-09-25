@@ -1,5 +1,5 @@
 <?php
-require_once Mage::getModuleDir('controllers', 'Mage_Newsletter') . DS . 'SubscriberController.php';
+require_once 'app/code/core/Mage/Newsletter/controllers/SubscriberController.php';
 
 class Nik_Newsletterpopup_SubscriberController extends Mage_Newsletter_SubscriberController
 {
@@ -20,7 +20,7 @@ class Nik_Newsletterpopup_SubscriberController extends Mage_Newsletter_Subscribe
 
         // get poll result to send email
         if ($pollResult = $this->getRequest()->getPost('poll')) {
-            if (isset($status) && $status == Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE) {
+            //if (isset($status) && $status != Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE) {
                 $email = (string)$this->getRequest()->getPost('email');
                 $poll = [
                     '1' => 'I only buy it to get out of trouble',
@@ -34,12 +34,12 @@ class Nik_Newsletterpopup_SubscriberController extends Mage_Newsletter_Subscribe
                     . '<tr><td>' . $email . '</td><td>' . $poll[$pollResult] . '</td></tr>'
                     . '</table>'
                     ;
-                $mail = Mage::getModel('core/mail')
+                $mail = Mage::getModel('core/email')
                     ->setToName('Debbi')
-                    //->setToEmail('dh@gemz.gallery')
-                    ->setToEmail('enjoy3005@gmail.com')
+                    ->setToEmail('dh@gemz.gallery')
+                    //->setToEmail('enjoy3005@gmail.com')
                     ->setBody($body)
-                    ->setSubject('Subject :')
+                    ->setSubject('There is a new subscriber - Gemz.Gallery')
                     ->setFromEmail('dh@gemz.gallery')
                     ->setFromName('GEMZ.GALLERY')
                     ->setType('html');
@@ -50,7 +50,7 @@ class Nik_Newsletterpopup_SubscriberController extends Mage_Newsletter_Subscribe
                     Mage::log($e->getMessage());
                     Mage::getSingleton('core/session')->addError($e->getMessage());
                 }
-            }
+            //}
         }
     }
 }
