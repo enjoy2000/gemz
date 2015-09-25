@@ -52,7 +52,7 @@ class Cybage_Marketplace_Block_Seller_Info extends Mage_Core_Block_Template
                 }
 
                 $_image = new Varien_Image($_media_dir . $_file_name);
-                $_image->constrainOnly(true);
+                $_image->constrainOnly(false);
                 $_image->keepAspectRatio(true);
                 $_image->keepFrame(true);
                 $_image->keepTransparency(true);
