@@ -5,7 +5,6 @@ node_modules/
 .htaccess.sample
 .modgit/
 .modman/
-media/catalog/product/
 app/code/community/Phoenix/
 app/code/community/Cm/
 app/code/core/
@@ -103,11 +102,11 @@ media/dhl/
 media/downloadable/
 media/.htaccess
 media/import/
+media/wysiwyg/
+media/tmp/
+media/catalog/
 media/xmlconnect/
 media/catalog/product/cache/
-media/wysiwyg/
-media/catalog/
-media/tmp/
 api.php
 media/catalog/product/placeholder/default/
 /api.php

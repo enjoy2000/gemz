@@ -74,40 +74,7 @@
 </footer>
 
 <script>
-/** function to resize map area */
-(function($){
-    window.addEventListener('resize', function(){
-        console.log('resize');
-        $("img[usemap]").each(function(){
-            var img = this; // Get img has usemap attribute element
-            var picCurrentWidth = parseInt(img.width);
-            var picRealWidth;
-            $("<img/>") // Make in memory copy of image to avoid css issues
-                .attr("src", $(this).attr("src"))
-                .load(function() {
-                    picRealWidth = parseInt(this.width);   // Note: $(this).width() will not
 
-                    // run function after we can have picRealWidth
-                    if (picRealWidth != picCurrentWidth) {
-                        $('map' + $(this).attr('usemap') + ' area').each(function(){
-                            var points = $(this).attr('coords');
-                            var newPoints = [];
-                            $.each(points.split(','), function(){
-                                var point = parseInt(this);
-                                var newPoint = point * picCurrentWidth / picRealWidth;
-                                newPoints.push(newPoint);
-                            });
-                            $(this).attr('coords', newPoints.join(','));
-                        });
-                    }
-            });
-        });
-    }, true);
-    var event = new Event('resize');
-    window.dispatchEvent(event);
-})(jQuery);
-</script>
-<script>
     jQuery(function () {
         
         jQuery('#habla_both_div').html('New text');

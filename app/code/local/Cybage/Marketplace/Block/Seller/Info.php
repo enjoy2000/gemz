@@ -20,8 +20,6 @@
 
 class Cybage_Marketplace_Block_Seller_Info extends Mage_Core_Block_Template
 {
-    protected $_seller;
-
     /**
      * Function to get the seller info
      * @created  at 08-Oct-2013
@@ -32,42 +30,6 @@ class Cybage_Marketplace_Block_Seller_Info extends Mage_Core_Block_Template
     {
         $sellerName = urldecode(Mage::registry('seller_company'));
         $seller = Mage::helper('marketplace')->getSellerInfo($sellerName);
-        $this->_seller = $seller;
         return $seller;
-    }
-
-    public function getProfileImage()
-    {
-        if (isset($this->_seller['sstech_profileimage']) && $_file_name = $this->_seller['sstech_profileimage']) {
-            $_media_dir = Mage::getBaseDir('media') . DS . 'customer' . DS;
-
-            // Here i create a resize folder. for upload new category image
-            $cache_dir = $_media_dir . 'resize' . DS;
-
-            if (file_exists($cache_dir . $_file_name)) {
-                $img = Mage::getBaseUrl('media') .  'customer' . DS . $_file_name;
-            } elseif (file_exists($_media_dir . $_file_name)) {
-                if (!is_dir($cache_dir)) {
-                    mkdir($cache_dir);
-                }
-
-                $_image = new Varien_Image($_media_dir . $_file_name);
-                $_image->constrainOnly(true);
-                $_image->keepAspectRatio(true);
-                $_image->keepFrame(true);
-                $_image->keepTransparency(true);
-                $_image->resize(300); // change image height, width
-                $_image->save($cache_dir . $_file_name);
-
-                $img = Mage::getBaseUrl('media') . 'customer' . DS . 'resize' . DS . $_file_name;
-
-            }
-        }
-
-        if (!isset($img)) {
-            $img = Mage::getBaseUrl('media') . "default_user.jpg";
-        }
-
-        return $img;
     }
 }

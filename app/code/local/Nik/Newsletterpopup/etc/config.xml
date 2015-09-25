@@ -20,7 +20,8 @@
             <newsletter>
                 <args>
                     <modules>
-                        <nik_newsletterpopup before="Mage_Newsletter">Nik_Newsletterpopup</nik_newsletterpopup>
+                        <Nik_Newsletterpopup before="Mage_Newsletter_SubscriberController">Nik_Newsletterpopup
+                        </Nik_Newsletterpopup>
                     </modules>
                 </args>
             </newsletter>
@@ -130,12 +131,6 @@
                 </newsletterpopup_coupon_code_setting_email_template>
             </email>
         </template>
-        <rewrite>
-            <nik_newsletterpopup_newsletter_subscriber>
-                <from><![CDATA[#^/newsletter/subscriber/#]]></from>
-                <to>/newsletterpopup/subscriber/</to>
-            </nik_newsletterpopup_newsletter_subscriber>
-        </rewrite>
     </global>
     <!--Set Default Value For Setting Options-->
     <default>

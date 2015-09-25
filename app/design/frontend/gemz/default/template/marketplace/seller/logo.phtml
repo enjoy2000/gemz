@@ -33,25 +33,71 @@
         <div class="userinfo">
             <strong><a href="<?php echo Mage::getUrl('customer/account'); ?>">&nbsp;</a> <?php
                 $seller = $this->getSellerData();
+
+                $id = $seller['entity_id'];
                 echo $seller['firstname'] . " " . $seller['lastname'];
 
                 ?></strong>
 
             <div class="profilepic">
-                <img src="<?php echo $this->getProfileImage(); ?>" alt="" />
+                <?php
+
+                $customerObj = Mage::getModel('customer/customer')->load($id);
+                if ($profileimage = $customerObj->getSstechProfileimage()) {
+
+                    $img = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . "customer" . $this->_profileimage = $profileimage;
+                    ?>
+                    <img src="<?php echo $img; ?>"/>
+                <?php
+                } else {
+                    $img = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . "default_user.jpg";
+                    ?>
+                    <img src="<?php echo $img; ?>"/>
+                <?php
+                }
+
+
+                ?>
             </div>
             <strong> About the Designer:</strong>
 
             <div class="info">
-                <?php echo $seller['company_description']; ?>
+                <?php
+
+                echo $seller['company_description'];// Full Name
+
+                ?>
             </div>
         </div>
     </div>
     <div class="clear"></div>
     <div class="social">
         <span><strong>SHARE:</strong></span>
+
+        <!--<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54a1229723eb1f28" async="async"></script>-->
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+        <!--	<div class="social_media_icon">
+                <a href="http://instagram.com/gemz.gallery/" class="instagram" title="Instagram"></a>
+                <a href="https://plus.google.com/100916448292850023244" rel="publisher" class="googleplus" title="Google plus"></a>
+                <a href="http://www.pinterest.com/gemzgallery0092/" class="printrest" title="pinterest"></a>
+                <a href="https://www.facebook.com/gemzgaller?ref=hl" class="facebook" title="Facebook"></a>
+                <a href="https://twitter.com/GEMZGALLERY" class="twitter" title="Twitter"></a>
+             </div>-->
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54ca55585e6c1051"
                 async="async"></script>
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
         <div class="addthis_custom_sharing"></div>
+
+
     </div>
+
+
 </div>
+
+</div>
+		
+		
+		
