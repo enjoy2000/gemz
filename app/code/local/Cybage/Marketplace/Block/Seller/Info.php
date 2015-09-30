@@ -45,7 +45,7 @@ class Cybage_Marketplace_Block_Seller_Info extends Mage_Core_Block_Template
             $cache_dir = $_media_dir . 'resize' . DS;
 
             if (file_exists($cache_dir . $_file_name)) {
-                $img = Mage::getBaseUrl('media') .  'customer' . DS . $_file_name;
+                $img = Mage::getBaseUrl('media') .  'customer' . DS . 'resize' . $_file_name;
             } elseif (file_exists($_media_dir . $_file_name)) {
                 if (!is_dir($cache_dir)) {
                     mkdir($cache_dir);
@@ -60,7 +60,7 @@ class Cybage_Marketplace_Block_Seller_Info extends Mage_Core_Block_Template
                 $_image->resize(300); // change image height, width
                 $_image->save($cache_dir . $_file_name);
 
-                $img = Mage::getBaseUrl('media') . 'customer' . DS . 'resize' . DS . $_file_name;
+                $img = Mage::getBaseUrl('media') . 'customer' . DS . 'resize' . $_file_name;
 
             }
         }
