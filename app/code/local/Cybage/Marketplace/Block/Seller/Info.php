@@ -57,7 +57,7 @@ class Cybage_Marketplace_Block_Seller_Info extends Mage_Core_Block_Template
                 $_image->keepFrame(true);
                 $_image->keepTransparency(true);
                 $_image->backgroundColor(array(255,255,255));
-                $_image->resize(300); // change image height, width
+                $_image->resize(300, null); // change image height, width
                 $_image->save($cache_dir . $_file_name);
 
                 $img = Mage::getBaseUrl('media') . 'customer' . DS . 'resize' . $_file_name;
