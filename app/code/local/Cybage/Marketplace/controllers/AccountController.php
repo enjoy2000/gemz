@@ -19,24 +19,23 @@
  */
 
 require_once 'Mage/Customer/controllers/AccountController.php';
+
 class Cybage_Marketplace_AccountController extends Mage_Customer_AccountController
 {
     /**
      * Create customer account action
      */
     public function createPostAction()
-    {     
-        
+    {
         $session = $this->_getSession();
         if ($session->isLoggedIn()) {
             $this->_redirect('*/*/');
             return;
         }
-        
+
         $isMarketplaceEnabled = Mage::Helper("marketplace")->isMarketplaceEnabled();
-        if($isMarketplaceEnabled == false)
-        {
-          return parent::createPostAction();
+        if ($isMarketplaceEnabled == false) {
+            return parent::createPostAction();
         }
 
         $session->setEscapeMessages(true); // prevent XSS injection in user input
@@ -61,11 +60,12 @@ class Cybage_Marketplace_AccountController extends Mage_Customer_AccountControll
              * Initialize customer group id
              */
             //$customer->getGroupId();
-            if($this->getRequest()->getPost('group_id'))
- { $customer->setGroupId($this->getRequest()->getPost('group_id'));
- } else {
-$customer->getGroupId(); } 
- 
+            if ($this->getRequest()->getPost('group_id')) {
+                $customer->setGroupId($this->getRequest()->getPost('group_id'));
+            } else {
+                $customer->getGroupId();
+            }
+
 
             if ($this->getRequest()->getPost('create_address')) {
                 /* @var $address Mage_Customer_Model_Address */
@@ -75,8 +75,8 @@ $customer->getGroupId(); }
                 $addressForm->setFormCode('customer_register_address')
                     ->setEntity($address);
 
-                $addressData    = $addressForm->extractData($this->getRequest(), 'address', false);
-                $addressErrors  = $addressForm->validateData($addressData);
+                $addressData = $addressForm->extractData($this->getRequest(), 'address', false);
+                $addressErrors = $addressForm->validateData($addressData);
                 if ($addressErrors === true) {
                     $address->setId(null)
                         ->setIsDefaultBilling($this->getRequest()->getParam('default_billing', false))
@@ -100,19 +100,17 @@ $customer->getGroupId(); }
                 } else {
                     $customerForm->compactData($customerData);
                     $customer->setPassword($this->getRequest()->getPost('password'));
-                    $customer->setConfirmation($this->getRequest()->getPost('confirmation'));
-                    if($this->getRequest()->getParam('check_seller_form'))
-                   {
-                     $validationFlag = 1;
-                   }
-                    else
-                   {
-                     $validationFlag = 0;
-                   }
-                    if($validationFlag == 1)
-                    {
-                      $customer->setData($this->getRequest()->getPost());
-                      $customerErrors = Mage::getModel('marketplace/customer')->customValidate($customer);
+                    $customer->setPasswordConfirmation($this->getRequest()->getPost('confirmation'));
+                    //var_dump($customer->getData());die;
+                    if ($this->getRequest()->getParam('check_seller_form')) {
+                        $validationFlag = 1;
+                    } else {
+                        $validationFlag = 0;
+                    }
+                    $validationFlag = 1;
+                    if ($validationFlag == 1) {
+                        $customer->setData($this->getRequest()->getPost());
+                        $customerErrors = Mage::getModel('marketplace/customer')->customValidate($customer);
                     }
 
                     $customerErrors = $customer->validate();
@@ -129,51 +127,46 @@ $customer->getGroupId(); }
                     Mage::dispatchEvent('customer_register_success',
                         array('account_controller' => $this, 'customer' => $customer)
                     );
-                    
-                     $validationFlag = 0;
-            // saving seller information
-            if($this->getRequest()->getParam('check_seller_form'))
-            {
-                $customerId = $customer->getEntityId();
-                  /******************** company banner upload code ******************************** */
-                  if (isset($_FILES['company_banner']['name']) && $_FILES['company_banner']['name'] != '') 
-                  {
-                   $fileName = $_FILES['company_banner']['name'];
-                   $fieldName = 'company_banner';
-                   
-                   $companyBanner = $this->_uploadImage($fileName,$fieldName,$customerId);
-                   $customer->setCompanyBanner($companyBanner);
-                  }                     
-                   /******************* end of company banner code ******************************** */
-                   
-                   /******************** company logo upload code ******************************** */
-                   if (isset($_FILES['company_logo']['name']) && $_FILES['company_logo']['name'] != '') 
-                  {
-                   $fileName = $_FILES['company_logo']['name'];
-                   $fieldName = 'company_logo';
-                   $companyLogo = $this->_uploadImage($fileName,$fieldName,$customerId);
-                   $customer->setCompanyLogo($companyLogo);
-                  }                     
-                   /******************* end of company logo code ******************************** */
-                   
-                    $customer->setCompanyLocality($this->getRequest()->getPost('company_locality'));
-                    $customer->setCompanyName($this->getRequest()->getPost('company_name'));
-                    $customer->setCompanyDescription($this->getRequest()->getPost('company_description'));
-                    $customer->setSellerSubscriber(1);
 
-                    // Auto approval of seller check
-                    if (Mage::getStoreConfig('marketplace/marketplace/auto_approval_seller')) {
-                        $customer->setStatus(Mage::getStoreConfig('marketplace/status/approved'));
+                    $validationFlag = 0;
+                    // saving seller information
+                    if ($this->getRequest()->getParam('check_seller_form')) {
+                        $customerId = $customer->getEntityId();
+                        /******************** company banner upload code ******************************** */
+                        if (isset($_FILES['company_banner']['name']) && $_FILES['company_banner']['name'] != '') {
+                            $fileName = $_FILES['company_banner']['name'];
+                            $fieldName = 'company_banner';
+
+                            $companyBanner = $this->_uploadImage($fileName, $fieldName, $customerId);
+                            $customer->setCompanyBanner($companyBanner);
+                        }
+                        /******************* end of company banner code ******************************** */
+
+                        /******************** company logo upload code ******************************** */
+                        if (isset($_FILES['company_logo']['name']) && $_FILES['company_logo']['name'] != '') {
+                            $fileName = $_FILES['company_logo']['name'];
+                            $fieldName = 'company_logo';
+                            $companyLogo = $this->_uploadImage($fileName, $fieldName, $customerId);
+                            $customer->setCompanyLogo($companyLogo);
+                        }
+                        /******************* end of company logo code ******************************** */
+
+                        $customer->setCompanyLocality($this->getRequest()->getPost('company_locality'));
+                        $customer->setCompanyName($this->getRequest()->getPost('company_name'));
+                        $customer->setCompanyDescription($this->getRequest()->getPost('company_description'));
+                        $customer->setSellerSubscriber(1);
+
+                        // Auto approval of seller check
+                        if (Mage::getStoreConfig('marketplace/marketplace/auto_approval_seller')) {
+                            $customer->setStatus(Mage::getStoreConfig('marketplace/status/approved'));
+                        } else {
+                            $customer->setStatus(Mage::getStoreConfig('marketplace/status/pending'));
+                        }
+
+                        $validationFlag = 1;
                     } else {
-                        $customer->setStatus(Mage::getStoreConfig('marketplace/status/pending'));
+                        $customer->setSellerSubscriber(0);
                     }
-
-                   $validationFlag = 1;                   
-            }
-            else
-            {
-                $customer->setSellerSubscriber(0);	
-            } 
 
                     if ($customer->isConfirmationRequired()) {
                         Mage::getModel('marketplace/customer')->sendNewAccountEmail(
@@ -182,7 +175,7 @@ $customer->getGroupId(); }
                             Mage::app()->getStore()->getId()
                         );
                         $session->addSuccess($this->__('Account confirmation is required. Please, check your email for the confirmation link. To resend the confirmation email please <a href="%s">click here</a>.', Mage::helper('customer')->getEmailConfirmationUrl($customer->getEmail())));
-                        $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure'=>true)));
+                        $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure' => true)));
                         return;
                     } else {
                         $session->setCustomerAsLoggedIn($customer);
@@ -218,88 +211,81 @@ $customer->getGroupId(); }
 
         $this->_redirectError(Mage::getUrl('*/*/create', array('_secure' => true)));
     }
-    
+
     /**
-    * Image upload method
-    *
-    */
-    protected function _uploadImage($fileName,$fieldName,$customerId)
+     * Image upload method
+     *
+     */
+    protected function _uploadImage($fileName, $fieldName, $customerId)
     {
-        try 
-        {   
+        try {
             /* Starting upload */
-                                          
+
             $uploader = new Varien_File_Uploader($fieldName);
             // Any extention would work
             $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png'));
-            $uploader->setAllowRenameFiles(true);                   
+            $uploader->setAllowRenameFiles(true);
             $uploader->setFilesDispersion(false);
-            $checkPath = Mage::getBaseDir() . DS . 'media' . DS . 'marketplace/'.$customerId;
-            $createPath = Mage::getBaseDir() . DS . 'media';            
-            if(!file_exists($checkPath))
-            {  
-               mkdir($createPath ."/" . "marketplace/".$customerId, 0777);                   
-            } 
-            
+            $checkPath = Mage::getBaseDir() . DS . 'media' . DS . 'marketplace/' . $customerId;
+            $createPath = Mage::getBaseDir() . DS . 'media';
+            if (!file_exists($checkPath)) {
+                mkdir($createPath . "/" . "marketplace/" . $customerId, 0777);
+            }
+
             // We set media as the upload dir
-            $path = Mage::getBaseDir() . DS . 'media' . DS . 'marketplace/'.$customerId;              
-            $result = $uploader->save($path,$fileName);                                  
-        } catch (Exception $e) 
-        { 
+            $path = Mage::getBaseDir() . DS . 'media' . DS . 'marketplace/' . $customerId;
+            $result = $uploader->save($path, $fileName);
+        } catch (Exception $e) {
             $this->_getSession()->setCustomerFormData($this->getRequest()->getPost())
-                               ->addException($e, $this->__('Cannot save the image. Please check the owner and folder permission.'));                              
+                ->addException($e, $this->__('Cannot save the image. Please check the owner and folder permission.'));
         }
 
         //this way the name is saved in DB
-        $companyBanner = 'marketplace/'.$customerId.'/'.$result['file'];
-        if($fieldName == 'company_banner')
-        {
-            $width = Mage::getStoreConfig('marketplace/marketplace/default_width',Mage::app()->getStore());
-            $height = Mage::getStoreConfig('marketplace/marketplace/default_height',Mage::app()->getStore());
+        $companyBanner = 'marketplace/' . $customerId . '/' . $result['file'];
+        if ($fieldName == 'company_banner') {
+            $width = Mage::getStoreConfig('marketplace/marketplace/default_width', Mage::app()->getStore());
+            $height = Mage::getStoreConfig('marketplace/marketplace/default_height', Mage::app()->getStore());
             //$resizedURL = $this->_getresizeImg($fileName, $width, $height, $path, $customerId);
             //return $resizedURL;
+        } else if ($fieldName == 'company_logo') {
+            $width = Mage::getStoreConfig('marketplace/marketplace/default_logo_width', Mage::app()->getStore());
+            $height = Mage::getStoreConfig('marketplace/marketplace/default_logo_width', Mage::app()->getStore());
+
         }
-        else if($fieldName == 'company_logo')
-        {
-            $width = Mage::getStoreConfig('marketplace/marketplace/default_logo_width',Mage::app()->getStore());
-            $height = Mage::getStoreConfig('marketplace/marketplace/default_logo_width',Mage::app()->getStore());
-            
-        }
-        
+
         $resizedURL = $this->_getresizeImg($fileName, $width, $height, $path, $customerId);
         return $resizedURL;
     }
 
     /**
-     * Image resize code (700 X 100). 
+     * Image resize code (700 X 100).
      */
     protected function _getresizeImg($fileName, $width, $height, $path, $sid)
     {
-        $folderURL = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA). DS . 'marketplace/'.$sid;
-        $imageURL = $folderURL .'/'. $fileName;
+        $folderURL = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . 'marketplace/' . $sid;
+        $imageURL = $folderURL . '/' . $fileName;
 
-        $basePath = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA). DS . 'marketplace/'.$sid.'/'.$fileName;
-        $newPath = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA). DS . 'marketplace/'.$sid.'/'.$fileName;
+        $basePath = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . 'marketplace/' . $sid . '/' . $fileName;
+        $newPath = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . 'marketplace/' . $sid . '/' . $fileName;
         //if width empty then return original size image's URL
-        if ($width != '') 
-        {
-        //if image has already resized then just return URL
-        if (file_exists($basePath) && is_file($basePath)) {
-            $imageObj = new Varien_Image($basePath);
-            $imageObj->constrainOnly(TRUE);
-            $imageObj->keepAspectRatio(FALSE);
-            $imageObj->keepFrame(FALSE);
-            $imageObj->resize($width, $height);
-            $imageObj->save($newPath);
+        if ($width != '') {
+            //if image has already resized then just return URL
+            if (file_exists($basePath) && is_file($basePath)) {
+                $imageObj = new Varien_Image($basePath);
+                $imageObj->constrainOnly(TRUE);
+                $imageObj->keepAspectRatio(FALSE);
+                $imageObj->keepFrame(FALSE);
+                $imageObj->resize($width, $height);
+                $imageObj->save($newPath);
+            }
+            $resizedURL = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'marketplace/' . $sid . '/' . $fileName;
+        } else {
+            $resizedURL = $imageURL;
         }
-        $resizedURL = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA). 'marketplace/'.$sid.'/'.$fileName;
-        }  else {
-           $resizedURL = $imageURL;
-        }
-        
-     return $resizedURL;
+
+        return $resizedURL;
     }
-   
+
     public function editPostAction()
     {
         if (!$this->_validateFormKey()) {
@@ -327,9 +313,9 @@ $customer->getGroupId(); }
 
                 // If password change was requested then add it to common validation scheme
                 if ($this->getRequest()->getParam('change_password')) {
-                    $currPass   = $this->getRequest()->getPost('current_password');
-                    $newPass    = $this->getRequest()->getPost('password');
-                    $confPass   = $this->getRequest()->getPost('confirmation');
+                    $currPass = $this->getRequest()->getPost('current_password');
+                    $newPass = $this->getRequest()->getPost('password');
+                    $confPass = $this->getRequest()->getPost('confirmation');
 
                     $oldPass = $this->_getSession()->getCustomer()->getPasswordHash();
                     if (Mage::helper('core/string')->strpos($oldPass, ':')) {
@@ -353,74 +339,65 @@ $customer->getGroupId(); }
                         $errors[] = $this->__('Invalid current password');
                     }
                 }
-                $validationFlag = 0; 
-                
+                $validationFlag = 0;
+
                 // saving seller information
-                if($this->getRequest()->getParam('check_seller_form'))
-                {
+                if ($this->getRequest()->getParam('check_seller_form')) {
                     $customerId = Mage::getSingleton('customer/session')->getId();
-                    
+
                     /******************** company banner upload code ******************************** */
-                    if (isset($_FILES['company_banner']['name']) && $_FILES['company_banner']['name'] != '') 
-                    {
+                    if (isset($_FILES['company_banner']['name']) && $_FILES['company_banner']['name'] != '') {
                         $dimensions = getimagesize($_FILES["company_banner"]["tmp_name"]);
-                        $width  = Mage::getStoreConfig('marketplace/marketplace/default_width');
+                        $width = Mage::getStoreConfig('marketplace/marketplace/default_width');
                         $height = Mage::getStoreConfig('marketplace/marketplace/default_height');
-                        
-                        if(is_array($dimensions) && !empty($dimensions))
-                        {
+
+                        if (is_array($dimensions) && !empty($dimensions)) {
                             /**if($dimensions[0] > $width || $dimensions[1] > $height)
-                            {
-                                $errors[] = $this->__('Please upload company banner within specified dimensions.');
-                            }
-                            else**/                            
+                             * {
+                             * $errors[] = $this->__('Please upload company banner within specified dimensions.');
+                             * }
+                             * else**/
                             {
                                 $fileName = $_FILES['company_banner']['name'];
                                 $fieldName = 'company_banner';
-                                $companyBanner = $this->_uploadImage($fileName,$fieldName,$customerId);
-                                $customer->setCompanyBanner($companyBanner); 
+                                $companyBanner = $this->_uploadImage($fileName, $fieldName, $customerId);
+                                $customer->setCompanyBanner($companyBanner);
                             }
+                        } else {
+                            $errors[] = $this->__('Please upload valid file for company banner.');
                         }
-                        else
-                        {   
-                            $errors[] = $this->__('Please upload valid file for company banner.');        
-                        }
-                    } 
+                    }
                     /******************* end of company banner code ******************************** */
 
                     /******************** company logo upload code ******************************** */
-                    if (isset($_FILES['company_logo']['name']) && $_FILES['company_logo']['name'] != '') 
-                    {
+                    if (isset($_FILES['company_logo']['name']) && $_FILES['company_logo']['name'] != '') {
                         $dimensions = getimagesize($_FILES["company_logo"]["tmp_name"]);
-                        $width  = Mage::getStoreConfig('marketplace/marketplace/default_logo_width');
+                        $width = Mage::getStoreConfig('marketplace/marketplace/default_logo_width');
                         $height = Mage::getStoreConfig('marketplace/marketplace/default_logo_height');
-                    
-                        if(is_array($dimensions) && !empty($dimensions))
-                        {
+
+                        if (is_array($dimensions) && !empty($dimensions)) {
                             /**if($dimensions[0] > $width || $dimensions[1] > $height)
-                            {
-                                $errors[] = $this->__('Please upload company logo within specified dimensions.');
-                            }
-                            else**/
+                             * {
+                             * $errors[] = $this->__('Please upload company logo within specified dimensions.');
+                             * }
+                             * else**/
                             {
                                 $fileName = $_FILES['company_logo']['name'];
                                 $fieldName = 'company_logo';
-                                $companyLogo = $this->_uploadImage($fileName,$fieldName,$customerId);
-                                $customer->setCompanyLogo($companyLogo); 
+                                $companyLogo = $this->_uploadImage($fileName, $fieldName, $customerId);
+                                $customer->setCompanyLogo($companyLogo);
                             }
-                        }
-                        else
-                        {   
-                            $errors[] = $this->__('Please upload valid file for company logo.');        
+                        } else {
+                            $errors[] = $this->__('Please upload valid file for company logo.');
                         }
                     }
-                    /******************* end of company logo code ******************************** */			   
-                    
+                    /******************* end of company logo code ******************************** */
+
                     $customer->setCompanyLocality($this->getRequest()->getPost('company_locality'));
                     $customer->setCompanyName($this->getRequest()->getPost('company_name'));
-                    $customer->setCompanyDescription($this->getRequest()->getPost('company_description'));		   
+                    $customer->setCompanyDescription($this->getRequest()->getPost('company_description'));
                     $customer->setSellerSubscriber(1);
-                    
+
                     // Auto approval of seller check
                     if (Mage::getStoreConfig('marketplace/marketplace/auto_approval_seller')) {
                         $customer->setStatus(Mage::getStoreConfig('marketplace/status/approved'));
@@ -430,28 +407,21 @@ $customer->getGroupId(); }
 
                     $validationFlag = 1;
                     $sellerSubscriber = $this->getRequest()->getPost('is_seller_subscribe');
-                    if(empty($sellerSubscriber))
-                    {                        
-                        $url = $this->_welcomeCustomer($customer);                        
+                    if (empty($sellerSubscriber)) {
+                        $url = $this->_welcomeCustomer($customer);
                     }
-                }
-                else
-                {
-                   $sellerSubscriber = $this->getRequest()->getPost('is_seller_subscribe');
-                   if(empty($sellerSubscriber))
-                   {                   
-                    $customer->setSellerSubscriber(0);
-                   }
+                } else {
+                    $sellerSubscriber = $this->getRequest()->getPost('is_seller_subscribe');
+                    if (empty($sellerSubscriber)) {
+                        $customer->setSellerSubscriber(0);
+                    }
                 }
 
                 // Validate account and compose list of errors if any
-                if($validationFlag == 1)
-                {
-                  $customerErrors = Mage::getModel('marketplace/customer')->customValidate($customer);
-                }
-                else
-                {
-                  $customerErrors = $customer->validate();
+                if ($validationFlag == 1) {
+                    $customerErrors = Mage::getModel('marketplace/customer')->customValidate($customer);
+                } else {
+                    $customerErrors = $customer->validate();
                 }
 
                 if (is_array($customerErrors)) {
@@ -486,31 +456,33 @@ $customer->getGroupId(); }
         }
 
         $this->_redirect('*/*/edit');
-    } 
-    
-    public function marketplaceOrdersAction()
-    {
-         $this->loadLayout();
-         $this->renderLayout();
     }
 
-    public function viewOrderAction(){
+    public function marketplaceOrdersAction()
+    {
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+
+    public function viewOrderAction()
+    {
         $this->_validateCustomerLogin();
         $this->loadLayout();
         $this->renderLayout();
     }
 
     /**
-     *    validate Customer Login and redirect previous page 
+     *    validate Customer Login and redirect previous page
      * */
-    protected function _validateCustomerLogin() {
+    protected function _validateCustomerLogin()
+    {
         $session = Mage::getSingleton('customer/session');
         if (!$session->isLoggedIn()) {
             $session->setAfterAuthUrl(Mage::helper('core/url')->getCurrentUrl());
             $session->setBeforeAuthUrl(Mage::helper('core/url')->getCurrentUrl());
             $this->_redirect('customer/account/login/');
             return $this;
-        }elseif(!Mage::helper('marketplace')->isMarketplaceActiveSellar()){
+        } elseif (!Mage::helper('marketplace')->isMarketplaceActiveSellar()) {
             $this->_redirect('customer/account/');
         }
     }

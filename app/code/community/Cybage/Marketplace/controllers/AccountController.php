@@ -27,7 +27,6 @@ class Cybage_Marketplace_AccountController extends Mage_Customer_AccountControll
      */
     public function createPostAction()
     {
-
         $session = $this->_getSession();
         if ($session->isLoggedIn()) {
             $this->_redirect('*/*/');
@@ -102,7 +101,6 @@ class Cybage_Marketplace_AccountController extends Mage_Customer_AccountControll
                     $customerForm->compactData($customerData);
                     $customer->setPassword($this->getRequest()->getPost('password'));
                     $customer->setPasswordConfirmation($this->getRequest()->getPost('confirmation'));
-                    //var_dump($customer->getData());die;
                     if ($this->getRequest()->getParam('check_seller_form')) {
                         $validationFlag = 1;
                     } else {
@@ -111,9 +109,10 @@ class Cybage_Marketplace_AccountController extends Mage_Customer_AccountControll
                     if ($validationFlag == 1) {
                         $customer->setData($this->getRequest()->getPost());
                         $customerErrors = Mage::getModel('marketplace/customer')->customValidate($customer);
+                    } else {
+                        $customerErrors = $customer->validate();
                     }
 
-                    $customerErrors = $customer->validate();
                     if (is_array($customerErrors)) {
                         $errors = array_merge($customerErrors, $errors);
                     }

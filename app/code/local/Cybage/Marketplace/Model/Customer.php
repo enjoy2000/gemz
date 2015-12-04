@@ -26,8 +26,8 @@ class Cybage_Marketplace_Model_Customer extends Mage_Customer_Model_Customer
     {
         $errors = array();
         // custom validation for seller profile
-         if (!Zend_Validate::is( trim($customer->getCompanyLocality()) , 'NotEmpty')) {
-            $errors[] = Mage::helper('customer')->__('The company locality cannot be empty.');
+         if (!Zend_Validate::is( trim($customer->getCompanyDescription()) , 'NotEmpty')) {
+            $errors[] = Mage::helper('customer')->__('The company description cannot be empty.');
         }
 
         if (!Zend_Validate::is( trim($customer->getCompanyName()) , 'NotEmpty')) {
@@ -54,9 +54,9 @@ class Cybage_Marketplace_Model_Customer extends Mage_Customer_Model_Customer
         if (strlen($password) && !Zend_Validate::is($password, 'StringLength', array(6))) {
             $errors[] = Mage::helper('customer')->__('The minimum password length is %s', 6);
         }
-        $confirmation = $customer->getPasswordConfirmation();
+        $confirmation = $customer->getConfirmation();
         if ($password != $confirmation) {
-            $errors[] = Mage::helper('customer')->__('Please make sure your passwords match.');
+            $errors[] = Mage::helper('customer')->__('Please make sure your passwords match2.');
         }
 
         $entityType = Mage::getSingleton('eav/config')->getEntityType('customer');
